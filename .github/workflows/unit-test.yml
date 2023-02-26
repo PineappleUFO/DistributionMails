@@ -4,7 +4,12 @@ on:
   push:
     paths-ignore:
       - 'UI/**'
-
+      
+env:
+  DOTNET_NOLOGO: true                     # Disable the .NET logo
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience
+  DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry
+  
 jobs:
   build:
 
@@ -19,11 +24,17 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - name: Install dependencies
-        run: dotnet restore
-      - name: Install MAUI workload
-        run: dotnet workload install maui
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
+      - name: Install dependencies Core.Test
+        run: dotnet restore Core.Test/Core.Test.csproj
+      - name: Install dependencies EF.Test
+        run: dotnet restore EF.Test/EF.Test.csproj
+      - name: Install dependencies Services.Test
+        run: dotnet restore Services.Test/Services.Test.csproj
+      - name: Build Core.Test
+        run: dotnet build Core.Test/Core.Test.csproj --configuration Release --no-restore
+      - name: Build EF.Test
+        run: dotnet build EF.Test/EF.Test.csproj --configuration Release --no-restore
+      - name: Build Services.Test
+        run: dotnet build Services.Test/Services.Test.csproj --configuration Release --no-restore
       - name: Test
         run: dotnet test --no-restore --verbosity normal
