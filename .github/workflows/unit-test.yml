@@ -24,8 +24,12 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install MAUI Workload
+        run: dotnet workload install maui --ignore-failed-sources
       - name: Install dependencies Core.Test
         run: dotnet restore Core.Test/Core.Test.csproj
+      - name: Install dependencies UI
+        run: dotnet restore UI/UI.csproj
       - name: Install dependencies EF.Test
         run: dotnet restore EF.Test/EF.Test.csproj
       - name: Install dependencies Services.Test
