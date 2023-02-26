@@ -8,7 +8,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     strategy:
       matrix:
         dotnet-version: ['7.0.x' ]
@@ -21,6 +21,8 @@ jobs:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies
         run: dotnet restore
+      - name: Install MAUI workload
+        run: dotnet workload install maui
       - name: Build
         run: dotnet build --configuration Release --no-restore
       - name: Test
