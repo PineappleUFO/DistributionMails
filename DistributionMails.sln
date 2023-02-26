@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF", "EF\EF.csproj", "{12ED
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF.Test", "EF.Test\EF.Test.csproj", "{4315EA04-C4AA-469C-B0C1-46CA87E6F12E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{84C29FAC-C500-49EF-A284-1F270E915C06}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{4315EA04-C4AA-469C-B0C1-46CA87E6F12E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4315EA04-C4AA-469C-B0C1-46CA87E6F12E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4315EA04-C4AA-469C-B0C1-46CA87E6F12E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84C29FAC-C500-49EF-A284-1F270E915C06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84C29FAC-C500-49EF-A284-1F270E915C06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84C29FAC-C500-49EF-A284-1F270E915C06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84C29FAC-C500-49EF-A284-1F270E915C06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1E41D3B2-0342-4A95-845F-3FD446E7FC17} = {857E27B1-B18E-40BC-AF85-7273ADAC1EB4}
