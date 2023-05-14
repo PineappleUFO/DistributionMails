@@ -7,11 +7,12 @@
     <Color x:Key="Primary">#44A9E1</Color>
     <Color x:Key="Background">#282A36</Color>
     <Color x:Key="Secondary">#FFB86C</Color>
-   
+    <Color x:Key="Selection">#44475A</Color>
+    
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
     <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource Background}"/>
-
+    <SolidColorBrush x:Key="SelectionBrush" Color="{StaticResource Selection}"/>
 
     <Color x:Key="Yellow100Accent">#F7B548</Color>
     <Color x:Key="Yellow200Accent">#FFD590</Color>
