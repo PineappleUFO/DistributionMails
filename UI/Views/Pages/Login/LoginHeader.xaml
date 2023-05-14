@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             
              x:Class="UI.Views.Pages.Login.LoginHeader">
-    <Grid ColumnDefinitions="30,*,30" >
-        <Label Grid.Column="1" HorizontalTextAlignment="Center" FontFamily="RobotoSlab-Regular" FontSize="24" VerticalTextAlignment="Center">Login</Label>
-      
+    <!--Шапка для формы логина -->
+    <Grid ColumnDefinitions="30,*,30" Padding="15" Background="{StaticResource PrimaryBrush}">
+        <Label Grid.Column="1" HorizontalTextAlignment="Center" FontFamily="RobotoSlab"  FontSize="24" VerticalTextAlignment="Center">Распределение входящей переписки</Label>
+        <ImageButton Source="{FontImage , FontFamily=FontSolid}" Grid.Column="2"/>
     </Grid>
 </ContentView>
