@@ -1,4 +1,4 @@
-﻿using UI.Views.Components;
+﻿
 
 namespace UI
 {
@@ -8,7 +8,6 @@ namespace UI
         {
             InitializeComponent();
 
-            Routing.RegisterRoute("TestPage", typeof(Test));
              
         }
     }
