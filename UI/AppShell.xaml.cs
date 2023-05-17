@@ -1,5 +1,7 @@
 ﻿
 
+using UI.Views.Pages.Message;
+
 namespace UI
 {
     public partial class AppShell : Shell
@@ -8,7 +10,7 @@ namespace UI
         {
             InitializeComponent();
 
-             
+             Routing.RegisterRoute(nameof(MessageView),typeof(MessageView));
         }
     }
 }

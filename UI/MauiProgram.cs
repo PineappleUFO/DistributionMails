@@ -1,10 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
+using UI.Views.Pages.MainForms.Input;
+using UI.Views.Pages.Message;
 using UraniumUI;
 
 namespace UI
 {
     public static class MauiProgram
     {
+        
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
@@ -21,6 +24,10 @@ namespace UI
                 })
                 .UseUraniumUI()
                 .UseUraniumUIMaterial();
+
+            builder.Services.AddSingleton<InputMailMainViewModel>();
+            builder.Services.AddTransient<MessageViewModel>();
+            
 
 #if DEBUG
 		builder.Logging.AddDebug();
