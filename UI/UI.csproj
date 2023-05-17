@@ -58,8 +58,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="UraniumUI.Icons.FontAwesome" Version="2.4.5" />
+		<PackageReference Include="UraniumUI.Material" Version="2.4.5" />
 	</ItemGroup>
 
 	<ItemGroup>
