@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UI.Views.Pages.MainForms.Input.InputMailHeader"
+             xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              Background="{StaticResource Background}">
 
     <ContentView.Resources>
@@ -19,7 +20,7 @@
           ColumnSpacing="10" 
           Padding="15,5" 
           Background="{StaticResource PrimaryBrush}">
-        <ImageButton BorderWidth="0" Source="{FontImage , FontFamily=FontSolid}" Grid.Column="0"/>
+        <ImageButton BorderWidth="0" Source="{FontImage , FontFamily=FASolid}" Grid.Column="0"/>
 
         <!--Поиск-->
         <Border Grid.Column="1" 
@@ -29,7 +30,7 @@
                 <RoundRectangle CornerRadius="0,10,10,0" />
             </Border.StrokeShape>
             <HorizontalStackLayout>
-                <ImageButton  Source="{FontImage , FontFamily=FontSolid,Size=18}" Margin="5,0" Grid.Column="3"/>
+                <ImageButton  Source="{FontImage , FontFamily=FASolid,Size=18}" Margin="5,0" Grid.Column="3"/>
                 <Entry Placeholder="Поиск" 
                        WidthRequest="150" 
                        VerticalTextAlignment="Center"
@@ -57,7 +58,7 @@
         
         <!--Фильтр-->
         <HorizontalStackLayout Grid.Column="2">
-            <ImageButton Source="{FontImage , FontFamily=FontSolid,Size=18}" Margin="5,0" Grid.Column="4"/>
+            <ImageButton Source="{FontImage , FontFamily=FASolid,Size=18}" Margin="5,0" Grid.Column="4"/>
             <Picker VerticalTextAlignment="Center" 
                         Margin="2" 
                         
@@ -79,8 +80,8 @@
             <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Избранное"/>
         </HorizontalStackLayout>
         <!--Поменять иконки на Regular-->
-        <ImageButton Source="{FontImage , FontFamily=FontSolid}" Margin="5,0" Grid.Column="4"/>
-        <ImageButton Source="{FontImage , FontFamily=FontSolid}" Margin="5,0" Grid.Column="5"/>
+        <ImageButton Source="{FontImage , FontFamily=FASolid}" Margin="5,0" Grid.Column="4"/>
+        <ImageButton Source="{FontImage , FontFamily=FASolid}" Margin="5,0" Grid.Column="5"/>
 
     </Grid>
 </ContentView>

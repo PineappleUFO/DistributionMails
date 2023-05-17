@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UI.Views.Pages.MainForms.Input.InputMailMain"
+             xmlns:controls="clr-namespace:UraniumUI.Material.Controls;assembly=UraniumUI.Material"
+             xmlns:input="clr-namespace:UI.Views.Pages.MainForms.Input">
+    <ContentPage.BindingContext>
+        <input:InputMailMainViewModel></input:InputMailMainViewModel>
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions="60,*" ColumnDefinitions="2*,1*">
+        <input:InputMailHeader Grid.ColumnSpan="2"/>
+
+        <!--Главная таблица писем-->
+        <ListView Grid.Column="0" Grid.Row="1" 
+                  HorizontalOptions="FillAndExpand" 
+                  SelectedItem="{Binding SelectedMail}"
+                  VerticalOptions="FillAndExpand" 
+                  ItemsSource="{Binding ListSourceMail}" 
+                  SelectionMode="Single"
+                  SeparatorVisibility="Default"
+                  SeparatorColor="Gray"
+        >
+            <ListView.Header>
+                <Grid ColumnDefinitions="*,*,*,*,*,*,*">
+                    <Label Text="Номер письма" Grid.Column="0"/>
+                    <Label Text="Дата поступления" Grid.Column="1"/>
+                    <Label Text="Проект" Grid.Column="2"/>
+                    <Label Text="Отправитель" Grid.Column="3"/>
+                    <Label Text="Тема" Grid.Column="4"/>
+                    <Label Text="Номер ответа" Grid.Column="5"/>
+                    <Label Text="Срок ответа" Grid.Column="6"/>
+                </Grid>
+            </ListView.Header>
+               <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                    <Grid ColumnDefinitions="*,*,*,*,*,*,*">
+                        <Label Text="{Binding NumberOut}" Grid.Column="0"/>
+                        <Label Text="{Binding DateInput,StringFormat='{0:dd MMM, yyyy}'}" Grid.Column="1"/>
+                        <Label Text="{Binding Project}" Grid.Column="2"/>
+                        <Label Text="{Binding Sender}" Grid.Column="3"/>
+                        <Label Text="{Binding Theme}" Grid.Column="4"/>
+                        <Label Text="{Binding NumberOut}" Grid.Column="5"/>
+                        <Label Text="{Binding DateOut,StringFormat='{0:dd MMM, yyyy}'}" Grid.Column="6"/>
+                    </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Label Text="{Binding SelectedMail.NumberOut}" Grid.Row="1" ></Label>
+        
+        
+        <!--Предпросмоторщик-->
+        <Border Grid.Column="1" Grid.Row="1" BackgroundColor="Gray">
+            
+        </Border>
+    </Grid>
+</ContentPage>
