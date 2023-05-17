@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using UraniumUI;
 
 namespace UI
 {
@@ -16,10 +17,10 @@ namespace UI
                     fonts.AddFont("RobotoSlab-Regular.ttf", "RobotoSlabRegular");
                     fonts.AddFont("RobotoSlab-Light.ttf", "RobotoSlabLight");
                     fonts.AddFont("RobotoSlab-Bold.ttf", "RobotoSlabBold");
-                    fonts.AddFont("FontAwesomeRegular.otf", "FontRegular");
-                    fonts.AddFont("FontAwesomeBrands.otf", "FontBrands");
-                    fonts.AddFont("FontAwesomeSolid.otf", "FontSolid");
-                });
+                    fonts.AddFontAwesomeIconFonts();
+                })
+                .UseUraniumUI()
+                .UseUraniumUIMaterial();
 
 #if DEBUG
 		builder.Logging.AddDebug();
