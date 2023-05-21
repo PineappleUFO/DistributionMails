@@ -11,7 +11,6 @@ public partial class InputMailMain : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = ServiceHelper.GetService<InputMailMainViewModel>();
-		Previewer.FilePath = @"C:\Games\Zakharov_Z8431.pdf";
 	}
 	
 
@@ -32,7 +31,22 @@ public partial class InputMailMain : ContentPage
             }
         }
 
+        if (this.BindingContext is InputMailMainViewModel vm1)
+        {
+            Previewer.FilePath = vm1.CurrentFilePath;
+        }
+
+
+      
+       
     }
-	
-	
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+        if (this.BindingContext is InputMailMainViewModel vm1)
+        {
+            vm1.OpenPreviewFileCommandCommand.Execute(((Button)sender).CommandParameter);
+            Previewer.FilePath = vm1.CurrentFilePath;
+        }
+    }
 }

@@ -50,11 +50,26 @@
             </ListView.ItemTemplate>
         </ListView>
 
-      
-        
+
+        <Grid Grid.Column="1" Grid.Row="1" RowDefinitions="*,60" VerticalOptions="FillAndExpand">
+            
         <!--Предпросмоторщик-->
-        <Border Grid.Column="1" Grid.Row="1" BackgroundColor="Gray">
-            <components:FilePreviewer x:Name="Previewer" FilePath="{Binding CurrentFilePath}"/>
+            <Border VerticalOptions="FillAndExpand"  Grid.Row="0">
+                <components:FilePreviewer x:Name="Previewer"  FilePath="{Binding CurrentFilePath}"/>
         </Border>
+
+            <HorizontalStackLayout Grid.Row="1" >
+                <CollectionView ItemsSource="{Binding CurrentFiles}"  HorizontalOptions="FillAndExpand">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="2"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Margin="5" Text="1" Clicked="Button_Clicked" CommandParameter="{Binding}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </HorizontalStackLayout>
+        </Grid>
     </Grid>
 </ContentPage>
