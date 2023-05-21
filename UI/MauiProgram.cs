@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using Syncfusion.Maui.Core.Hosting;
+using UI.Views.Components;
 using UI.Views.Pages.MainForms.Input;
 using UI.Views.Pages.Message;
 using UraniumUI;
@@ -23,14 +25,15 @@ namespace UI
                     fonts.AddFontAwesomeIconFonts();
                 })
                 .UseUraniumUI()
-                .UseUraniumUIMaterial();
+                .UseUraniumUIMaterial()
+                .ConfigureSyncfusionCore();
 
             builder.Services.AddSingleton<InputMailMainViewModel>();
             builder.Services.AddTransient<MessageViewModel>();
-            
+         
 
 #if DEBUG
-		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

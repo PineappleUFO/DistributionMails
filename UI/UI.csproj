@@ -59,7 +59,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+		<PackageReference Include="iTextSharp" Version="5.5.13.3" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="Syncfusion.Maui.PdfViewer" Version="21.2.5" />
+		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
 		<PackageReference Include="UraniumUI.Icons.FontAwesome" Version="2.4.5" />
 		<PackageReference Include="UraniumUI.Material" Version="2.4.5" />
 	</ItemGroup>
@@ -86,7 +89,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Views\Components\" />
 	  <Folder Include="Views\Pages\MainForms\Output\" />
 	</ItemGroup>
 
