@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UI.Views.Pages.MainForms.Input.InputMailMain"
-             xmlns:input="clr-namespace:UI.Views.Pages.MainForms.Input">
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.PdfViewer;assembly=Syncfusion.Maui.PdfViewer"
+             xmlns:input="clr-namespace:UI.Views.Pages.MainForms.Input"
+             xmlns:components="using:UI.Views.Components">
  
     <Grid RowDefinitions="60,*" ColumnDefinitions="2*,1*">
         <input:InputMailHeader Grid.ColumnSpan="2"/>
@@ -16,7 +18,9 @@
                   SelectionMode="Single"
                   SeparatorVisibility="Default"
                   SeparatorColor="Gray"
+                  
                   ItemTapped="ListView_OnItemTapped"
+                 
         >
             <ListView.Header>
                 <Grid ColumnDefinitions="*,*,*,*,*,*,*">
@@ -46,12 +50,11 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Label Text="{Binding SelectedMail.NumberOut}" Grid.Row="1" ></Label>
-        
+      
         
         <!--Предпросмоторщик-->
         <Border Grid.Column="1" Grid.Row="1" BackgroundColor="Gray">
-            
+            <components:FilePreviewer x:Name="Previewer" FilePath="{Binding CurrentFilePath}"/>
         </Border>
     </Grid>
 </ContentPage>
