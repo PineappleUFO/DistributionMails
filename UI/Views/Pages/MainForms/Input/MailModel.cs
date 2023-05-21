@@ -22,4 +22,6 @@ public class MailModel
     public string NumberOut { get; set; }
     [DisplayName("Срок ответа")]
     public DateTime DateOut { get; set; }
+
+    public DirectoryInfo PathFolder { get; set; }
 }
