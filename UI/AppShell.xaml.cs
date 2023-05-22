@@ -1,5 +1,6 @@
 ﻿
 
+using UI.Views.Pages.Distribution;
 using UI.Views.Pages.Message;
 
 namespace UI
@@ -11,6 +12,7 @@ namespace UI
             InitializeComponent();
 
              Routing.RegisterRoute(nameof(MessageView),typeof(MessageView));
+            Routing.RegisterRoute(nameof(DistributionPage), typeof(DistributionPage));
         }
     }
 }

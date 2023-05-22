@@ -16,6 +16,7 @@ public partial class InputMailMain : ContentPage
 
 	private void ListView_OnItemTapped(object sender, ItemTappedEventArgs e)
 	{
+      
         // Проверяем, прошло ли время, достаточное для считывания двойного нажатия
         var currentTime = DateTime.Now;
         var elapsedTime = currentTime - _lastTapTime;
@@ -33,6 +34,8 @@ public partial class InputMailMain : ContentPage
 
         if (this.BindingContext is InputMailMainViewModel vm1)
         {
+            //todo сделать значок загрузки
+            //todo иногда вылетает если быстро кликать
             Previewer.FilePath = vm1.CurrentFilePath;
         }
 
@@ -43,6 +46,7 @@ public partial class InputMailMain : ContentPage
 
     private void Button_Clicked(object sender, EventArgs e)
     {
+
         if (this.BindingContext is InputMailMainViewModel vm1)
         {
             vm1.OpenPreviewFileCommandCommand.Execute(((Button)sender).CommandParameter);

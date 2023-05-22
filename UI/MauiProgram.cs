@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Syncfusion.Maui.Core.Hosting;
 using UI.Views.Components;
+using UI.Views.Pages.Distribution;
 using UI.Views.Pages.MainForms.Input;
 using UI.Views.Pages.Message;
 using UraniumUI;
@@ -30,7 +31,7 @@ namespace UI
 
             builder.Services.AddSingleton<InputMailMainViewModel>();
             builder.Services.AddTransient<MessageViewModel>();
-         
+            builder.Services.AddTransient<DistributionViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

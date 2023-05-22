@@ -17,7 +17,7 @@
 
 
         </Grid>
-        <WebView  Source="{Binding HtmlContent}" VerticalOptions="FillAndExpand" BackgroundColor="Crimson" Margin="0,-55,0,0"/>
+        <WebView x:Name="wbView" Source="{Binding HtmlContent}" VerticalOptions="FillAndExpand" BackgroundColor="Crimson" Margin="0,-55,0,0"/>
 
     </StackLayout>
 </ContentView>

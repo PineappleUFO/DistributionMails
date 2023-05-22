@@ -22,7 +22,7 @@
         </Border>
         
         <Border Grid.Column="1" Grid.Row="1">
-            <Label Text="{Binding SelectedMail.IdMail}"></Label>
+            <Button Text="rasp" Command="{Binding OpenDistributionPageCommand}"></Button>
         </Border>
     </Grid>
     <!-- -->

@@ -22,6 +22,7 @@ public partial class FilePreviewer : ContentView
         set
         {
             SetValue(FilePathProperty, value); 
+            
             BindingContext = new FileViewerViewModel(FilePath);
         }
     }
@@ -29,6 +30,7 @@ public partial class FilePreviewer : ContentView
     public FilePreviewer()
     {
         InitializeComponent();
+      
      
     }
 
