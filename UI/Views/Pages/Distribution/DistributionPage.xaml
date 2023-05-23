@@ -2,11 +2,172 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UI.Views.Pages.Distribution.DistributionPage"
+             Background="{StaticResource Background}"
              >
-    <VerticalStackLayout>
-        <Label 
-            Text="DistributionPage"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid RowDefinitions="60,*" ColumnDefinitions="*,*" ColumnSpacing="5">
+        <!--Шапка-->
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource Primary}">
+            <Grid>
+                <!--Поиск-->
+                <Border 
+                Grid.Column="1" 
+                StrokeThickness="1" 
+                Padding="5"
+                Margin="5"
+                HorizontalOptions="Start"
+                BackgroundColor="{StaticResource Background}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="0,10,10,0" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout>
+                        <ImageButton Background="{StaticResource Background}" BorderColor="Transparent" BorderWidth="0" Source="{FontImage , FontFamily=FASolid,Size=18}" Margin="5,0" Grid.Column="3"/>
+                        <Entry Placeholder="Поиск" 
+                       WidthRequest="150" 
+                       VerticalTextAlignment="Center"
+                       FontFamily="RobotoSlab"
+                       BackgroundColor="Transparent"
+                       ClearButtonVisibility="WhileEditing"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       Margin="2"/>
+                        <Picker VerticalTextAlignment="Center" 
+                        Margin="2" 
+                        BackgroundColor="Transparent"
+                        VerticalOptions="Center">
+                            <Picker.Items>
+                                <x:String>Умный</x:String>
+                                <x:String>По номеру письма</x:String>
+                                <x:String>По проекту</x:String>
+                                <x:String>По отправителю</x:String>
+                                <x:String>По теме</x:String>
+                                <x:String>По дате поступления</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </HorizontalStackLayout>
+                </Border>
+                <!--Режимы-->
+                <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="15"  Grid.Column="3" RadioButtonGroup.GroupName="Modes">
+                    <!--todo: сделать стили-->
+                    <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Умное"/>
+                    <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Заместители"/>
+                    <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Отдел"/>
+                    <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Все"/>
+                </HorizontalStackLayout>
+            </Grid>
+
+        </Border>
+     
+        <!--Левая часть-->
+        <ListView Grid.Column="0" 
+                  Grid.Row="1" 
+                  HorizontalOptions="FillAndExpand" 
+                  VerticalOptions="FillAndExpand" 
+                  SelectionMode="Single"
+                  SeparatorVisibility="Default"
+                  SeparatorColor="Gray"
+                  Margin="15">
+            <ListView.Header>
+                <Grid ColumnDefinitions="*,*,*,*,*,*">
+                    <Label Text="Выбрать" Grid.Column="0"/>
+                    <Label Text="ФИО" Grid.Column="1"/>
+                    <Label Text="Срок индивидуальный" Grid.Column="2"/>
+                    <Label Text="Резолюция" Grid.Column="3"/>
+                    <Label Text="*Ответственный" Grid.Column="4"/>
+                    <Label Text="$Отвечающий" Grid.Column="5"/>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid ColumnDefinitions="*,*,*,*,*,*">
+                            <CheckBox  Grid.Column="0"/>
+                            <Label Grid.Column="1"/>
+                            <DatePicker  Grid.Column="2"/>
+                            <HorizontalStackLayout>
+                                <Button Text="Rez"/>
+                                <Entry></Entry>
+                            </HorizontalStackLayout>
+                            <CheckBox  Grid.Column="4"/>
+                            <CheckBox Grid.Column="5"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        <!--Правая часть-->
+        <Border Stroke="{StaticResource Primary}" StrokeThickness="1" Grid.Column="1" Grid.Row="1" Margin="5">
+            <Grid RowDefinitions="*,*,*">
+                <!--Данные-->
+                <Grid ColumnDefinitions="*,2*" VerticalOptions="Start" Margin="5">
+                    <Border HeightRequest="120" WidthRequest="120" Background="gray">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="500" />
+                        </Border.StrokeShape>
+                        <Image x:Name="imgPhoto"></Image>
+                    </Border>
+
+                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Start" Grid.Row="0" Grid.Column="1" WidthRequest="300">
+                        <FlexLayout JustifyContent="SpaceBetween">
+                            <Label>Должность</Label>
+                            <Label>Инженер</Label>
+                        </FlexLayout>
+                        <Border Stroke="Gray" Background="gray" StrokeThickness="1" Margin="5" HeightRequest="1"/>
+
+                        <FlexLayout JustifyContent="SpaceBetween">
+                            <Label>Телефон</Label>
+                            <Label>103</Label>
+                        </FlexLayout>
+                        <Border Stroke="Gray" Background="gray" StrokeThickness="1" Margin="5" HeightRequest="1"/>
+
+                        <FlexLayout JustifyContent="SpaceBetween">
+                            <Label>Кол-во писем в работе</Label>
+                            <Label>103</Label>
+                        </FlexLayout>
+                        <Border Stroke="Gray" Background="gray" StrokeThickness="1" Margin="5" HeightRequest="1"/>
+                    </VerticalStackLayout>
+
+                </Grid>
+
+                <!--Выбранные исполнители-->
+                <Border Grid.Row="1" Stroke="Gray">
+                    <Grid RowDefinitions="Auto,*">
+                        <Label Text="Выбранные исполнители" HorizontalTextAlignment="Center"></Label>
+                        <CollectionView>
+                            <!-- todo: Доделать item template-->
+                        </CollectionView>
+                    </Grid>
+                </Border>
+
+                <!--итог-->
+                <Border Grid.Row="2" Stroke="Gray" Background="{StaticResource Selection}">
+                    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto" RowSpacing="5" Margin="5">
+                        <HorizontalStackLayout >
+                            <CheckBox></CheckBox>
+                            <Label VerticalOptions="Center">Задать обший срок и резолюцию</Label>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout HorizontalOptions="FillAndExpand" Grid.Row="1" Background="{StaticResource Background}" Padding="10">
+                            <Button Text="Rez"></Button>
+                            <Entry HorizontalOptions="Fill" WidthRequest="300" Placeholder="Резолюция общая"></Entry>
+                        </HorizontalStackLayout>
+                        
+                        <VerticalStackLayout  HorizontalOptions="End" Grid.Row="2" Background="{StaticResource Background}" Padding="10">
+                            <Label VerticalOptions="Center">Срок общий</Label>
+                            <DatePicker ></DatePicker>
+                        </VerticalStackLayout>
+
+                        <HorizontalStackLayout Grid.Row="4" HorizontalOptions="End">
+                            <Button BackgroundColor="LawnGreen" Text="Поручить" WidthRequest="200" Margin="0,0,10,0"></Button>
+                            <Button BackgroundColor="Red" Text="Отменить"></Button>
+                        </HorizontalStackLayout>
+                    </Grid>
+                </Border>
+
+            </Grid>
+          
+            
+            
+        </Border>
+    </Grid>
 </ContentPage>
