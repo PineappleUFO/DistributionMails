@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:message="clr-namespace:UI.Views.Pages.Message"
              x:Class="UI.Views.Pages.Message.MessageView"
+                 xmlns:t="clr-namespace:TreeView.Maui.Controls;assembly=TreeView.Maui"
              BackgroundColor="{StaticResource Background}"
              >
     
@@ -121,14 +122,15 @@
             <Border Grid.Row="3"  Grid.ColumnSpan="2" Background="{StaticResource Selection}" >
                 <VerticalStackLayout >
                     <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Дерево распределения</Label>
-                    
+                    <t:TreeView></t:TreeView>
                 </VerticalStackLayout>
             </Border>
 
             <Border Grid.Row="4"  Grid.ColumnSpan="2" Background="{StaticResource Selection}" StrokeShape="RoundRectangle 0,0,15,15">
                 <VerticalStackLayout >
                     <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Чат</Label>
-                    
+
+                    <Button Text="add" Command="{Binding OpenDistributionPageCommand}"></Button>
                 </VerticalStackLayout>
             </Border>
 
