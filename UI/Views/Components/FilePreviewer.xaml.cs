@@ -27,6 +27,7 @@ public partial class FilePreviewer : ContentView
         }
     }
 
+    //todo Отслеживать ошибку coldnt not load plugin 
     public FilePreviewer()
     {
         InitializeComponent();

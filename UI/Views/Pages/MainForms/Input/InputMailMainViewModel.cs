@@ -66,7 +66,7 @@ namespace UI.Views.Pages.MainForms.Input
 
         partial void OnSelectedMailChanged(MailModel value)
         {
-
+            if (value == null) return;
             var pdfFiles = value.PathFolder.GetAllPdfInFolder();
             CurrentFilePath = null;
             //todo: Если нет файлов то показываем плашку
@@ -99,6 +99,8 @@ namespace UI.Views.Pages.MainForms.Input
                 };
                 listSourceMail.Add(m);
             }
+
+            SelectedMail = ListSourceMail[0];
         }
 
 

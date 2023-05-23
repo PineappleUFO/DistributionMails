@@ -12,7 +12,7 @@
         <!--Главная таблица писем-->
         <ListView Grid.Column="0" Grid.Row="1" 
                   HorizontalOptions="FillAndExpand" 
-                  SelectedItem="{Binding SelectedMail}"
+                  SelectedItem="{Binding SelectedMail,Mode=TwoWay}"
                   VerticalOptions="FillAndExpand" 
                   ItemsSource="{Binding ListSourceMail}" 
                   SelectionMode="Single"

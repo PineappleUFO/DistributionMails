@@ -8,6 +8,10 @@
     <Color x:Key="Background">#282A36</Color>
     <Color x:Key="Secondary">#FFB86C</Color>
     <Color x:Key="Selection">#44475A</Color>
+    <Color x:Key="TextPlaceholder">#D6D6D6</Color>
+    <Color x:Key="BlueTextHeader">#219EBC</Color>
+    <Color x:Key="GreenTextHeader">#50FA7B</Color>
+    <Color x:Key="ButtonBorderColor">#6272A4</Color>
     
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
