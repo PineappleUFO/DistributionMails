@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UI.Views.Pages.MainForms.Input.InputMailHeader"
+             xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
+             Background="{StaticResource Background}">
+
+    <ContentView.Resources>
+        <!--Стиль для кнопки с иконкой-->
+        <Style TargetType="ImageButton">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="BorderColor" Value="Transparent"/>
+            <Setter Property="BorderWidth" Value="0"/>
+        </Style>
+    </ContentView.Resources>
+    
+    
+    <!--Шапка для формы вхоядщих писем -->
+    <Grid ColumnDefinitions="30,auto,auto,*,auto,auto" 
+          ColumnSpacing="10" 
+          Padding="15,5" 
+          Background="{StaticResource PrimaryBrush}">
+        <ImageButton BorderWidth="0" Source="{FontImage , FontFamily=FASolid}" Grid.Column="0"/>
+
+        <!--Поиск-->
+        <Border Grid.Column="1" 
+                StrokeThickness="1" Padding="5"
+               BackgroundColor="{StaticResource Background}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="0,10,10,0" />
+            </Border.StrokeShape>
+            <HorizontalStackLayout>
+                <ImageButton  Source="{FontImage , FontFamily=FASolid,Size=18}" Margin="5,0" Grid.Column="3"/>
+                <Entry Placeholder="Поиск" 
+                       WidthRequest="150" 
+                       VerticalTextAlignment="Center"
+                       FontFamily="RobotoSlab"
+                       BackgroundColor="Transparent"
+                       ClearButtonVisibility="WhileEditing"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       Margin="2"/>
+                <Picker VerticalTextAlignment="Center" 
+                        Margin="2" 
+                        BackgroundColor="Transparent"
+                        VerticalOptions="Center">
+                    <Picker.Items>
+                        <x:String>Умный</x:String>
+                        <x:String>По номеру письма</x:String>
+                        <x:String>По проекту</x:String>
+                        <x:String>По отправителю</x:String>
+                        <x:String>По теме</x:String>
+                        <x:String>По дате поступления</x:String>
+                    </Picker.Items>
+                </Picker>
+            </HorizontalStackLayout>
+        </Border>
+        
+        <!--Фильтр-->
+        <HorizontalStackLayout Grid.Column="2">
+            <ImageButton Source="{FontImage , FontFamily=FASolid,Size=18}" Margin="5,0" Grid.Column="4"/>
+            <Picker VerticalTextAlignment="Center" 
+                        Margin="2" 
+                        
+                        BackgroundColor="{StaticResource Background}"
+                        VerticalOptions="Center">
+                <Picker.Items>
+                    <x:String>Все</x:String>
+                    <x:String>Только с сроком ответа</x:String>
+                </Picker.Items>
+            </Picker>
+        </HorizontalStackLayout>
+        
+        <!--Режимы-->
+        <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="15"  Grid.Column="3" RadioButtonGroup.GroupName="Modes">
+            <!--todo: сделать стили-->
+            <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Архив"/>
+            <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Распределено мне"/>
+            <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Все"/>
+            <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Избранное"/>
+        </HorizontalStackLayout>
+        <!--Поменять иконки на Regular-->
+        <ImageButton Source="{FontImage , FontFamily=FASolid}" Margin="5,0" Grid.Column="4"/>
+        <ImageButton Source="{FontImage , FontFamily=FASolid}" Margin="5,0" Grid.Column="5"/>
+
+    </Grid>
+</ContentView>

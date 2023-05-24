@@ -1,10 +1,18 @@
-﻿namespace UI
+﻿
+
+using UI.Views.Pages.Distribution;
+using UI.Views.Pages.Message;
+
+namespace UI
 {
     public partial class AppShell : Shell
     {
         public AppShell()
         {
             InitializeComponent();
+
+             Routing.RegisterRoute(nameof(MessageView),typeof(MessageView));
+            Routing.RegisterRoute(nameof(DistributionPage), typeof(DistributionPage));
         }
     }
 }

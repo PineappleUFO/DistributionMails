@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:login="clr-namespace:UI.Views.Pages.Login"
+             x:Class="UI.Views.Pages.LoginPage">
+    <Grid RowDefinitions="60,*">
+        <login:LoginHeader Grid.Row="0" />
+
+
+        <!-- todo:Сделать картинку на задний фон + glassomorphism -->
+            <Frame 
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Grid.Row="1"
+                BackgroundColor="{StaticResource Selection}"
+                CornerRadius="10"
+                Padding="35">
+                <StackLayout>
+                    <Label 
+                        Text="Введите логин и пароль"
+                        FontSize="18"
+                        FontAttributes="Bold" />
+                    
+                    <BoxView 
+                        Color="{StaticResource Secondary}"
+                        HeightRequest="2"
+                        HorizontalOptions="Fill" Margin="0,3" />
+
+                    <Entry Margin="0,5" Placeholder="Логин" IsTextPredictionEnabled="False"/>
+                    <Entry Margin="0,5" Placeholder="Пароль" IsTextPredictionEnabled="False" IsPassword="True"/>
+                    
+                    <!-- todo:Сделать isEnabled после ввода логина и пароля -->
+                <Button Margin="0,5" Text="Вход" Background="{StaticResource Secondary}" FontFamily="RobotoSlab" TextColor="{StaticResource Selection}" FontAttributes="Bold"></Button>
+            </StackLayout>
+            </Frame>
+
+    </Grid>
+</ContentPage>

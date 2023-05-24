@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:message="clr-namespace:UI.Views.Pages.Message"
+             x:Class="UI.Views.Pages.Message.MessageView"
+                 xmlns:t="clr-namespace:TreeView.Maui.Controls;assembly=TreeView.Maui"
+             BackgroundColor="{StaticResource Background}"
+             >
+    
+    
+    <ContentPage.Resources>
+        <!--Стиль для кнопки с иконкой-->
+        <Style TargetType="ImageButton">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="BorderColor" Value="Transparent" />
+            <Setter Property="BorderWidth" Value="0" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid ColumnDefinitions="*,*" RowDefinitions="60,*" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <!--Шапка-->
+        <Border Grid.Row="0" Grid.ColumnSpan="2" Background="{StaticResource Primary}"></Border>
+        
+        <Label Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="24">Основная информация о письме</Label>
+        <Button Grid.Row="0" Grid.Column="0" WidthRequest="40" HorizontalOptions="End" Text="S"></Button>
+
+        <Label Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="24">Распределение</Label>
+        <Button Grid.Row="0" Grid.Column="1" WidthRequest="40" HorizontalOptions="End" Text="В избранное"></Button>
+
+
+            <!--todo: в отдельный компонент-->
+            <!--Таблица с инфой-->
+            <Grid ColumnDefinitions="*,*" VerticalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0" RowDefinitions="*,*,*,*,3*" RowSpacing="15" ColumnSpacing="15" Margin="15">
+
+                <Border Grid.Row="0"  Grid.ColumnSpan="2" Background="{StaticResource Selection}"  StrokeShape="RoundRectangle 15,15,0,0">
+                    <VerticalStackLayout >
+                        <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Тема письма</Label>
+                        <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="Тема"></Label>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource Selection}">
+                    <VerticalStackLayout >
+                        <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Дата поступления</Label>
+                        <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="11.11.2023 16:00"></Label>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="1"  Background="{StaticResource Selection}">
+                    <VerticalStackLayout >
+                        <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Дата отправки письма</Label>
+                        <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="10.10.2023 17:00"></Label>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="2" Grid.Column="0" Background="{StaticResource Selection}">
+                    <VerticalStackLayout >
+                        <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Номер входящий</Label>
+                        <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="1014"></Label>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="2" Grid.Column="1"  Background="{StaticResource Selection}">
+                    <VerticalStackLayout >
+                        <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Номер исходящий</Label>
+                        <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="01-23-И"></Label>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource Selection}">
+                    <VerticalStackLayout >
+                        <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">От кого</Label>
+                        <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="ОАО ЕИИ"></Label>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="3" Grid.Column="1"  Background="{StaticResource Selection}">
+                    <VerticalStackLayout >
+                        <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Получатель письма</Label>
+                        <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="Иванов А.А."></Label>
+                    </VerticalStackLayout>
+                </Border>
+
+
+                <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource Selection}" StrokeShape="RoundRectangle 0,0,15,15">
+                    <VerticalStackLayout >
+                        <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Текст письма</Label>
+                        <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="Прошу провести совещание в формате ВКС 24.04.23 в 10:00 по теме “Как написать диплом” Прошу провести совещание в формате ВКС 24.04.23 в 10:00 по теме “Как написать диплом”"></Label>
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+
+                
+            <!--Правая часть-->
+        <Grid Grid.Row="1"  Grid.Column="1" Margin="15" ColumnDefinitions="3*,*" RowDefinitions="Auto,Auto,Auto,*,0.4*" RowSpacing="5">
+            <HorizontalStackLayout Grid.Row="0" Grid.Column="0">
+                <Label Text="Адресовано:" FontSize="16"></Label>
+                <Label TextColor="{StaticResource BlueTextHeader}" FontSize="16" Margin="10,0,0,0" Text="Иванов И.И."></Label>
+
+                <Label Text="Распределил:" FontSize="16" Margin="10,0,0,0"></Label>
+                <Label TextColor="{StaticResource GreenTextHeader}" FontSize="16" Margin="10,0,0,0" Text="Иванов И.И."></Label>
+            </HorizontalStackLayout>
+
+            <Button Grid.Row="0" HeightRequest="30" Grid.Column="1" VerticalOptions="Start" Text="Требуется ответ" BorderColor="{StaticResource ButtonBorderColor}" BorderWidth="2" Background="{StaticResource Background}" CornerRadius="8"></Button>
+
+            <HorizontalStackLayout Grid.Row="1">
+                <Label Text="Срок ответа:" FontSize="16"></Label>
+                <Label Text="21.04.2023" Margin="10,0,0,0" FontAttributes="Bold" FontSize="16" ></Label>
+            </HorizontalStackLayout>
+
+            <Button Grid.Row="1" HeightRequest="30" Grid.Column="1" VerticalOptions="Start" Text="Перейти к ответу" BorderColor="{StaticResource ButtonBorderColor}" BorderWidth="2" Background="{StaticResource Background}" CornerRadius="8"></Button>
+
+            <Border Grid.Row="2"  Grid.ColumnSpan="2" Background="{StaticResource Selection}" >
+                <VerticalStackLayout >
+                    <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Резолюция на письмо</Label>
+                    <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="Срочно"></Label>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Row="3"  Grid.ColumnSpan="2" Background="{StaticResource Selection}" >
+                <VerticalStackLayout >
+                    <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Дерево распределения</Label>
+                    <t:TreeView></t:TreeView>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Row="4"  Grid.ColumnSpan="2" Background="{StaticResource Selection}" StrokeShape="RoundRectangle 0,0,15,15">
+                <VerticalStackLayout >
+                    <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Чат</Label>
+
+                    <Button Text="add" Command="{Binding OpenDistributionPageCommand}"></Button>
+                </VerticalStackLayout>
+            </Border>
+
+        </Grid>
+    </Grid>
+
+
+</ContentPage>
