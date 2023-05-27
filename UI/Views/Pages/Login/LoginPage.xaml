@@ -2,7 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:login="clr-namespace:UI.Views.Pages.Login"
-             x:Class="UI.Views.Pages.LoginPage">
+             xmlns:converters="clr-namespace:UI.Converters"
+             x:Class="UI.Views.Pages.Login.LoginPage">
+    <ContentPage.Resources>
+        <converters:InvertedBooleanConverter x:Key="InvertedBooleanConverter"/>
+    </ContentPage.Resources>
     <Grid RowDefinitions="60,*">
         <login:LoginHeader Grid.Row="0" />
 
@@ -26,12 +30,13 @@
                         HeightRequest="2"
                         HorizontalOptions="Fill" Margin="0,3" />
 
-                    <Entry Margin="0,5" Placeholder="Логин" IsTextPredictionEnabled="False"/>
-                    <Entry Margin="0,5" Placeholder="Пароль" IsTextPredictionEnabled="False" IsPassword="True"/>
+                    <Entry IsEnabled="{Binding IsBusy,Converter={StaticResource InvertedBooleanConverter}}" Margin="0,5" Placeholder="Логин" IsTextPredictionEnabled="False" Text="{Binding Login}"/>
+                    <Entry IsEnabled="{Binding IsBusy,Converter={StaticResource InvertedBooleanConverter}}" Margin="0,5" Placeholder="Пароль" IsTextPredictionEnabled="False" IsPassword="True" Text="{Binding Password}"/>
                     
                     <!-- todo:Сделать isEnabled после ввода логина и пароля -->
-                <Button Margin="0,5" Text="Вход" Background="{StaticResource Secondary}" FontFamily="RobotoSlab" TextColor="{StaticResource Selection}" FontAttributes="Bold"></Button>
-            </StackLayout>
+                <Button IsEnabled="{Binding IsBusy,Converter={StaticResource InvertedBooleanConverter}}" Margin="0,5" Text="Вход" Background="{StaticResource Secondary}" FontFamily="RobotoSlab" TextColor="{StaticResource Selection}" FontAttributes="Bold" Command="{Binding TryLoginCommand}"></Button>
+                  <ActivityIndicator IsRunning="{Binding IsBusy,Mode=OneWay}"/>
+                </StackLayout>
             </Frame>
 
     </Grid>
