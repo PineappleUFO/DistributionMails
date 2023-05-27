@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:UI"
     xmlns:Pages="clr-namespace:UI.Views.Pages"
     xmlns:Input="clr-namespace:UI.Views.Pages.MainForms.Input"
+    xmlns:login="clr-namespace:UI.Views.Pages.Login"
     Shell.FlyoutBehavior="Disabled">
-    <ShellContent ContentTemplate="{DataTemplate Input:InputMailMain}" />
+    <ShellContent ContentTemplate="{DataTemplate login:LoginPage}" />
 </Shell>
