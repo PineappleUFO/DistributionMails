@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{857E27B1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Test", "Core.Test\Core.Test.csproj", "{1E41D3B2-0342-4A95-845F-3FD446E7FC17}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF", "EF\EF.csproj", "{12EDDE67-2258-4488-A95C-9646D61169F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostgresRepository", "PostgresRepository\PostgresRepository.csproj", "{12EDDE67-2258-4488-A95C-9646D61169F7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Test", "EF.Test\EF.Test.csproj", "{4315EA04-C4AA-469C-B0C1-46CA87E6F12E}"
 EndProject

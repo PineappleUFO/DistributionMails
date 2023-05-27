@@ -70,7 +70,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Core\Core.csproj" />
-	  <ProjectReference Include="..\EF\EF.csproj" />
+	  <ProjectReference Include="..\PostgresRepository\PostgresRepository.csproj" />
 	  <ProjectReference Include="..\Services\Services.csproj" />
 	</ItemGroup>
 
