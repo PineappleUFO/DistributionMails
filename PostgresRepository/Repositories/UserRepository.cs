@@ -1,7 +1,7 @@
 ﻿using Core.Models;
-using EF.Interfaces;
-using EF.PostgresCommon;
 using Npgsql;
+using PostgresRepository.Interfaces;
+using PostgresRepository.PostgresCommon;
 
 namespace EF.Repositories;
 
@@ -10,8 +10,9 @@ public class UserRepository : IUserRepository
     /// <summary>
     /// Попытка получить пользователя при его авторизации
     /// </summary>
-    public async Task<User?> TryGetUserByLogin(string login, string password,CancellationToken cancellationToken = default)
+    public async Task<User?> TryGetUserByLogin(string login, string password,DepRepository? depRepository,CancellationToken cancellationToken = default)
     {
+        if (depRepository == null) return null;
         if (!new PostgresGenerateConnection().TryCreateConnection(login, password)) return null;
 
         //если по какой то причине строка подключения пустая
@@ -37,7 +38,8 @@ public class UserRepository : IUserRepository
                     reader.GetString(3),
                     reader.GetString(4),
                     null,
-                    reader.GetString(6)
+                    reader.GetString(6),
+                    await depRepository.GetDepByUserId(reader.GetInt32(0))
                 );
             }
         }
