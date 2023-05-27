@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using Npgsql;
 
-namespace EF.PostgresCommon;
+namespace PostgresRepository.PostgresCommon;
 
 internal class PostgresGenerateConnection
 {

@@ -1,4 +1,4 @@
-﻿namespace EF.PostgresCommon;
+﻿namespace PostgresRepository.PostgresCommon;
 
 internal static class PostgresConnectionString
 {
