@@ -7,6 +7,11 @@ namespace EF.Repositories;
 
 public class DepRepository : IDepRepository
 {
+    /// <summary>
+    /// Получить отдел пользователя
+    /// </summary>
+    /// <param name="userId">id пользователя</param>
+    /// <returns></returns>
     public async Task<Dep?> GetDepByUserId(int userId)
     {
         //если по какой то причине строка подключения пустая
