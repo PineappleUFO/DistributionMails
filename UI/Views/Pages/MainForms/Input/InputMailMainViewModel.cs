@@ -7,14 +7,15 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
+using Core.Models;
 using UI.Views.Pages.Message;
 using UI.Extenstions;
 using Microsoft.Maui.ApplicationModel.Communication;
 
 namespace UI.Views.Pages.MainForms.Input
 {
-    [INotifyPropertyChanged]
-    public partial class InputMailMainViewModel
+
+    public partial class InputMailMainViewModel : ObservableObject,IQueryAttributable
     {
         /// <summary>
         /// Коллекция писем
@@ -41,15 +42,17 @@ namespace UI.Views.Pages.MainForms.Input
         /// </summary>
         [ObservableProperty] public List<string> currentFiles;
 
+        [ObservableProperty] public User currentUser;
+
 
         /// <summary>
         /// Комманда открытия письма
         /// </summary>
         /// <param name="mail">Модель письма</param>
         [RelayCommand]
-        public async void OpenMailCommand(MailModel mail)
+        public async void OpenMail(MailModel mail)
         {
-            await Shell.Current.GoToAsync($"{nameof(MessageView)}",new Dictionary<string, object>()
+            await Shell.Current.GoToAsync($"{nameof(MessageView)}", new Dictionary<string, object>()
             {
                 ["SelectedMail"] = mail
             });
@@ -59,9 +62,9 @@ namespace UI.Views.Pages.MainForms.Input
         /// Комманда открытия выбранного пользователем вложения
         /// </summary>
         [RelayCommand]
-        public void OpenPreviewFileCommand(object filePath)
+        public void OpenPreviewFile(object filePath)
         {
-                CurrentFilePath = filePath.ToString();
+            CurrentFilePath = filePath.ToString();
         }
 
         partial void OnSelectedMailChanged(MailModel value)
@@ -78,11 +81,17 @@ namespace UI.Views.Pages.MainForms.Input
             }
         }
 
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            CurrentUser = query["CurrentUser"] as User;
+            
+        }
+
         public InputMailMainViewModel()
         {
             listSourceMail = new ObservableCollection<MailModel>();
 
-          
+
             for (int i = 0; i < 5; i++)
             {
                 var m = new MailModel()
@@ -101,11 +110,8 @@ namespace UI.Views.Pages.MainForms.Input
             }
 
             SelectedMail = ListSourceMail[0];
+
+            var c = CurrentUser;
         }
-
-
-      
-
-
     }
 }
