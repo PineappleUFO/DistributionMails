@@ -10,11 +10,13 @@ public class UserRepository : IUserRepository
     /// <summary>
     /// Попытка получить пользователя при его авторизации
     /// </summary>
-    public async Task<User?> TryGetUserByLogin(string login, string password,DepRepository? depRepository,CancellationToken cancellationToken = default)
+    public async Task<User?> TryGetUserByLogin(string login, string password,IPositionRepository? positionRepository,IDepRepository? depRepository,CancellationToken cancellationToken = default)
     {
         if (depRepository == null) return null;
+        if (positionRepository == null) return null;
         if (!new PostgresGenerateConnection().TryCreateConnection(login, password)) return null;
 
+        await Task.Delay(2000, cancellationToken);
         //если по какой то причине строка подключения пустая
         if (string.IsNullOrWhiteSpace(PostgresConnectionString.ConnectionString))
             throw new Exception("Не задана строка подключения");
@@ -31,16 +33,16 @@ public class UserRepository : IUserRepository
             await using var reader =await command.ExecuteReaderAsync(cancellationToken);
             if(await reader.ReadAsync(cancellationToken))
             {
-                //todo: dep и position
-                return new User(reader.GetInt32(0),
+                int userId = reader.GetInt32(0);
+                return new User(userId,
                     reader.GetString(1),
                     reader.GetString(2),
                     reader.GetString(3),
                     reader.GetString(4),
                     null,
                     reader.GetString(6),
-                    await depRepository.GetDepByUserId(reader.GetInt32(0))
-                );
+                    await depRepository.GetDepByUserId(userId),
+                    await positionRepository.GetPositionByUserId(userId));
             }
         }
         catch (NpgsqlException e)

@@ -9,9 +9,9 @@ public class User:Entity
     public byte[]? Photo { get; private set; }
     public string Phone { get; private set; }
     public Dep? Department { get; private set; }
-    //public int PositionId { get; private set; }
+    public Position? Position { get; private set; }
     
-    public User(int id,string family, string name, string surname, string login, byte[]? photo, string phone,Dep? dep)
+    public User(int id, string family, string name, string surname, string login, byte[]? photo, string phone, Dep? dep, Position? position)
     {
         Id = id;
         Family = family;
@@ -21,6 +21,6 @@ public class User:Entity
         Photo = photo;
         Phone = phone;
         Department = dep;
-        //PositionId = positionId;
+        Position = position;
     }
 }
