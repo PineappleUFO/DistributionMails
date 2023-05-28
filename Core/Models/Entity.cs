@@ -5,7 +5,7 @@
 /// </summary>
 public abstract class Entity
 {
-    protected int Id { get; set; }
+    public int Id { get; set; }
 
     protected Entity() { }
 

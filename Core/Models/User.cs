@@ -2,7 +2,7 @@
 
 public class User:Entity
 {
-    public string Family { get; private set; }
+    public string Family { get; set; }
     public string Name { get; private set; }
     public string Surname { get; private set; }
     public string Login { get; private set; }
@@ -10,7 +10,11 @@ public class User:Entity
     public string Phone { get; private set; }
     public Dep? Department { get; private set; }
     public Position? Position { get; private set; }
-    
+
+    public User()
+    {
+        
+    }
     public User(int id, string family, string name, string surname, string login, byte[]? photo, string phone, Dep? dep, Position? position)
     {
         Id = id;
