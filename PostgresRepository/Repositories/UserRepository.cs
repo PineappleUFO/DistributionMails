@@ -10,10 +10,8 @@ public class UserRepository : IUserRepository
     /// <summary>
     /// Попытка получить пользователя при его авторизации
     /// </summary>
-    public async Task<User?> TryGetUserByLogin(string login, string password,IPositionRepository? positionRepository,IDepRepository? depRepository,CancellationToken cancellationToken = default)
+    public async Task<User?> TryGetUserByLogin(string login, string password, CancellationToken cancellationToken = default)
     {
-        if (depRepository == null) return null;
-        if (positionRepository == null) return null;
         if (!new PostgresGenerateConnection().TryCreateConnection(login, password)) return null;
 
         await Task.Delay(2000, cancellationToken);
@@ -28,21 +26,35 @@ public class UserRepository : IUserRepository
         {
             await using var command = connection.CreateCommand();
             command.CommandText =
-                $@"select u.user_id, family, name, surname, login, photo, phone, id_dep, id_position from users u where u.login = '{login}'";
+                $@"select u.user_id,
+       u.family,
+       u.name,
+       u.surname,
+       u.login,
+       u.photo,
+       u.phone,
+       d.dep_id,
+       d.dep_name,
+       d.dep_about,
+       p.position_id,
+       p.position_name
+from users u,deps d,positions p
+where u.login = '{login}' and
+      u.id_dep = d.dep_id and
+      p.position_id = u.id_position";
 
-            await using var reader =await command.ExecuteReaderAsync(cancellationToken);
-            if(await reader.ReadAsync(cancellationToken))
+            await using var reader = await command.ExecuteReaderAsync(cancellationToken);
+            if (await reader.ReadAsync(cancellationToken))
             {
-                int userId = reader.GetInt32(0);
-                return new User(userId,
+                return new User(reader.GetInt32(0),
                     reader.GetString(1),
                     reader.GetString(2),
                     reader.GetString(3),
                     reader.GetString(4),
                     null,
                     reader.GetString(6),
-                    await depRepository.GetDepByUserId(userId),
-                    await positionRepository.GetPositionByUserId(userId));
+                    new Dep(reader.GetInt32(7),reader.GetString(8),reader.GetString(9)),
+                    new Position(reader.GetInt32(10),reader.GetString(11)));
             }
         }
         catch (NpgsqlException e)

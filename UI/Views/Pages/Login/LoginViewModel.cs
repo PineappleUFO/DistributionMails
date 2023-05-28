@@ -35,10 +35,8 @@ public partial class LoginViewModel
     {
         IsBusy = true;
         var userRepository = ServiceHelper.GetService<UserRepository>();
-        var depRepository = ServiceHelper.GetService<DepRepository>();
-        var positionRepository = ServiceHelper.GetService<PositionRepository>();
-
-        User user = await userRepository.TryGetUserByLogin(Login, Password, positionRepository, depRepository);
+        
+        User user = await userRepository.TryGetUserByLogin(Login, Password);
 
         
         if (user != null)

@@ -14,8 +14,7 @@ public partial class InputMailMain : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = ServiceHelper.GetService<InputMailMainViewModel>();
-        
-        load();
+
 	}
 	
 
@@ -49,13 +48,7 @@ public partial class InputMailMain : ContentPage
        
     }
 
-    private async void load()
-    {
-        var dep = new DepRepository();
-        var pos = new PositionRepository();
-        UserRepository userRepository = new UserRepository();
-        var u =   await userRepository.TryGetUserByLogin("zakharovdb", "zakharovdb",pos,dep);
-    }
+ 
 
     private void Button_Clicked(object sender, EventArgs e)
     {
