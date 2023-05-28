@@ -53,7 +53,7 @@ namespace UI.Views.Pages.MainForms.Input
         /// </summary>
         /// <param name="mail">Модель письма</param>
         [RelayCommand]
-        public async void OpenMail(object mail)
+        public async void OpenMail(MailWrapper mail)
         {
             await Shell.Current.GoToAsync($"{nameof(MessageView)}", new Dictionary<string, object>()
             {

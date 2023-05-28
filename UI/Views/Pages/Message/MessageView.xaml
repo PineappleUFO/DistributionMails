@@ -5,6 +5,7 @@
              xmlns:message="clr-namespace:UI.Views.Pages.Message"
              x:Class="UI.Views.Pages.Message.MessageView"
                  xmlns:t="clr-namespace:TreeView.Maui.Controls;assembly=TreeView.Maui"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              BackgroundColor="{StaticResource Background}"
              >
     
@@ -18,7 +19,7 @@
         </Style>
     </ContentPage.Resources>
 
-    <Grid ColumnDefinitions="*,*" RowDefinitions="60,*" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+    <Grid ColumnDefinitions="0.9*,*" RowDefinitions="60,*" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
         <!--Шапка-->
         <Border Grid.Row="0" Grid.ColumnSpan="2" Background="{StaticResource Primary}"></Border>
         
@@ -31,62 +32,62 @@
 
             <!--todo: в отдельный компонент-->
             <!--Таблица с инфой-->
-            <Grid ColumnDefinitions="*,*" VerticalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0" RowDefinitions="*,*,*,*,3*" RowSpacing="15" ColumnSpacing="15" Margin="15">
+        <Grid  ColumnDefinitions="0.7*,*" VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.Column="0" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="15" ColumnSpacing="15" Margin="25">
 
-                <Border Grid.Row="0"  Grid.ColumnSpan="2" Background="{StaticResource Selection}"  StrokeShape="RoundRectangle 15,15,0,0">
-                    <VerticalStackLayout >
-                        <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Тема письма</Label>
-                        <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="Тема"></Label>
+            <Border Grid.Row="0"  Grid.ColumnSpan="2" Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="120" StrokeShape="RoundRectangle 15,15,0,0">
+                <VerticalStackLayout VerticalOptions="Center" >
+                    <Label FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Тема письма</Label>
+                    <Label   FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="{Binding SelectedMail.Mail.Theme}"></Label>
                     </VerticalStackLayout>
                 </Border>
 
-                <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource Selection}">
-                    <VerticalStackLayout >
-                        <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Дата поступления</Label>
-                        <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="11.11.2023 16:00"></Label>
+            <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="110">
+                <VerticalStackLayout VerticalOptions="Center" >
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Дата поступления</Label>
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="{Binding SelectedMail.Mail.DateInput,StringFormat='{0:dd.MM.yyyy}'}"></Label>
                     </VerticalStackLayout>
                 </Border>
 
-                <Border Grid.Row="1" Grid.Column="1"  Background="{StaticResource Selection}">
-                    <VerticalStackLayout >
-                        <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Дата отправки письма</Label>
-                        <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="10.10.2023 17:00"></Label>
+            <Border Grid.Row="1" Grid.Column="1"  Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="110">
+                <VerticalStackLayout  VerticalOptions="Center" >
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Дата отправки ответа</Label>
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="10.10.2023 17:00"></Label>
                     </VerticalStackLayout>
                 </Border>
 
-                <Border Grid.Row="2" Grid.Column="0" Background="{StaticResource Selection}">
-                    <VerticalStackLayout >
-                        <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Номер входящий</Label>
-                        <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="1014"></Label>
+            <Border Grid.Row="2" Grid.Column="0" Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="110">
+                <VerticalStackLayout VerticalOptions="Center" >
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Номер входящий</Label>
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="{Binding SelectedMail.Mail.Number}"></Label>
                     </VerticalStackLayout>
                 </Border>
 
-                <Border Grid.Row="2" Grid.Column="1"  Background="{StaticResource Selection}">
-                    <VerticalStackLayout >
-                        <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Номер исходящий</Label>
-                        <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="01-23-И"></Label>
+            <Border Grid.Row="2" Grid.Column="1"  Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="110">
+                <VerticalStackLayout VerticalOptions="Center" >
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Номер исходящий</Label>
+                    <Label FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="---"></Label>
                     </VerticalStackLayout>
                 </Border>
 
-                <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource Selection}">
-                    <VerticalStackLayout >
-                        <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">От кого</Label>
-                        <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="ОАО ЕИИ"></Label>
+            <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="110">
+                <VerticalStackLayout VerticalOptions="Center" > 
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">От кого</Label>
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="{Binding SelectedMail.Mail.Sender.Name}"></Label>
                     </VerticalStackLayout>
                 </Border>
 
-                <Border Grid.Row="3" Grid.Column="1"  Background="{StaticResource Selection}">
-                    <VerticalStackLayout >
-                        <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Получатель письма</Label>
-                        <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="Иванов А.А."></Label>
+            <Border Grid.Row="3" Grid.Column="1"  Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="110">
+                <VerticalStackLayout VerticalOptions="Center" >
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Получатель письма</Label>
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="---"></Label>
                     </VerticalStackLayout>
                 </Border>
 
 
-                <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource Selection}" StrokeShape="RoundRectangle 0,0,15,15">
-                    <VerticalStackLayout >
-                        <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Текст письма</Label>
-                        <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="Прошу провести совещание в формате ВКС 24.04.23 в 10:00 по теме “Как написать диплом” Прошу провести совещание в формате ВКС 24.04.23 в 10:00 по теме “Как написать диплом”"></Label>
+            <Border MaximumHeightRequest="300" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource Selection}" StrokeShape="RoundRectangle 0,0,15,15">
+                <VerticalStackLayout VerticalOptions="Center" MinimumHeightRequest="300">
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Текст письма</Label>
+                    <Label  FontSize="20"  TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="{Binding SelectedMail.Mail.Text}"></Label>
                     </VerticalStackLayout>
                 </Border>
 
@@ -112,17 +113,51 @@
 
             <Button Grid.Row="1" HeightRequest="30" Grid.Column="1" VerticalOptions="Start" Text="Перейти к ответу" BorderColor="{StaticResource ButtonBorderColor}" BorderWidth="2" Background="{StaticResource Background}" CornerRadius="8"></Button>
 
-            <Border Grid.Row="2"  Grid.ColumnSpan="2" Background="{StaticResource Selection}" >
-                <VerticalStackLayout >
-                    <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Резолюция на письмо</Label>
-                    <Label Margin="20,5,20,10" FontSize="20" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="Срочно"></Label>
-                </VerticalStackLayout>
-            </Border>
+           
 
             <Border Grid.Row="3"  Grid.ColumnSpan="2" Background="{StaticResource Selection}" >
                 <VerticalStackLayout >
-                    <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Дерево распределения</Label>
-                    <t:TreeView></t:TreeView>
+                    <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource Secondary}">Дерево распределения</Label>
+                    <material:TreeView Spacing="15" Padding="0" ItemsSource="{Binding DistributionTreeSource}" IsExpandedPropertyName="IsExpanded" Margin="10">
+                        <material:TreeView.ItemTemplate>
+                            <DataTemplate>
+                                <HorizontalStackLayout>
+                                    <Label Margin="0" Padding="0"  Text="{Binding Name}" FontSize="18" VerticalOptions="Center" VerticalTextAlignment="Center">
+                                        <FlyoutBase.ContextFlyout>
+                                            <MenuFlyout>
+                                                <MenuFlyoutItem Text="Black"
+                          
+                           CommandParameter="Black" />
+                                                <MenuFlyoutSubItem Text="Light">
+                                                    <MenuFlyoutItem Text="Blue"
+                          
+                               CommandParameter="LightBlue" />
+                                                    <MenuFlyoutItem Text="Coral"
+                             
+                               CommandParameter="LightCoral" />
+                                                    <MenuFlyoutItem Text="Cyan"
+                            
+                               CommandParameter="LightCyan" />
+                                                </MenuFlyoutSubItem>
+                                                <MenuFlyoutSubItem Text="Dark">
+                                                    <MenuFlyoutItem Text="Blue"
+                           
+                               CommandParameter="DarkBlue" />
+                                                    <MenuFlyoutItem Text="Cyan"
+                             
+                               CommandParameter="DarkCyan" />
+                                                    <MenuFlyoutItem Text="Magenta"
+                            
+                               CommandParameter="DarkMagenta" />
+                                                </MenuFlyoutSubItem>
+                                            </MenuFlyout>
+                                        </FlyoutBase.ContextFlyout>
+                                    </Label>
+                                </HorizontalStackLayout>
+                             
+                            </DataTemplate>
+                        </material:TreeView.ItemTemplate>
+                    </material:TreeView>
                 </VerticalStackLayout>
             </Border>
 
