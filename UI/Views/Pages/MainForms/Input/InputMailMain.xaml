@@ -7,8 +7,11 @@
              BackgroundColor="{StaticResource Background}"
              xmlns:controls="clr-namespace:UraniumUI.Material.Controls;assembly=UraniumUI.Material"
               xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
+                 xmlns:converters="clr-namespace:UI.Converters"
              xmlns:components="using:UI.Views.Components">
- 
+    <ContentPage.Resources>
+        <converters:StringToColorConverter x:Key="StringToColorConverter"/>
+    </ContentPage.Resources>
     <Grid RowDefinitions="60,*" ColumnDefinitions="2*,1*">
         <input:InputMailHeader Grid.ColumnSpan="2"/>
 
@@ -16,7 +19,7 @@
 
         <!--Главная таблица писем-->
 
-        <ScrollView VerticalScrollBarVisibility="Always" Grid.Column="0" Grid.Row="1" VerticalOptions="Fill">
+        <ScrollView VerticalScrollBarVisibility="Always" HorizontalScrollBarVisibility="Always" Grid.Column="0" Grid.Row="1" VerticalOptions="Fill">
             <!--<controls:DataGrid  ItemsSource="{Binding ListSourceMail}" UseAutoColumns="False">
                 <controls:DataGrid.Columns>
                     <controls:DataGridColumn Binding="{Binding Number}" Title="Номер письма"/>
@@ -29,6 +32,7 @@
                 </controls:DataGrid.Columns>
             </controls:DataGrid>-->
 
+            <!--Todo: добавить Срок ответа и цветовую градацию-->
             <dg:DataGrid 
                 x:Name="dgMails"
                 ItemsSource="{Binding ListSourceMail}" 
@@ -37,6 +41,7 @@
                          HeaderBordersVisible="False"
                          BorderColor="{StaticResource Selection}"
                          SelectedItem="{Binding SelectedMail}"
+                MinimumWidthRequest="1000"
                 ItemSelected="dgMails_ItemSelected"
                 HeaderHeight="70"
                          RowHeight="50"
@@ -76,7 +81,7 @@
                         </dg:DataGridColumn.FormattedTitle>
                         <dg:DataGridColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Text="{Binding Mail.Project.Name}" Margin="5" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding Mail.Project.Name}" Margin="5" TextColor="{Binding Mail.Project.Color,Converter={StaticResource StringToColorConverter}}" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
                             </DataTemplate>
                         </dg:DataGridColumn.CellTemplate>
                     </dg:DataGridColumn>
@@ -131,7 +136,7 @@
                     <dg:DataGridColumn Title="" Width="60">
                         <dg:DataGridColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Text="->" IsVisible="{Binding IsSelected}"  Margin="5,0,0,0" FontSize="14" Padding="0" WidthRequest="60" />
+                                <Button Text="->" IsVisible="{Binding IsSelected}" Clicked="Button_Clicked_1"  Margin="5,0,0,0" FontSize="14" Padding="0" WidthRequest="60" />
                             </DataTemplate>
                         </dg:DataGridColumn.CellTemplate>
                     </dg:DataGridColumn>
