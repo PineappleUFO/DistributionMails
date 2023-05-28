@@ -14,7 +14,7 @@ public class UserRepository : IUserRepository
     {
         if (!new PostgresGenerateConnection().TryCreateConnection(login, password)) return null;
 
-        await Task.Delay(2000, cancellationToken);
+    
         //если по какой то причине строка подключения пустая
         if (string.IsNullOrWhiteSpace(PostgresConnectionString.ConnectionString))
             throw new Exception("Не задана строка подключения");
