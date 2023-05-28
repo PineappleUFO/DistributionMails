@@ -21,6 +21,10 @@ public partial class LoginViewModel
     /// Пароль
     /// </summary>
     [ObservableProperty] public string password="zakharovdb";
+    
+    /// <summary>
+    /// Идет ли операция обращения к бд
+    /// </summary>
     [ObservableProperty] public bool isBusy;
 
     private readonly IMessenger _messenger;

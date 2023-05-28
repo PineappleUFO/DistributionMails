@@ -3,39 +3,63 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:login="clr-namespace:UI.Views.Pages.Login"
              xmlns:converters="clr-namespace:UI.Converters"
-             x:Class="UI.Views.Pages.Login.LoginPage">
+             x:Class="UI.Views.Pages.Login.LoginPage"
+             Background="{StaticResource Background}">
     <ContentPage.Resources>
         <converters:InvertedBooleanConverter x:Key="InvertedBooleanConverter"/>
     </ContentPage.Resources>
     <Grid RowDefinitions="60,*">
-        <login:LoginHeader Grid.Row="0" />
 
 
-        <!-- todo:Сделать картинку на задний фон + glassomorphism -->
-            <Frame 
+        <Image  Grid.Row="1" Source="wickedbackground.png" Aspect="AspectFill" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"></Image>
+
+        <Frame 
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
                 Grid.Row="1"
+                WidthRequest="450"
                 BackgroundColor="{StaticResource Selection}"
                 CornerRadius="10"
-                Padding="35">
-                <StackLayout>
+                Padding="45">
+                <StackLayout >
                     <Label 
                         Text="Введите логин и пароль"
-                        FontSize="18"
-                        FontAttributes="Bold" />
+                        FontSize="20"
+                        FontAttributes="Bold" Margin="0,5,0,5" />
                     
                     <BoxView 
                         Color="{StaticResource Secondary}"
                         HeightRequest="2"
                         HorizontalOptions="Fill" Margin="0,3" />
 
-                    <Entry IsEnabled="{Binding IsBusy,Converter={StaticResource InvertedBooleanConverter}}" Margin="0,5" Placeholder="Логин" IsTextPredictionEnabled="False" Text="{Binding Login}"/>
-                    <Entry IsEnabled="{Binding IsBusy,Converter={StaticResource InvertedBooleanConverter}}" Margin="0,5" Placeholder="Пароль" IsTextPredictionEnabled="False" IsPassword="True" Text="{Binding Password}"/>
+                <Entry FontSize="18" IsEnabled="{Binding IsBusy,Converter={StaticResource InvertedBooleanConverter}}" Margin="0,10" Placeholder="Логин" IsTextPredictionEnabled="False" Text="{Binding Login}"/>
+                <Entry FontSize="18" IsEnabled="{Binding IsBusy,Converter={StaticResource InvertedBooleanConverter}}" Margin="0,10" Placeholder="Пароль" IsTextPredictionEnabled="False" IsPassword="True" Text="{Binding Password}"/>
                     
-                    <!-- todo:Сделать isEnabled после ввода логина и пароля -->
-                <Button IsEnabled="{Binding IsBusy,Converter={StaticResource InvertedBooleanConverter}}" Margin="0,5" Text="Вход" Background="{StaticResource Secondary}" FontFamily="RobotoSlab" TextColor="{StaticResource Selection}" FontAttributes="Bold" Command="{Binding TryLoginCommand}"></Button>
-                  <ActivityIndicator IsRunning="{Binding IsBusy,Mode=OneWay}"/>
+                <Button IsEnabled="{Binding IsBusy,Converter={StaticResource InvertedBooleanConverter}}" Margin="0,15" Text="Вход" BorderColor="{StaticResource Secondary}" FontFamily="RobotoSlab" TextColor="White" FontAttributes="Bold" Command="{Binding TryLoginCommand}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale"
+                            Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale"
+                            Value="0.95" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="Background"
+                            Value="{StaticResource Secondary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </Button>
+                <ActivityIndicator  Color="{StaticResource Secondary}"  IsRunning="{Binding IsBusy,Mode=OneWay}"/>
                 </StackLayout>
             </Frame>
 
