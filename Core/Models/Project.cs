@@ -1,10 +1,10 @@
-﻿using System.Drawing;
+﻿
 
 namespace Core.Models;
 
 public class Project:Entity
 {
-    public Project(int id, string name, Color color) : base(id)
+    public Project(int id, string name, string color) : base(id)
     {
         Id = id;
         Name = name;
@@ -16,6 +16,6 @@ public class Project:Entity
         
     }
     public string Name { get; set; }
-    public Color Color { get; set; }
+    public string Color { get; set; }
     
 }
