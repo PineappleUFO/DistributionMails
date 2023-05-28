@@ -88,10 +88,10 @@ public class MailRepository : IMailRepository
                 {
                     
                     //Получаем цвет проекта, если есть
-                    Color colorProject = default;
+                    string colorProject = default;
                     if (reader["project_color"] != DBNull.Value)
                     {
-                        colorProject = ColorTranslator.FromHtml($"#{reader["project_color"].ToString()}");
+                        colorProject = $"#{reader["project_color"].ToString()}";
                     }
                     
                     project = new Project(reader.GetInt32(7), reader.GetString(8), colorProject);
