@@ -12,13 +12,13 @@
         public static List<FileInfo> GetAllPdfInFolder(this DirectoryInfo folder)
         {
             var list = new List<FileInfo>();
-            foreach (FileInfo file in folder.GetFiles())
-            {
-                if (file.Extension.Equals(".pdf", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    list.Add(file);
-                }
-            }
+            //foreach (FileInfo file in folder.GetFiles())
+            //{
+            //    if (file.Extension.Equals(".pdf", StringComparison.CurrentCultureIgnoreCase))
+            //    {
+            //        list.Add(file);
+            //    }
+            //}
             return list;
         }
 

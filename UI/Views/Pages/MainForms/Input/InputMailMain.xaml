@@ -4,13 +4,149 @@
              x:Class="UI.Views.Pages.MainForms.Input.InputMailMain"
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.PdfViewer;assembly=Syncfusion.Maui.PdfViewer"
              xmlns:input="clr-namespace:UI.Views.Pages.MainForms.Input"
+             BackgroundColor="{StaticResource Background}"
+             xmlns:controls="clr-namespace:UraniumUI.Material.Controls;assembly=UraniumUI.Material"
+              xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
              xmlns:components="using:UI.Views.Components">
  
     <Grid RowDefinitions="60,*" ColumnDefinitions="2*,1*">
         <input:InputMailHeader Grid.ColumnSpan="2"/>
 
+
+
         <!--Главная таблица писем-->
-        <ListView Grid.Column="0" Grid.Row="1" 
+
+        <ScrollView VerticalScrollBarVisibility="Always" Grid.Column="0" Grid.Row="1" VerticalOptions="Fill">
+            <!--<controls:DataGrid  ItemsSource="{Binding ListSourceMail}" UseAutoColumns="False">
+                <controls:DataGrid.Columns>
+                    <controls:DataGridColumn Binding="{Binding Number}" Title="Номер письма"/>
+                    <controls:DataGridColumn Binding="{Binding DateInput,StringFormat='{0:dd MMM, yyyy}'}" Title="Дата поступления"/>
+                    <controls:DataGridColumn Binding="{Binding Project.Name}" Title="Проект"/>
+                    <controls:DataGridColumn Binding="{Binding Sender.Name}" Title="Отправитель"/>
+                    <controls:DataGridColumn Binding="{Binding Theme}" Title="Тема"/>
+                    <controls:DataGridColumn Binding="{Binding NumberOut}" Title="Номер ответа"/>
+                    <controls:DataGridColumn Binding="{Binding DateOut,StringFormat='{0:dd MMM, yyyy}'}" Title="Срок ответа"/>
+                </controls:DataGrid.Columns>
+            </controls:DataGrid>-->
+
+            <dg:DataGrid 
+                x:Name="dgMails"
+                ItemsSource="{Binding ListSourceMail}" 
+                         BackgroundColor="{StaticResource Background}"
+                         HeaderBackground="{StaticResource Selection}"
+                         HeaderBordersVisible="False"
+                         BorderColor="{StaticResource Selection}"
+                         SelectedItem="{Binding SelectedMail}"
+                ItemSelected="dgMails_ItemSelected"
+                HeaderHeight="70"
+                         RowHeight="50"
+                         Margin="8"
+                         SelectionEnabled="True" 
+                         ActiveRowColor="{StaticResource Primary}">
+                <dg:DataGrid.Columns>
+                    <dg:DataGridColumn Width="0.7*">
+                        <dg:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="Номер письма" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dg:DataGridColumn.FormattedTitle>
+                        <dg:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding Mail.Number}" Margin="5" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                            </DataTemplate>
+                        </dg:DataGridColumn.CellTemplate>
+                    </dg:DataGridColumn>
+                    <dg:DataGridColumn Width="0.9*">
+                        <dg:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="Дата поступления" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dg:DataGridColumn.FormattedTitle>
+                        <dg:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding Mail.DateInput,StringFormat='{0:dd MMM, yyyy}'}" Margin="5"  TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                            </DataTemplate>
+                        </dg:DataGridColumn.CellTemplate>
+                    </dg:DataGridColumn>
+                    <dg:DataGridColumn  Width="0.9*">
+                        <dg:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="Проект" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dg:DataGridColumn.FormattedTitle>
+                        <dg:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding Mail.Project.Name}" Margin="5" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                            </DataTemplate>
+                        </dg:DataGridColumn.CellTemplate>
+                    </dg:DataGridColumn>
+                    <dg:DataGridColumn  Width="1.5*" >
+                        <dg:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="Отправитель" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dg:DataGridColumn.FormattedTitle>
+                        <dg:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding Mail.Sender.Name}" Margin="5" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                            </DataTemplate>
+                        </dg:DataGridColumn.CellTemplate>
+                    </dg:DataGridColumn>
+                    <dg:DataGridColumn LineBreakMode="CharacterWrap" Width="3*">
+                        <dg:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="Тема" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dg:DataGridColumn.FormattedTitle>
+                        <dg:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding Mail.Theme}" Margin="5" LineBreakMode="CharacterWrap" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                            </DataTemplate>
+                        </dg:DataGridColumn.CellTemplate>
+                    </dg:DataGridColumn>
+                    <dg:DataGridColumn Width="0.6*">
+                        <dg:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="Номер ответа" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dg:DataGridColumn.FormattedTitle>
+                        <dg:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding Mail.NumberOut}" Margin="5" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                            </DataTemplate>
+                        </dg:DataGridColumn.CellTemplate>
+                    </dg:DataGridColumn>
+                    <dg:DataGridColumn Width="0.6*">
+                        <dg:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="Срок ответа" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dg:DataGridColumn.FormattedTitle>
+                        <dg:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding Mail.DateOut}" Margin="5" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                            </DataTemplate>
+                        </dg:DataGridColumn.CellTemplate>
+                    </dg:DataGridColumn>
+                    <dg:DataGridColumn Title="" Width="60">
+                        <dg:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Text="->" IsVisible="{Binding IsSelected}"  Margin="5,0,0,0" FontSize="14" Padding="0" WidthRequest="60" />
+                            </DataTemplate>
+                        </dg:DataGridColumn.CellTemplate>
+                    </dg:DataGridColumn>
+                </dg:DataGrid.Columns>
+
+                <dg:DataGrid.RowsBackgroundColorPalette>
+                    <dg:PaletteCollection>
+                        <Color>#282A36</Color>
+                    
+                    </dg:PaletteCollection>
+                </dg:DataGrid.RowsBackgroundColorPalette>
+            </dg:DataGrid>
+        </ScrollView>
+       
+        <!--<ListView Grid.Column="0" Grid.Row="1" 
                   HorizontalOptions="FillAndExpand" 
                   SelectedItem="{Binding SelectedMail,Mode=TwoWay}"
                   VerticalOptions="FillAndExpand" 
@@ -23,26 +159,26 @@
                   ItemTapped="ListView_OnItemTapped"
                  
         >
-            <!--todo:доделать сортировку-->
+            --><!--todo:доделать сортировку--><!--
             <ListView.Header>
                 <Grid ColumnDefinitions="*,*,*,*,*,*,*">
-                    <Label FontSize="18"  Text="Номер письма" Grid.Column="0"/>
-                    <Label FontSize="18"  Text="Дата поступления" Grid.Column="1"/>
-                    <Label FontSize="18"  Text="Проект" Grid.Column="2"/>
-                    <Label FontSize="18"  Text="Отправитель" Grid.Column="3"/>
-                    <Label FontSize="18"  Text="Тема" Grid.Column="4"/>
-                    <Label FontSize="18"  Text="Номер ответа" Grid.Column="5"/>
-                    <Label FontSize="18"  Text="Срок ответа" Grid.Column="6"/>
+                    <Label Margin="0,0,10,0" FontSize="18"  Text="Номер письма" Grid.Column="0"/>
+                    <Label Margin="0,0,10,0" FontSize="18"  Text="Дата поступления" Grid.Column="1"/>
+                    <Label Margin="0,0,10,0" FontSize="18"  Text="Проект" Grid.Column="2"/>
+                    <Label Margin="0,0,10,0" FontSize="18"  Text="Отправитель" Grid.Column="3"/>
+                    <Label Margin="0,0,10,0" FontSize="18"  Text="Тема" Grid.Column="4"/>
+                    <Label Margin="0,0,10,0" FontSize="18"  Text="Номер ответа" Grid.Column="5"/>
+                    <Label Margin="0,0,10,0" FontSize="18"  Text="Срок ответа" Grid.Column="6"/>
                 </Grid>
             </ListView.Header>
                <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                     <Grid ColumnDefinitions="*,*,*,*,*,*,*">
-                        <Label FontSize="18" Text="{Binding NumberOut}" Grid.Column="0"/>
+                        <Label FontSize="18" Text="{Binding Number}" Grid.Column="0"/>
                             <Label FontSize="18"  Text="{Binding DateInput,StringFormat='{0:dd MMM, yyyy}'}" Grid.Column="1"/>
-                            <Label FontSize="18" Text="{Binding Project}" Grid.Column="2"/>
-                            <Label FontSize="18"  Text="{Binding Sender}" Grid.Column="3"/>
+                            <Label FontSize="18" Text="{Binding Project.Name}" Grid.Column="2"/>
+                            <Label FontSize="18"  Text="{Binding Sender.Name}" Grid.Column="3"/>
                             <Label FontSize="18"  Text="{Binding Theme}" Grid.Column="4"/>
                             <Label FontSize="18"  Text="{Binding NumberOut}" Grid.Column="5"/>
                             <Label FontSize="18"  Text="{Binding DateOut,StringFormat='{0:dd MMM, yyyy}'}" Grid.Column="6"/>
@@ -50,7 +186,7 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>
+        </ListView>-->
 
 
         <Grid Grid.Column="1" Grid.Row="1" RowDefinitions="*,60" VerticalOptions="FillAndExpand">
