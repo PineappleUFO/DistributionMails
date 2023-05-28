@@ -8,9 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using Core.Models;
+using EF.Repositories;
 using UI.Views.Pages.Message;
 using UI.Extenstions;
 using Microsoft.Maui.ApplicationModel.Communication;
+using PostgresRepository.Interfaces;
+using UI.Helpers;
 
 namespace UI.Views.Pages.MainForms.Input
 {
@@ -20,12 +23,12 @@ namespace UI.Views.Pages.MainForms.Input
         /// <summary>
         /// Коллекция писем
         /// </summary>
-        [ObservableProperty] public ObservableCollection<MailModel> listSourceMail;
+        [ObservableProperty] public ObservableCollection<MailWrapper> listSourceMail;
 
         /// <summary>
         /// Текущее выбранное письмо
         /// </summary>
-        [ObservableProperty] public MailModel selectedMail;
+        [ObservableProperty] public MailWrapper selectedMail;
 
         /// <summary>
         /// Поток для предпросмоторщика вложений
@@ -50,13 +53,15 @@ namespace UI.Views.Pages.MainForms.Input
         /// </summary>
         /// <param name="mail">Модель письма</param>
         [RelayCommand]
-        public async void OpenMail(MailModel mail)
+        public async void OpenMail(object mail)
         {
             await Shell.Current.GoToAsync($"{nameof(MessageView)}", new Dictionary<string, object>()
             {
                 ["SelectedMail"] = mail
             });
         }
+
+     
 
         /// <summary>
         /// Комманда открытия выбранного пользователем вложения
@@ -67,18 +72,18 @@ namespace UI.Views.Pages.MainForms.Input
             CurrentFilePath = filePath.ToString();
         }
 
-        partial void OnSelectedMailChanged(MailModel value)
+        partial void OnSelectedMailChanged(MailWrapper value)
         {
-            if (value == null) return;
-            var pdfFiles = value.PathFolder.GetAllPdfInFolder();
-            CurrentFilePath = null;
-            //todo: Если нет файлов то показываем плашку
-            if (pdfFiles.Count > 0)
-            {
-                CurrentFiles = pdfFiles.Select(a => a.FullName).ToList();
-                CurrentFilePath = pdfFiles[0].FullName;
-                OnPropertyChanged(nameof(CurrentFilePath));
-            }
+         //   if (value == null) return;
+         ////   var pdfFiles = value.PathFolder.GetAllPdfInFolder();
+         //   CurrentFilePath = null;
+         //   //todo: Если нет файлов то показываем плашку
+         //   if (pdfFiles.Count > 0)
+         //   {
+         //       CurrentFiles = pdfFiles.Select(a => a.FullName).ToList();
+         //       CurrentFilePath = pdfFiles[0].FullName;
+         //       OnPropertyChanged(nameof(CurrentFilePath));
+         //   }
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -89,29 +94,23 @@ namespace UI.Views.Pages.MainForms.Input
 
         public InputMailMainViewModel()
         {
-            listSourceMail = new ObservableCollection<MailModel>();
+            listSourceMail = new ObservableCollection<MailWrapper>();
 
 
-            for (int i = 0; i < 5; i++)
+            //todo: поменять на сервисы
+            var mailsRep = ServiceHelper.GetService<MailRepository>();
+            
+
+            LoadCollection(mailsRep);
+        }
+
+        private async void LoadCollection(IMailRepository repository)
+        {
+            var mails = await repository.GetAllMails();
+            foreach (Mail mail in mails)
             {
-                var m = new MailModel()
-                {
-                    DateInput = DateTime.Now.AddDays(-4),
-                    DateOut = DateTime.Now.AddDays(-2),
-                    NumberMail = "1001",
-                    NumberOut = "10-0",
-                    Project = "project",
-                    Sender = "sender",
-                    Theme = "trheme",
-                    IdMail = i,
-                    PathFolder = new DirectoryInfo(@"C:\Диплом\Test")
-                };
-                listSourceMail.Add(m);
+                ListSourceMail.Add(new MailWrapper() { Mail = mail,IsSelected=false});
             }
-
-            SelectedMail = ListSourceMail[0];
-
-            var c = CurrentUser;
         }
     }
 }

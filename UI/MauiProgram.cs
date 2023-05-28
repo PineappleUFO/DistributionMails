@@ -44,6 +44,7 @@ namespace UI
             builder.Services.AddSingleton<PositionRepository>();
             builder.Services.AddSingleton<DepRepository>();
             builder.Services.AddSingleton<UserRepository>();
+            builder.Services.AddSingleton<MailRepository>();
             
             //Messenger
             builder.Services.AddSingleton<IMessenger>(new StrongReferenceMessenger());
