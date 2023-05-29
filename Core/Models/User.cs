@@ -13,6 +13,8 @@ public class User:Entity
 
     public string Inicials { get; set; }
 
+    public string FullName { get => $"{Family} {Inicials}"; }
+
     public User()
     {
         
