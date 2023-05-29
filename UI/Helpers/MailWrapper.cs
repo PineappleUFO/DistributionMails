@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace UI.Helpers
 {
     /// <summary>
-    /// Обертка Mail в ObservableObject и добавления отслежиемого свойства
+    /// Обертка Mail в ObservableObject и добавления отслеживаемого свойства
     /// </summary>
     public partial class MailWrapper:ObservableObject
     {
