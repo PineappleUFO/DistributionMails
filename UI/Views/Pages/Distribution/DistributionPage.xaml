@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dataGrid="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
              x:Class="UI.Views.Pages.Distribution.DistributionPage"
+             Shell.NavBarIsVisible="False"
+           
              Background="{StaticResource Background}"
+             
              >
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False"></BackButtonBehavior>
+    </Shell.BackButtonBehavior>
     <Grid RowDefinitions="60,*" ColumnDefinitions="*,*" ColumnSpacing="5">
         <!--Шапка-->
         <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource Primary}">
@@ -58,49 +65,123 @@
         </Border>
      
         <!--Левая часть-->
-        <ListView Grid.Column="0" 
-                  Grid.Row="1" 
-                  HorizontalOptions="FillAndExpand" 
-                  VerticalOptions="FillAndExpand" 
-                  SelectionMode="Single"
-                  SeparatorVisibility="Default"
-                  SeparatorColor="Gray"
-                  Margin="15">
-            <ListView.Header>
-                <Grid ColumnDefinitions="*,*,*,*,*,*">
-                    <Label Text="Выбрать" Grid.Column="0"/>
-                    <Label Text="ФИО" Grid.Column="1"/>
-                    <Label Text="Срок индивидуальный" Grid.Column="2"/>
-                    <Label Text="Резолюция" Grid.Column="3"/>
-                    <Label Text="*Ответственный" Grid.Column="4"/>
-                    <Label Text="$Отвечающий" Grid.Column="5"/>
-                </Grid>
-            </ListView.Header>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid ColumnDefinitions="*,*,*,*,*,*">
-                            <CheckBox  Grid.Column="0"/>
-                            <Label Grid.Column="1"/>
-                            <DatePicker  Grid.Column="2"/>
-                            <HorizontalStackLayout>
-                                <Button Text="Rez"/>
-                                <Entry></Entry>
-                            </HorizontalStackLayout>
-                            <CheckBox  Grid.Column="4"/>
-                            <CheckBox Grid.Column="5"/>
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <ScrollView VerticalScrollBarVisibility="Always" HorizontalScrollBarVisibility="Always" Grid.Column="0" Grid.Row="1" VerticalOptions="Fill">
+            <dataGrid:DataGrid 
+                RefreshingEnabled="True"
+                IsRefreshing="{Binding IsBusy}"
+                x:Name="dgUsers"
+                ItemSelected="dgUsers_ItemSelected"
+                ItemsSource="{Binding UserSource}" 
+                         BackgroundColor="{StaticResource Background}"
+                         HeaderBackground="{StaticResource Selection}"
+                         HeaderBordersVisible="False"
+                         BorderColor="{StaticResource Selection}"
+                         SelectedItem="{Binding SelectedUser}"
+                
+                
+                HeaderHeight="70"
+                         RowHeight="50"
+                         Margin="8"
+                         SelectionEnabled="True" 
+                         ActiveRowColor="{StaticResource Primary}">
+                <dataGrid:DataGrid.Columns>
+                
+                    <dataGrid:DataGridColumn Width="45">
+                        <dataGrid:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dataGrid:DataGridColumn.FormattedTitle>
+                        <dataGrid:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsVisible="{Binding IsSelected}" IsChecked="{Binding IsChecked}" CheckedChanged="CheckBox_CheckedChanged" Margin="5" VerticalOptions="Center"></CheckBox>
+                            </DataTemplate>
+                        </dataGrid:DataGridColumn.CellTemplate>
+                    </dataGrid:DataGridColumn>
+               
+                    <dataGrid:DataGridColumn Width="0.6*">
+                        <dataGrid:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="ФИО" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dataGrid:DataGridColumn.FormattedTitle>
+                        <dataGrid:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding User.FullName}" Margin="5"  TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                            </DataTemplate>
+                        </dataGrid:DataGridColumn.CellTemplate>
+                    </dataGrid:DataGridColumn>
+
+                    <dataGrid:DataGridColumn  Width="0.6*">
+                        <dataGrid:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="Срок индивидуальный" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dataGrid:DataGridColumn.FormattedTitle>
+                        <dataGrid:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <DatePicker HorizontalOptions="FillAndExpand" Margin="5" Date="{Binding Deadline}" FontSize="14" VerticalOptions="Center"></DatePicker>
+                            </DataTemplate>
+                        </dataGrid:DataGridColumn.CellTemplate>
+                    </dataGrid:DataGridColumn>
+
+                    <dataGrid:DataGridColumn  Width="1*" >
+                        <dataGrid:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="Резолюция" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dataGrid:DataGridColumn.FormattedTitle>
+                        <dataGrid:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Entry Margin="5" Text="{Binding Resolution}" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Entry>
+                            </DataTemplate>
+                        </dataGrid:DataGridColumn.CellTemplate>
+                    </dataGrid:DataGridColumn>
+                   
+                    <dataGrid:DataGridColumn LineBreakMode="CharacterWrap" Width="100">
+                        <dataGrid:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="*Ответственный" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dataGrid:DataGridColumn.FormattedTitle>
+                        <dataGrid:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsResponsible}"  Margin="5" VerticalOptions="Center"></CheckBox>
+                            </DataTemplate>
+                        </dataGrid:DataGridColumn.CellTemplate>
+                    </dataGrid:DataGridColumn>
+                   
+                    <dataGrid:DataGridColumn Width="100">
+                        <dataGrid:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="$Отвечающий"  TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dataGrid:DataGridColumn.FormattedTitle>
+                        <dataGrid:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Margin="5" IsChecked="{Binding IsReplying}" VerticalOptions="Center"></CheckBox>
+                            </DataTemplate>
+                        </dataGrid:DataGridColumn.CellTemplate>
+                    </dataGrid:DataGridColumn>
+                    
+                </dataGrid:DataGrid.Columns>
+
+                <dataGrid:DataGrid.RowsBackgroundColorPalette>
+                    <dataGrid:PaletteCollection>
+                        <Color>#282A36</Color>
+                    
+                    </dataGrid:PaletteCollection>
+                </dataGrid:DataGrid.RowsBackgroundColorPalette>
+            </dataGrid:DataGrid>
+        </ScrollView>
         
         <!--Правая часть-->
         <Border Stroke="{StaticResource Primary}" StrokeThickness="1" Grid.Column="1" Grid.Row="1" Margin="5">
-            <Grid RowDefinitions="*,*,*">
+            <Grid RowDefinitions="0.6*,2*,*">
                 <!--Данные-->
-                <Grid ColumnDefinitions="*,2*" VerticalOptions="Start" Margin="5">
-                    <Border HeightRequest="120" WidthRequest="120" Background="gray">
+                <Grid ColumnDefinitions="*,*" HorizontalOptions="Center" VerticalOptions="Center" Margin="5">
+                   
+                    <Border HeightRequest="120" Margin="5" WidthRequest="120" Background="gray">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="500" />
                         </Border.StrokeShape>
@@ -109,33 +190,120 @@
 
                     <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Start" Grid.Row="0" Grid.Column="1" WidthRequest="300">
                         <FlexLayout JustifyContent="SpaceBetween">
-                            <Label>Должность</Label>
-                            <Label>Инженер</Label>
+                            <Label TextColor="{StaticResource Primary}" Text="Должность"/>
+                            <Label Text="{Binding SelectedUser.User.Position.PositionName}"></Label>
                         </FlexLayout>
                         <Border Stroke="Gray" Background="gray" StrokeThickness="1" Margin="5" HeightRequest="1"/>
 
-                        <FlexLayout JustifyContent="SpaceBetween">
-                            <Label>Телефон</Label>
-                            <Label>103</Label>
+                        <FlexLayout Margin="10,0,0,0" JustifyContent="SpaceBetween">
+                            <Label  TextColor="{StaticResource Primary}" Text="Телефон"/>
+                            <Label Text="{Binding SelectedUser.User.Phone}"></Label>
                         </FlexLayout>
-                        <Border Stroke="Gray" Background="gray" StrokeThickness="1" Margin="5" HeightRequest="1"/>
+                        <Border  Stroke="Gray" Background="gray" StrokeThickness="1" Margin="10,5,5,5" HeightRequest="1"/>
 
                         <FlexLayout JustifyContent="SpaceBetween">
-                            <Label>Кол-во писем в работе</Label>
-                            <Label>103</Label>
+                            <Label TextColor="{StaticResource Primary}" Text="Кол-во писем в работе"/>
+                            <Label>---</Label>
                         </FlexLayout>
                         <Border Stroke="Gray" Background="gray" StrokeThickness="1" Margin="5" HeightRequest="1"/>
                     </VerticalStackLayout>
-
                 </Grid>
 
                 <!--Выбранные исполнители-->
-                <Border Grid.Row="1" Stroke="Gray">
+                <Border Grid.Row="1"  StrokeThickness="0">
                     <Grid RowDefinitions="Auto,*">
-                        <Label Text="Выбранные исполнители" HorizontalTextAlignment="Center"></Label>
-                        <CollectionView>
-                            <!-- todo: Доделать item template-->
-                        </CollectionView>
+                        <Label FontSize="18" TextColor="{StaticResource Secondary}" Text="Выбранные исполнители" HorizontalTextAlignment="Center"></Label>
+                        <ScrollView VerticalScrollBarVisibility="Always" HorizontalScrollBarVisibility="Always" Grid.Column="0" Grid.Row="1" VerticalOptions="Fill">
+                            <dataGrid:DataGrid 
+                        RefreshingEnabled="True"
+                        IsRefreshing="{Binding IsBusy}"
+                        ItemsSource="{Binding SelectedUserSource}" 
+                         BackgroundColor="{StaticResource Background}"
+                         HeaderBackground="{StaticResource Selection}"
+                         HeaderBordersVisible="False"
+                         BorderColor="{StaticResource Selection}"
+                         HeaderHeight="70"
+                         RowHeight="50"
+                         Margin="8"
+                         SelectionEnabled="True" 
+                         ActiveRowColor="{StaticResource Primary}">
+                                <dataGrid:DataGrid.Columns>
+
+                                    <dataGrid:DataGridColumn Width="1*">
+                                        <dataGrid:DataGridColumn.FormattedTitle>
+                                            <FormattedString>
+                                                <Span Text="ФИО" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                                            </FormattedString>
+                                        </dataGrid:DataGridColumn.FormattedTitle>
+                                        <dataGrid:DataGridColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Text="{Binding User.FullName}" Margin="5"  TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                                            </DataTemplate>
+                                        </dataGrid:DataGridColumn.CellTemplate>
+                                    </dataGrid:DataGridColumn>
+
+                                    <dataGrid:DataGridColumn  Width="1*">
+                                        <dataGrid:DataGridColumn.FormattedTitle>
+                                            <FormattedString>
+                                                <Span Text="Срок индивидуальный" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                                            </FormattedString>
+                                        </dataGrid:DataGridColumn.FormattedTitle>
+                                        <dataGrid:DataGridColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <DatePicker HorizontalOptions="FillAndExpand" Margin="5" Date="{Binding Deadline}" FontSize="14" VerticalOptions="Center"></DatePicker>
+                                            </DataTemplate>
+                                        </dataGrid:DataGridColumn.CellTemplate>
+                                    </dataGrid:DataGridColumn>
+
+                                    <dataGrid:DataGridColumn  Width="1*" >
+                                        <dataGrid:DataGridColumn.FormattedTitle>
+                                            <FormattedString>
+                                                <Span Text="Резолюция" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                                            </FormattedString>
+                                        </dataGrid:DataGridColumn.FormattedTitle>
+                                        <dataGrid:DataGridColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Entry Margin="5" Text="{Binding Resolution}" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Entry>
+                                            </DataTemplate>
+                                        </dataGrid:DataGridColumn.CellTemplate>
+                                    </dataGrid:DataGridColumn>
+
+                                    <dataGrid:DataGridColumn LineBreakMode="CharacterWrap" Width="100">
+                                        <dataGrid:DataGridColumn.FormattedTitle>
+                                            <FormattedString>
+                                                <Span Text="*Ответственный" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                                            </FormattedString>
+                                        </dataGrid:DataGridColumn.FormattedTitle>
+                                        <dataGrid:DataGridColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsResponsible}"  Margin="5" VerticalOptions="Center"></CheckBox>
+                                            </DataTemplate>
+                                        </dataGrid:DataGridColumn.CellTemplate>
+                                    </dataGrid:DataGridColumn>
+
+                                    <dataGrid:DataGridColumn Width="100">
+                                        <dataGrid:DataGridColumn.FormattedTitle>
+                                            <FormattedString>
+                                                <Span Text="$Отвечающий"  TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                                            </FormattedString>
+                                        </dataGrid:DataGridColumn.FormattedTitle>
+                                        <dataGrid:DataGridColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox Margin="5" IsChecked="{Binding IsReplying}" VerticalOptions="Center"></CheckBox>
+                                            </DataTemplate>
+                                        </dataGrid:DataGridColumn.CellTemplate>
+                                    </dataGrid:DataGridColumn>
+
+                                </dataGrid:DataGrid.Columns>
+
+                                <dataGrid:DataGrid.RowsBackgroundColorPalette>
+                                    <dataGrid:PaletteCollection>
+                                        <Color>#282A36</Color>
+
+                                    </dataGrid:PaletteCollection>
+                                </dataGrid:DataGrid.RowsBackgroundColorPalette>
+                            </dataGrid:DataGrid>
+                        </ScrollView>
                     </Grid>
                 </Border>
 
@@ -143,23 +311,23 @@
                 <Border Grid.Row="2" Stroke="Gray" Background="{StaticResource Selection}">
                     <Grid RowDefinitions="Auto,Auto,Auto,*,Auto" RowSpacing="5" Margin="5">
                         <HorizontalStackLayout >
-                            <CheckBox></CheckBox>
+                            <CheckBox x:Name="cbAll" ></CheckBox>
                             <Label VerticalOptions="Center">Задать обший срок и резолюцию</Label>
                         </HorizontalStackLayout>
 
-                        <HorizontalStackLayout HorizontalOptions="FillAndExpand" Grid.Row="1" Background="{StaticResource Background}" Padding="10">
+                        <HorizontalStackLayout IsVisible="{Binding Source={x:Reference cbAll},Path=IsChecked}" HorizontalOptions="FillAndExpand" Grid.Row="1" Background="{StaticResource Background}" Padding="10">
                             <Button Text="Rez"></Button>
                             <Entry HorizontalOptions="Fill" WidthRequest="300" Placeholder="Резолюция общая"></Entry>
                         </HorizontalStackLayout>
-                        
-                        <VerticalStackLayout  HorizontalOptions="End" Grid.Row="2" Background="{StaticResource Background}" Padding="10">
+
+                        <VerticalStackLayout IsVisible="{Binding Source={x:Reference cbAll},Path=IsChecked}"  HorizontalOptions="End" Grid.Row="2" Background="{StaticResource Background}" Padding="10">
                             <Label VerticalOptions="Center">Срок общий</Label>
                             <DatePicker ></DatePicker>
                         </VerticalStackLayout>
 
                         <HorizontalStackLayout Grid.Row="4" HorizontalOptions="End">
-                            <Button BackgroundColor="LawnGreen" Text="Поручить" WidthRequest="200" Margin="0,0,10,0"></Button>
-                            <Button BackgroundColor="Red" Text="Отменить"></Button>
+                            <Button BackgroundColor="#70FF75" TextColor="{StaticResource Background}" FontAttributes="Bold" Text="Поручить" WidthRequest="200" Margin="0,0,10,0"></Button>
+                            <Button BackgroundColor="#CB3A3A" Command="{Binding CancelCommand}" Text="Отменить"></Button>
                         </HorizontalStackLayout>
                     </Grid>
                 </Border>
