@@ -4,7 +4,7 @@
 ![UnitTest Status](https://github.com/PineappleUFO/DistributionMails/actions/workflows/unit-test.yml/badge.svg)
 ***
 
-### Курсовая работа
+### Дипломная работа
 Автор: *Захаров Д.Б.*  
 Группа: *Z8431*  
 
