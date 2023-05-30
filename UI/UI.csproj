@@ -82,9 +82,6 @@
 	  <MauiXaml Update="Views\Pages\Login\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Pages\MainForms\Input\InputMailHeader.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Views\Pages\MainForms\Input\InputMailMain.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
