@@ -7,30 +7,96 @@
              BackgroundColor="{StaticResource Background}"
              xmlns:controls="clr-namespace:UraniumUI.Material.Controls;assembly=UraniumUI.Material"
               xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
-                 xmlns:converters="clr-namespace:UI.Converters"
+               xmlns:converters="clr-namespace:UI.Converters"
              xmlns:components="using:UI.Views.Components">
     <ContentPage.Resources>
         <converters:StringToColorConverter x:Key="StringToColorConverter"/>
     </ContentPage.Resources>
     <Grid RowDefinitions="60,*" ColumnDefinitions="2*,1*">
-        <input:InputMailHeader Grid.ColumnSpan="2"/>
+        <!--Шапка для формы входящих писем -->
+        <Grid ColumnDefinitions="30,auto,auto,*,auto,auto" 
+          ColumnSpacing="10" 
+          Padding="15,5" Grid.ColumnSpan="2"
+          Background="{StaticResource PrimaryBrush}">
+
+            <Grid.Resources>
+                <!--Стиль для кнопки с иконкой-->
+                <Style TargetType="ImageButton">
+                    <Setter Property="BackgroundColor" Value="Transparent"/>
+                    <Setter Property="BorderColor" Value="Transparent"/>
+                    <Setter Property="BorderWidth" Value="0"/>
+                </Style>
+            </Grid.Resources>
+            <ImageButton BorderWidth="0" Source="{FontImage , FontFamily=FASolid}" Grid.Column="0"/>
+
+            <!--Поиск-->
+            <Border Grid.Column="1" 
+                StrokeThickness="1" Padding="5"
+               BackgroundColor="{StaticResource Background}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="0,10,10,0" />
+                </Border.StrokeShape>
+                <HorizontalStackLayout>
+                    <ImageButton  Source="{FontImage , FontFamily=FASolid,Size=18}" Margin="5,0" Grid.Column="3"/>
+                    <Entry Placeholder="Поиск" 
+                       WidthRequest="150" 
+                       VerticalTextAlignment="Center"
+                       FontFamily="RobotoSlab"
+                       BackgroundColor="Transparent"
+                       ClearButtonVisibility="WhileEditing"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       Margin="2"/>
+                    <Picker VerticalTextAlignment="Center" 
+                        Margin="2" 
+                        BackgroundColor="Transparent"
+                        VerticalOptions="Center">
+                        <Picker.Items>
+                            <x:String>Умный</x:String>
+                            <x:String>По номеру письма</x:String>
+                            <x:String>По проекту</x:String>
+                            <x:String>По отправителю</x:String>
+                            <x:String>По теме</x:String>
+                            <x:String>По дате поступления</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </HorizontalStackLayout>
+            </Border>
+
+            <!--Фильтр-->
+            <HorizontalStackLayout Grid.Column="2">
+                <ImageButton Source="{FontImage , FontFamily=FASolid,Size=18}" Margin="5,0" Grid.Column="4"/>
+                <Picker VerticalTextAlignment="Center" 
+                        Margin="2" 
+                        
+                        BackgroundColor="{StaticResource Background}"
+                        VerticalOptions="Center">
+                    <Picker.Items>
+                        <x:String>Все</x:String>
+                        <x:String>Только с сроком ответа</x:String>
+                    </Picker.Items>
+                </Picker>
+            </HorizontalStackLayout>
+
+            <!--Режимы-->
+            <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="15"  Grid.Column="3" RadioButtonGroup.GroupName="Modes">
+                <!--todo: сделать стили-->
+                <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Архив"/>
+                <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Распределено мне"/>
+                <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Все"/>
+                <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Избранное"/>
+            </HorizontalStackLayout>
+            <!--Поменять иконки на Regular-->
+            <ImageButton Source="{FontImage , FontFamily=FASolid}" Margin="5,0" Grid.Column="4"/>
+            <ImageButton Source="{FontImage , FontFamily=FASolid}" Margin="5,0" Grid.Column="5"/>
+
+        </Grid>
 
 
 
         <!--Главная таблица писем-->
 
         <ScrollView VerticalScrollBarVisibility="Always" HorizontalScrollBarVisibility="Always" Grid.Column="0" Grid.Row="1" VerticalOptions="Fill">
-            <!--<controls:DataGrid  ItemsSource="{Binding ListSourceMail}" UseAutoColumns="False">
-                <controls:DataGrid.Columns>
-                    <controls:DataGridColumn Binding="{Binding Number}" Title="Номер письма"/>
-                    <controls:DataGridColumn Binding="{Binding DateInput,StringFormat='{0:dd MMM, yyyy}'}" Title="Дата поступления"/>
-                    <controls:DataGridColumn Binding="{Binding Project.Name}" Title="Проект"/>
-                    <controls:DataGridColumn Binding="{Binding Sender.Name}" Title="Отправитель"/>
-                    <controls:DataGridColumn Binding="{Binding Theme}" Title="Тема"/>
-                    <controls:DataGridColumn Binding="{Binding NumberOut}" Title="Номер ответа"/>
-                    <controls:DataGridColumn Binding="{Binding DateOut,StringFormat='{0:dd MMM, yyyy}'}" Title="Срок ответа"/>
-                </controls:DataGrid.Columns>
-            </controls:DataGrid>-->
 
             <!--Todo: добавить Срок ответа и цветовую градацию-->
             <dg:DataGrid 
@@ -151,47 +217,6 @@
             </dg:DataGrid>
         </ScrollView>
        
-        <!--<ListView Grid.Column="0" Grid.Row="1" 
-                  HorizontalOptions="FillAndExpand" 
-                  SelectedItem="{Binding SelectedMail,Mode=TwoWay}"
-                  VerticalOptions="FillAndExpand" 
-                  ItemsSource="{Binding ListSourceMail}" 
-                  SelectionMode="Single"
-                 
-                  SeparatorVisibility="None"
-                  SeparatorColor="Gray"
-                  
-                  ItemTapped="ListView_OnItemTapped"
-                 
-        >
-            --><!--todo:доделать сортировку--><!--
-            <ListView.Header>
-                <Grid ColumnDefinitions="*,*,*,*,*,*,*">
-                    <Label Margin="0,0,10,0" FontSize="18"  Text="Номер письма" Grid.Column="0"/>
-                    <Label Margin="0,0,10,0" FontSize="18"  Text="Дата поступления" Grid.Column="1"/>
-                    <Label Margin="0,0,10,0" FontSize="18"  Text="Проект" Grid.Column="2"/>
-                    <Label Margin="0,0,10,0" FontSize="18"  Text="Отправитель" Grid.Column="3"/>
-                    <Label Margin="0,0,10,0" FontSize="18"  Text="Тема" Grid.Column="4"/>
-                    <Label Margin="0,0,10,0" FontSize="18"  Text="Номер ответа" Grid.Column="5"/>
-                    <Label Margin="0,0,10,0" FontSize="18"  Text="Срок ответа" Grid.Column="6"/>
-                </Grid>
-            </ListView.Header>
-               <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                    <Grid ColumnDefinitions="*,*,*,*,*,*,*">
-                        <Label FontSize="18" Text="{Binding Number}" Grid.Column="0"/>
-                            <Label FontSize="18"  Text="{Binding DateInput,StringFormat='{0:dd MMM, yyyy}'}" Grid.Column="1"/>
-                            <Label FontSize="18" Text="{Binding Project.Name}" Grid.Column="2"/>
-                            <Label FontSize="18"  Text="{Binding Sender.Name}" Grid.Column="3"/>
-                            <Label FontSize="18"  Text="{Binding Theme}" Grid.Column="4"/>
-                            <Label FontSize="18"  Text="{Binding NumberOut}" Grid.Column="5"/>
-                            <Label FontSize="18"  Text="{Binding DateOut,StringFormat='{0:dd MMM, yyyy}'}" Grid.Column="6"/>
-                    </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>-->
 
 
         <Grid Grid.Column="1" Grid.Row="1" RowDefinitions="*,60" VerticalOptions="FillAndExpand">
