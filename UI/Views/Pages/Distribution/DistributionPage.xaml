@@ -185,7 +185,7 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="500" />
                         </Border.StrokeShape>
-                        <Image x:Name="imgPhoto"></Image>
+                        <Image x:Name="imgPhoto" Margin="5"></Image>
                     </Border>
 
                     <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Start" Grid.Row="0" Grid.Column="1" WidthRequest="300">
@@ -193,19 +193,20 @@
                             <Label TextColor="{StaticResource Primary}" Text="Должность"/>
                             <Label Text="{Binding SelectedUser.User.Position.PositionName}"></Label>
                         </FlexLayout>
-                        <Border Stroke="Gray" Background="gray" StrokeThickness="1" Margin="5" HeightRequest="1"/>
+                        <BoxView StyleClass="Divider" Margin="5"/>
 
                         <FlexLayout Margin="10,0,0,0" JustifyContent="SpaceBetween">
                             <Label  TextColor="{StaticResource Primary}" Text="Телефон"/>
                             <Label Text="{Binding SelectedUser.User.Phone}"></Label>
                         </FlexLayout>
-                        <Border  Stroke="Gray" Background="gray" StrokeThickness="1" Margin="10,5,5,5" HeightRequest="1"/>
+                        <BoxView StyleClass="Divider"  Margin="10,5,5,5"/>
+
 
                         <FlexLayout JustifyContent="SpaceBetween">
                             <Label TextColor="{StaticResource Primary}" Text="Кол-во писем в работе"/>
                             <Label>---</Label>
                         </FlexLayout>
-                        <Border Stroke="Gray" Background="gray" StrokeThickness="1" Margin="5" HeightRequest="1"/>
+                        <BoxView StyleClass="Divider"  Margin="5"/>
                     </VerticalStackLayout>
                 </Grid>
 

@@ -8,10 +8,42 @@
              xmlns:controls="clr-namespace:UraniumUI.Material.Controls;assembly=UraniumUI.Material"
               xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
                xmlns:converters="clr-namespace:UI.Converters"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:components="using:UI.Views.Components">
+   
     <ContentPage.Resources>
         <converters:StringToColorConverter x:Key="StringToColorConverter"/>
+
+        <DataTemplate x:Key="HeaderTemplate">
+            <Grid Padding="0" RowDefinitions="*,5">
+
+                <Button  Grid.Row="0" Text="{Binding Title}" CornerRadius="0" Command="{Binding Command}" FontSize="18" BorderWidth="0">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsSelected}" Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource SurfaceTint1}" />
+                            <Setter Property="TextColor" Value="{StaticResource Secondary}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsSelected}" Value="False">
+                            <Setter Property="BackgroundColor" Value="Transparent" />
+                            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource OnSurfaceDark}}" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Border Grid.Row="1">
+
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                            <Setter Property="Background" Value="{StaticResource Secondary}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="False">
+                            <Setter Property="Background" Value="Transparent" />
+                        </DataTrigger>
+                    </Border.Triggers>
+                </Border>
+            </Grid>
+        </DataTemplate>
     </ContentPage.Resources>
+    
     <Grid RowDefinitions="60,*" ColumnDefinitions="2*,1*">
         <!--Шапка для формы входящих писем -->
         <Grid ColumnDefinitions="30,auto,auto,*,auto,auto" 
@@ -80,12 +112,51 @@
 
             <!--Режимы-->
             <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="15"  Grid.Column="3" RadioButtonGroup.GroupName="Modes">
+
+                <material:TabView>
+ 
+                    <material:TabItem Title="Архив" HeaderTemplate="{StaticResource HeaderTemplate}">
+                     
+                        <material:TabItem.ContentTemplate>
+                            <DataTemplate>
+                               
+                            </DataTemplate>
+                        </material:TabItem.ContentTemplate>
+                    </material:TabItem>
+
+
+                    <material:TabItem Title="Распределено мне" HeaderTemplate="{StaticResource HeaderTemplate}">
+                        <material:TabItem.ContentTemplate>
+                            <DataTemplate>
+                           
+                            </DataTemplate>
+                        </material:TabItem.ContentTemplate>
+                    </material:TabItem>
+
+                    <material:TabItem Title="Все" HeaderTemplate="{StaticResource HeaderTemplate}">
+                        <material:TabItem.ContentTemplate>
+                            <DataTemplate>
+                               
+                            </DataTemplate>
+                        </material:TabItem.ContentTemplate>
+                    </material:TabItem>
+
+                    <material:TabItem Title="Избранное" HeaderTemplate="{StaticResource HeaderTemplate}">
+                        <material:TabItem.ContentTemplate>
+                            <DataTemplate>
+                              
+                            </DataTemplate>
+                        </material:TabItem.ContentTemplate>
+                    </material:TabItem>
+                </material:TabView>
+
                 <!--todo: сделать стили-->
-                <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Архив"/>
+                <!--<Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Архив"/>
                 <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Распределено мне"/>
                 <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Все"/>
-                <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Избранное"/>
+                <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Избранное"/>-->
             </HorizontalStackLayout>
+            
             <!--Поменять иконки на Regular-->
             <ImageButton Source="{FontImage , FontFamily=FASolid}" Margin="5,0" Grid.Column="4"/>
             <ImageButton Source="{FontImage , FontFamily=FASolid}" Margin="5,0" Grid.Column="5"/>
