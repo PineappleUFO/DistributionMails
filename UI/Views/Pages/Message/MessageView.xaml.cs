@@ -14,4 +14,15 @@ public partial class MessageView : ContentPage
         InitializeComponent();
         BindingContext = ServiceHelper.GetService<MessageViewModel>();
     }
+
+    private void MenuFlyoutItem_Clicked(object sender, EventArgs e)
+    {
+       if(((sender as MenuFlyoutItem).Parent as MenuFlyout).BindingContext is TreeItem treeItem )
+        {
+            if(BindingContext is MessageViewModel viewModel)
+            {
+                viewModel.AddFirstLevelCommand.Execute(treeItem);
+            }
+        }
+    }
 }

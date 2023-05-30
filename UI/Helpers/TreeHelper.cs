@@ -23,6 +23,7 @@ namespace UI.Helpers
                 string RowName = $"{element.User?.Family} {element.User?.Inicials} (Срок до:{element.DeadLine:d};Резолюция:{element.Resolution})";
                 treeItem.TreeElement = element;
                 treeItem.Name = RowName;
+                treeItem.User = element.User;
                 treeItem.Children = GenerateTreeFromDbData(elements, element.Id);
 
                 treeItems.Add(treeItem);

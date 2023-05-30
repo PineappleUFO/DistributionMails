@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Core.Models;
 using EF.Repositories;
 using System.Collections.ObjectModel;
 using UI.Helpers;
@@ -18,6 +19,7 @@ public partial class MessageViewModel : ObservableObject
     [ObservableProperty]
     ObservableCollection<TreeItem> distributionTreeSource = new();
 
+
     /// <summary>
     /// Комманда открытия формы распределения
     /// </summary>
@@ -28,6 +30,17 @@ public partial class MessageViewModel : ObservableObject
          Shell.Current.GoToAsync($"{nameof(DistributionPage)}", new Dictionary<string, object>()
         {
             ["SelectedMail"] = mail
+        });
+    }
+
+    [RelayCommand]
+    public void AddFirstLevel(TreeItem s)
+    {
+        //todo: проверку на распределение 1 уровня только у руководства и огк
+        Shell.Current.GoToAsync($"{nameof(DistributionPage)}", new Dictionary<string, object>()
+        {
+            ["SelectedMail"] = SelectedMail,
+            ["SelectedUserForm"] = s.User
         });
     }
 

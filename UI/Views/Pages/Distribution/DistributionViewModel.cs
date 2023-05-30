@@ -15,8 +15,10 @@ using Microsoft.Maui.ApplicationModel.Communication;
 namespace UI.Views.Pages.Distribution
 {
     [QueryProperty("SelectedMail", "SelectedMail")]
+    [QueryProperty("SelectedUserFrom", "SelectedUserFrom")]
     public partial class DistributionViewModel : ObservableObject
     {
+        [ObservableProperty] public User selectedUserFrom;
         [ObservableProperty] DistributionItem selectedUser;
         [ObservableProperty] public bool isBusy;
         [ObservableProperty] public ObservableCollection<DistributionItem> userSource = new();

@@ -117,38 +117,25 @@
             <Border Grid.Row="3"  Grid.ColumnSpan="2" Background="{StaticResource Selection}" >
                 <VerticalStackLayout >
                     <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource Secondary}">Дерево распределения</Label>
-                    <material:TreeView Spacing="15" Padding="0" ItemsSource="{Binding DistributionTreeSource}" IsExpandedPropertyName="IsExpanded" Margin="10">
+                    <material:TreeView x:Name="diTree" Spacing="15" Padding="0" ItemsSource="{Binding DistributionTreeSource}" IsExpandedPropertyName="IsExpanded" Margin="10">
                         <material:TreeView.ItemTemplate>
                             <DataTemplate>
                                 <HorizontalStackLayout>
+                                    <Label Margin="0" Padding="0" x:Name="lbUserId"  Text="{Binding UserId}" FontSize="18" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
                                     <Label Margin="0" Padding="0"  Text="{Binding Name}" FontSize="18" VerticalOptions="Center" VerticalTextAlignment="Center">
                                         <FlyoutBase.ContextFlyout>
                                             <MenuFlyout>
-                                                <MenuFlyoutItem Text="Black"
-                          
-                           CommandParameter="Black" />
-                                                <MenuFlyoutSubItem Text="Light">
-                                                    <MenuFlyoutItem Text="Blue"
-                          
-                               CommandParameter="LightBlue" />
-                                                    <MenuFlyoutItem Text="Coral"
-                             
-                               CommandParameter="LightCoral" />
-                                                    <MenuFlyoutItem Text="Cyan"
-                            
-                               CommandParameter="LightCyan" />
-                                                </MenuFlyoutSubItem>
-                                                <MenuFlyoutSubItem Text="Dark">
-                                                    <MenuFlyoutItem Text="Blue"
-                           
-                               CommandParameter="DarkBlue" />
-                                                    <MenuFlyoutItem Text="Cyan"
-                             
-                               CommandParameter="DarkCyan" />
-                                                    <MenuFlyoutItem Text="Magenta"
-                            
-                               CommandParameter="DarkMagenta" />
-                                                </MenuFlyoutSubItem>
+                                                <MenuFlyoutItem Text="Добавить нового исполнителя 1 - уровня" Clicked="MenuFlyoutItem_Clicked"   />
+                                                <MenuFlyoutItem Text="Изменить исполнителей" CommandParameter="{Binding}" />
+                                                <MenuFlyoutSeparator/>
+                                                <MenuFlyoutItem Text="Принято" CommandParameter="{Binding}" />
+                                                <MenuFlyoutItem Text="Выполнено" CommandParameter="{Binding}" />
+                                                <MenuFlyoutSeparator/>
+                                                <MenuFlyoutItem Text="Назначить ответсвенным" CommandParameter="{Binding}" />
+                                                <MenuFlyoutItem Text="Назначить отвечающим" CommandParameter="{Binding}" />
+                                                <MenuFlyoutItem Text="Перенести срок ответа исполнителя" CommandParameter="{Binding}" />
+                                                <MenuFlyoutSeparator/>
+                                                <MenuFlyoutItem Text="Удалить исполнителя" CommandParameter="{Binding}" />
                                             </MenuFlyout>
                                         </FlyoutBase.ContextFlyout>
                                     </Label>
@@ -163,7 +150,6 @@
             <Border Grid.Row="4"  Grid.ColumnSpan="2" Background="{StaticResource Selection}" StrokeShape="RoundRectangle 0,0,15,15">
                 <VerticalStackLayout >
                     <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Чат</Label>
-
                     <Button Text="add" Command="{Binding OpenDistributionPageCommand}"></Button>
                 </VerticalStackLayout>
             </Border>
