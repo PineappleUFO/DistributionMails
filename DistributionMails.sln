@@ -11,13 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Test", "Core.Test\Core
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostgresRepository", "PostgresRepository\PostgresRepository.csproj", "{12EDDE67-2258-4488-A95C-9646D61169F7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Test", "EF.Test\EF.Test.csproj", "{4315EA04-C4AA-469C-B0C1-46CA87E6F12E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Postgres.Test", "EF.Test\Postgres.Test.csproj", "{4315EA04-C4AA-469C-B0C1-46CA87E6F12E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{84C29FAC-C500-49EF-A284-1F270E915C06}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Test", "Services.Test\Services.Test.csproj", "{4445414F-5489-4DE8-9DC3-8F2B9F20D432}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{10DFF6E5-19EC-4550-AD08-2A37DFA9C0F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{10DFF6E5-19EC-4550-AD08-2A37DFA9C0F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
