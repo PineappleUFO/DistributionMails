@@ -7,6 +7,11 @@ namespace EF.Repositories;
 
 public class DepRepository : IDepRepository
 {
+    string _connectionString;
+    public DepRepository(string connectionString)
+    {
+        _connectionString = connectionString;
+    }
     /// <summary>
     /// Получить отдел пользователя
     /// </summary>
@@ -15,10 +20,10 @@ public class DepRepository : IDepRepository
     public async Task<Dep?> GetDepByUserId(int userId)
     {
         //если по какой то причине строка подключения пустая
-        if (string.IsNullOrWhiteSpace(PostgresConnectionString.ConnectionString))
+        if (string.IsNullOrWhiteSpace(_connectionString))
             throw new Exception("Не задана строка подключения");
 
-        await using var connection = new NpgsqlConnection(PostgresConnectionString.ConnectionString);
+        await using var connection = new NpgsqlConnection(_connectionString);
         await connection.OpenAsync();
 
         try
