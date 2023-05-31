@@ -3,7 +3,7 @@ using Npgsql;
 using PostgresRepository.Interfaces;
 using PostgresRepository.PostgresCommon;
 
-namespace EF.Repositories;
+
 
 public class DepRepository : IDepRepository
 {
