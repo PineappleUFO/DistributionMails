@@ -15,6 +15,13 @@ public class User:Entity
 
     public string FullName { get => $"{Family} {Inicials}"; }
 
+
+    /// <summary>
+    /// Имеет ли пользователь возмлжность распределять 1 уровень
+    /// </summary>
+    public bool IsHasAccessToOneLevel => Position?.Id == 17 || Position?.Id == 15 || Position?.Id == 16;
+
+
     public User()
     {
         

@@ -126,16 +126,16 @@
                                         <FlyoutBase.ContextFlyout>
                                             <MenuFlyout>
                                                 <MenuFlyoutItem Text="Добавить нового исполнителя 1 - уровня" Clicked="MenuFlyoutItem_Clicked"   />
-                                                <MenuFlyoutItem Text="Изменить исполнителей" CommandParameter="{Binding}" />
+                                                <MenuFlyoutItem Text="Изменить исполнителей" CommandParameter="{Binding}" Clicked="ChangeMyDistribution_Clicked" />
                                                 <MenuFlyoutSeparator/>
-                                                <MenuFlyoutItem Text="Принято" CommandParameter="{Binding}" />
-                                                <MenuFlyoutItem Text="Выполнено" CommandParameter="{Binding}" />
+                                                <MenuFlyoutItem Text="Принято" CommandParameter="{Binding}" Clicked="MyAccept_Clicked"/>
+                                                <MenuFlyoutItem Text="Выполнено" CommandParameter="{Binding}" Clicked="MyCompleted_Clicked"/>
                                                 <MenuFlyoutSeparator/>
-                                                <MenuFlyoutItem Text="Назначить ответсвенным" CommandParameter="{Binding}" />
-                                                <MenuFlyoutItem Text="Назначить отвечающим" CommandParameter="{Binding}" />
-                                                <MenuFlyoutItem Text="Перенести срок ответа исполнителя" CommandParameter="{Binding}" />
+                                                <MenuFlyoutItem Text="Назначить ответсвенным" CommandParameter="{Binding}" Clicked="GetResponsible_Clicked"/>
+                                                <MenuFlyoutItem Text="Назначить отвечающим" CommandParameter="{Binding}" Clicked="GetReplying_Clicked"/>
+                                                <MenuFlyoutItem Text="Перенести срок ответа исполнителя" CommandParameter="{Binding}" Clicked="ChangeDeadline_Clicked"/>
                                                 <MenuFlyoutSeparator/>
-                                                <MenuFlyoutItem Text="Удалить исполнителя" CommandParameter="{Binding}" />
+                                                <MenuFlyoutItem Text="Удалить исполнителя" CommandParameter="{Binding}" Clicked="Remove_Clicked"/>
                                             </MenuFlyout>
                                         </FlyoutBase.ContextFlyout>
                                     </Label>

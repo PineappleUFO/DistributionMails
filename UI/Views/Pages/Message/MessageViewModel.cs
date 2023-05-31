@@ -33,10 +33,84 @@ public partial class MessageViewModel : ObservableObject
         });
     }
 
+    /// <summary>
+    /// Удалить
+    /// </summary>
+    [RelayCommand]
+    public void Remove(TreeItem item)
+    {
+        //todo: service Current user
+    }
+
+
+    /// <summary>
+    /// Перенести срок исполнителя
+    /// </summary>
+    [RelayCommand]
+    public void ChangeDeadline(TreeItem item)
+    {
+        //todo: service Current user
+    }
+
+    /// <summary>
+    /// Назначить отвечающим
+    /// </summary>
+    [RelayCommand]
+    public void GetReplying(TreeItem item)
+    {
+        //todo: service Current user
+    }
+
+    /// <summary>
+    /// Назначить ответсвенным
+    /// </summary>
+    [RelayCommand]
+    public void GetResponsible(TreeItem item) 
+    {
+        //todo: service Current user
+    }
+
+    /// <summary>
+    /// Кнопка "выполнено"
+    /// </summary>
+    [RelayCommand]
+    public void MyCompleted(TreeItem item)
+    {
+        //todo: service Current user
+    }
+
+    /// <summary>
+    /// Кнопка "принято"
+    /// </summary>
+    [RelayCommand]
+    public void MyAccept(TreeItem item)
+    {
+        //todo: service Current user
+
+    }
+
+    /// <summary>
+    /// Кнопка "изменить распределение"
+    /// </summary>
+    /// <param name="s"></param>
+    [RelayCommand]
+    public void ChangeMyDistribution(TreeItem s)
+    {
+        //todo: service Current user
+        Shell.Current.GoToAsync($"{nameof(DistributionPage)}", new Dictionary<string, object>()
+        {
+            ["SelectedMail"] = SelectedMail,
+            ["SelectedUserForm"] = s.User
+        });
+    }
+
+    /// <summary>
+    /// Кнопка "добавить распределение 1 уровня"
+    /// </summary>
     [RelayCommand]
     public void AddFirstLevel(TreeItem s)
     {
-        //todo: проверку на распределение 1 уровня только у руководства и огк
+       //todo: service Current user
         Shell.Current.GoToAsync($"{nameof(DistributionPage)}", new Dictionary<string, object>()
         {
             ["SelectedMail"] = SelectedMail,
