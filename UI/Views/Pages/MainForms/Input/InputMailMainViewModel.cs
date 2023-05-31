@@ -114,8 +114,16 @@ namespace UI.Views.Pages.MainForms.Input
         [RelayCommand]
         public async void LoadFavorite()
         {
-            CurrentMode = EnumModes.Favorite;
             ListSourceMail.Clear();
+            IsLoading = true;
+            await Task.Delay(200);
+            CurrentMode = EnumModes.Favorite;
+            //todo: user service
+            foreach (Mail mail in await mailsRep.GetFavoriteUser(new User() { Id = 157 }))
+            {
+                ListSourceMail.Add(new MailWrapper() { Mail = mail, IsSelected = false });
+            }
+            IsLoading = false;
         }
 
         /// <summary>

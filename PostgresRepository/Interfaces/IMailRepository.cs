@@ -20,4 +20,10 @@ public interface IMailRepository
     /// </summary>
     /// <param name="user">Пользователь чьи письма загружаем</param>
     Task<List<Mail>> GetArchiveUser(User user);
+
+    /// <summary>
+    /// Получить избранные письма пользователя
+    /// </summary>
+    /// <param name="user">Пользователь чьи письма загружаем</param>
+    Task<List<Mail>> GetFavoriteUser(User user);
 }

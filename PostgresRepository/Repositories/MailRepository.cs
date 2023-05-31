@@ -40,7 +40,7 @@ public class MailRepository : IMailRepository
 
     public async Task<List<Mail>> GetArchiveUser(User user)
     {
-        string query = @"select
+        string query = $@"select
         m.mail_id,  --0
         m.number,   --1
         m.date_input,--2
@@ -65,7 +65,7 @@ public class MailRepository : IMailRepository
         inner join sender s on m.id_sender = s.sender_id
         inner join users_archive_mails du on m.mail_id=du.id_mail
         left join outgoing_mail om on m.id_outgoing_mail = om.mail_id
-        where du.id_user=157
+        where du.id_user={user.Id}
         order by m.date_input desc";
 
         return await loadMailByQuery(query);
@@ -97,6 +97,39 @@ public class MailRepository : IMailRepository
         inner join projects p on m.id_project=p.project_id
         inner join sender s on m.id_sender = s.sender_id
         inner join distributed_to_user du on m.mail_id=du.id_mail
+        left join outgoing_mail om on m.id_outgoing_mail = om.mail_id
+        where du.id_user={user.Id}
+        order by m.date_input desc";
+
+        return await loadMailByQuery(query);
+    }
+
+    public async Task<List<Mail>> GetFavoriteUser(User user)
+    {
+        string query = $@"select
+        m.mail_id,  --0
+        m.number,   --1
+        m.date_input,--2
+        m.date_answer,--3
+        m.theme,--4
+        u.user_id,--5
+        u.family,--6
+        p.project_id,--7
+        p.sender_name,--8
+        p.project_color,--9
+        s.sender_id,--10
+        s.sender_name,--11
+        om.mail_id as owMail,--12
+        om.number,--13
+        om.date_export,--14
+        om.date_answer as owDate_answer,--15
+        om.theme,--16
+        om.text--17
+            from incoming_mail m
+        left join users u on u.user_id = m.responsible
+        inner join projects p on m.id_project=p.project_id
+        inner join sender s on m.id_sender = s.sender_id
+        inner join users_favorite_mail du on m.mail_id=du.id_mail
         left join outgoing_mail om on m.id_outgoing_mail = om.mail_id
         where du.id_user={user.Id}
         order by m.date_input desc";
