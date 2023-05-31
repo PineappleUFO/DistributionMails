@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Core.Models;
 using EF.Repositories;
+using PostgresRepository.PostgresCommon;
 using UI.Helpers;
 using UI.Messengers;
 using UI.Views.Pages.MainForms.Input;
@@ -40,7 +41,7 @@ public partial class LoginViewModel
         IsBusy = true;
         var userRepository = ServiceHelper.GetService<UserRepository>();
         
-        User user = await userRepository.TryGetUserByLogin(Login, Password);
+        User user = await userRepository.TryGetUserByLogin(Login, Password,new PostgresGenerateConnection());
 
         
         if (user != null)

@@ -1,4 +1,5 @@
 ﻿using Core.Models;
+using EF.Interfaces;
 using Npgsql;
 using PostgresRepository.Interfaces;
 using PostgresRepository.PostgresCommon;
@@ -10,16 +11,16 @@ public class UserRepository : IUserRepository
     /// <summary>
     /// Попытка получить пользователя при его авторизации
     /// </summary>
-    public async Task<User?> TryGetUserByLogin(string login, string password, CancellationToken cancellationToken = default)
+    public async Task<User?> TryGetUserByLogin(string login, string password,IConnectionString connectionString, CancellationToken cancellationToken = default)
     {
-        if (!new PostgresGenerateConnection().TryCreateConnection(login, password)) return null;
+     
 
         await Task.Delay(200, cancellationToken);
         //если по какой то причине строка подключения пустая
-        if (string.IsNullOrWhiteSpace(PostgresConnectionString.ConnectionString))
+        if (string.IsNullOrWhiteSpace(connectionString.GenerateConenctionStringByLogin(login, password)))
             throw new Exception("Не задана строка подключения");
 
-        await using var connection = new NpgsqlConnection(PostgresConnectionString.ConnectionString);
+        await using var connection = connectionString.TryGetConnetion();
         await connection.OpenAsync(cancellationToken);
 
         try

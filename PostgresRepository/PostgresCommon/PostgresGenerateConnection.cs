@@ -1,38 +1,48 @@
-﻿using System.Data;
+﻿using EF.Interfaces;
 using Npgsql;
+using System.Data;
 
 namespace PostgresRepository.PostgresCommon;
 
-internal class PostgresGenerateConnection
+public class PostgresGenerateConnection : IConnectionString
 {
-    /// <summary>
-    /// Попытка получить строку подключения к бд в зависимости от логина и пароля которые ввел пользователь
-    /// </summary>
-    /// <param name="login">Логин</param>
-    /// <param name="pass">Пароль</param>
-    /// <returns>true-логин и пароль корректный</returns>
-    internal bool TryCreateConnection(string login,string pass)
+
+    private string? _connectionStringCache;
+    public string? GenerateConenctionStringByLogin(string username, string password)
     {
-        string connectionString = $"Host=localhost;Database=MailerAdmin;Username='{login}';Password='{pass}'";
+        //если уже есть строка подключения - то не за чем заного ее проверять
+        if (!string.IsNullOrWhiteSpace(_connectionStringCache)) return _connectionStringCache;
+
+        string connectionString = $"Host=localhost;Database=MailerAdmin;Username='{username}';Password='{username}'";
         NpgsqlConnection connection = new NpgsqlConnection(connectionString);
         try
         {
             connection.Open();
             if (connection.State == ConnectionState.Open)
             {
-                PostgresConnectionString.ConnectionString = connectionString;
-                return true;
+                _connectionStringCache = connectionString;
+                return _connectionStringCache;
             }
         }
         catch (NpgsqlException e)
         {
-            return false;
+            //todo: log
+            return null;
         }
         finally
         {
             connection.Close();
         }
-       
-        return false;
+
+        return null;
+    }
+
+    public NpgsqlConnection TryGetConnetion()
+    {
+        if (_connectionStringCache != null)
+        {
+            return new NpgsqlConnection(_connectionStringCache);
+        }
+        throw new NullReferenceException($"{nameof(_connectionStringCache)} is Null");
     }
 }
