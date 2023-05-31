@@ -71,7 +71,12 @@ namespace UI.Views.Pages.MainForms.Input
             });
         }
 
-     
+        MailRepository mailsRep;
+        public InputMailMainViewModel()
+        {
+             mailsRep = ServiceHelper.GetService<MailRepository>();
+        }
+
 
         /// <summary>
         /// Комманда открытия выбранного пользователем вложения
@@ -129,8 +134,16 @@ namespace UI.Views.Pages.MainForms.Input
         [RelayCommand]
         public async void LoadDistibutinToMe()
         {
+            IsLoading = true;
+            await Task.Delay(200);
             CurrentMode = EnumModes.DistributedToMe;
             ListSourceMail.Clear();
+            //todo: user service
+            foreach (Mail mail in await mailsRep.GetDistributedToUser(new User() { Id=157}))
+            {
+                ListSourceMail.Add(new MailWrapper() { Mail = mail, IsSelected = false });
+            }
+            IsLoading = false;
         }
 
         /// <summary>
@@ -144,19 +157,14 @@ namespace UI.Views.Pages.MainForms.Input
             CurrentMode = EnumModes.All;
             ListSourceMail.Clear();
             //todo: поменять на сервисы
-            var mailsRep = ServiceHelper.GetService<MailRepository>();
-            var mails = await mailsRep.GetAllMails();
-            foreach (Mail mail in mails)
+            foreach (Mail mail in await mailsRep.GetAllMails())
             {
                 ListSourceMail.Add(new MailWrapper() { Mail = mail, IsSelected = false });
             }
             IsLoading = false;
         }
 
-        public InputMailMainViewModel()
-        {
-            
-        }
+
 
      
     }
