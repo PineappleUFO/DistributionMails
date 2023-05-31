@@ -14,4 +14,10 @@ public interface IMailRepository
     /// </summary>
     /// <param name="user">Пользователь чьи письма загружаем</param>
     Task<List<Mail>> GetDistributedToUser(User user);
+
+    /// <summary>
+    /// Получить архив писем пользователя
+    /// </summary>
+    /// <param name="user">Пользователь чьи письма загружаем</param>
+    Task<List<Mail>> GetArchiveUser(User user);
 }

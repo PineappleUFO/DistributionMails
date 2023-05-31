@@ -124,8 +124,16 @@ namespace UI.Views.Pages.MainForms.Input
         [RelayCommand]
         public async void LoadArchive()
         {
-            CurrentMode = EnumModes.Archive;
             ListSourceMail.Clear();
+            IsLoading = true;
+            await Task.Delay(200);
+            CurrentMode = EnumModes.Archive;
+            //todo: user service
+            foreach (Mail mail in await mailsRep.GetArchiveUser(new User() { Id = 157 }))
+            {
+                ListSourceMail.Add(new MailWrapper() { Mail = mail, IsSelected = false });
+            }
+            IsLoading = false;
         }
 
         /// <summary>
@@ -134,10 +142,10 @@ namespace UI.Views.Pages.MainForms.Input
         [RelayCommand]
         public async void LoadDistibutinToMe()
         {
+            ListSourceMail.Clear();
             IsLoading = true;
             await Task.Delay(200);
             CurrentMode = EnumModes.DistributedToMe;
-            ListSourceMail.Clear();
             //todo: user service
             foreach (Mail mail in await mailsRep.GetDistributedToUser(new User() { Id=157}))
             {
@@ -152,10 +160,10 @@ namespace UI.Views.Pages.MainForms.Input
         [RelayCommand]
         public async void LoadAll()
         {
+            ListSourceMail.Clear();
             IsLoading = true;
             await Task.Delay(200);
             CurrentMode = EnumModes.All;
-            ListSourceMail.Clear();
             //todo: поменять на сервисы
             foreach (Mail mail in await mailsRep.GetAllMails())
             {
