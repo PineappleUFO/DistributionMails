@@ -81,4 +81,28 @@ public partial class InputMailMain : ContentPage
             prevSelection.IsSelected = false;
         }
     }
+
+
+    private void Archive_Clicked(object sender, EventArgs e)
+    {
+
+    }
+
+    private void DistributionToMe_Clicked(object sender, EventArgs e)
+    {
+
+    }
+
+    private void All_Clicked(object sender, EventArgs e)
+    {
+        if(BindingContext is InputMailMainViewModel vm)
+        {
+            vm.LoadAllCommand.Execute(null);
+        }
+    }
+
+    private void Favorites_Clicked(object sender, EventArgs e)
+    {
+
+    }
 }

@@ -23,7 +23,7 @@ namespace UI.Views.Pages.MainForms.Input
         /// <summary>
         /// Коллекция писем
         /// </summary>
-        [ObservableProperty] public ObservableCollection<MailWrapper> listSourceMail;
+        [ObservableProperty] public ObservableCollection<MailWrapper> listSourceMail = new();
 
         /// <summary>
         /// Текущее выбранное письмо
@@ -44,6 +44,16 @@ namespace UI.Views.Pages.MainForms.Input
         /// Все вложения выбранного письма
         /// </summary>
         [ObservableProperty] public List<string> currentFiles;
+
+        /// <summary>
+        /// Текущий режим
+        /// </summary>
+        [ObservableProperty] public EnumModes currentMode;
+
+        /// <summary>
+        /// Идет ли загрузка
+        /// </summary>
+        [ObservableProperty] public bool isLoading;
 
         [ObservableProperty] public User currentUser;
 
@@ -92,25 +102,62 @@ namespace UI.Views.Pages.MainForms.Input
             
         }
 
-        public InputMailMainViewModel()
+
+        /// <summary>
+        /// Загрузить избранные письма пользователя
+        /// </summary>
+        [RelayCommand]
+        public async void LoadFavorite()
         {
-            listSourceMail = new ObservableCollection<MailWrapper>();
+            CurrentMode = EnumModes.Favorite;
+            ListSourceMail.Clear();
+        }
 
+        /// <summary>
+        /// Загрузить архив писем пользователя
+        /// </summary>
+        [RelayCommand]
+        public async void LoadArchive()
+        {
+            CurrentMode = EnumModes.Archive;
+            ListSourceMail.Clear();
+        }
 
+        /// <summary>
+        /// Загрузить все распределенные пользователю письма
+        /// </summary>
+        [RelayCommand]
+        public async void LoadDistibutinToMe()
+        {
+            CurrentMode = EnumModes.DistributedToMe;
+            ListSourceMail.Clear();
+        }
+
+        /// <summary>
+        /// Загрузить все письма
+        /// </summary>
+        [RelayCommand]
+        public async void LoadAll()
+        {
+            IsLoading = true;
+            await Task.Delay(200);
+            CurrentMode = EnumModes.All;
+            ListSourceMail.Clear();
             //todo: поменять на сервисы
             var mailsRep = ServiceHelper.GetService<MailRepository>();
-            
-
-            LoadCollection(mailsRep);
-        }
-
-        private async void LoadCollection(IMailRepository repository)
-        {
-            var mails = await repository.GetAllMails();
+            var mails = await mailsRep.GetAllMails();
             foreach (Mail mail in mails)
             {
-                ListSourceMail.Add(new MailWrapper() { Mail = mail,IsSelected=false});
+                ListSourceMail.Add(new MailWrapper() { Mail = mail, IsSelected = false });
             }
+            IsLoading = false;
         }
+
+        public InputMailMainViewModel()
+        {
+            
+        }
+
+     
     }
 }
