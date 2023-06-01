@@ -36,8 +36,8 @@ jobs:
         run: dotnet restore Services.Test/Services.Test.csproj
       - name: Build Core.Test
         run: dotnet build Core.Test/Core.Test.csproj --configuration Release --no-restore
-      - name: Build EF.Test
-        run: dotnet build EF.Test/EF.Test.csproj --configuration Release --no-restore
+      - name: Build Postgres.Test/Postgres.Test.csproj
+        run: dotnet build Postgres.Test/Postgres.Test.csproj --configuration Release --no-restore
       - name: Build Services.Test
         run: dotnet build Services.Test/Services.Test.csproj --configuration Release --no-restore
       - name: Test
