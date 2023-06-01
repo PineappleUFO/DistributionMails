@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using EF.Interfaces;
 using EF.Repositories;
 using Microsoft.Extensions.Logging;
+using PostgresRepository.PostgresCommon;
 using Syncfusion.Maui.Core.Hosting;
 using UI.Views.Components;
 using UI.Views.Pages.Distribution;
@@ -40,6 +42,7 @@ namespace UI
             builder.Services.AddTransient<DistributionViewModel>();
             builder.Services.AddTransient<LoginViewModel>();
             
+            builder.Services.AddSingleton<PostgresGenerateConnection>();
             //Repositories
             builder.Services.AddSingleton<PositionRepository>();
             builder.Services.AddSingleton<DepRepository>();

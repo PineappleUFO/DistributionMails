@@ -14,6 +14,8 @@ using UI.Extenstions;
 using Microsoft.Maui.ApplicationModel.Communication;
 using PostgresRepository.Interfaces;
 using UI.Helpers;
+using EF.Interfaces;
+using PostgresRepository.PostgresCommon;
 
 namespace UI.Views.Pages.MainForms.Input
 {
@@ -74,7 +76,7 @@ namespace UI.Views.Pages.MainForms.Input
         MailRepository mailsRep;
         public InputMailMainViewModel()
         {
-             mailsRep = ServiceHelper.GetService<MailRepository>();
+             mailsRep = new MailRepository(TestHelper.GetConnectionSingltone());
         }
 
 

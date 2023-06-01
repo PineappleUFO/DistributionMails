@@ -8,10 +8,16 @@ namespace EF.Repositories;
 
 public class UserRepository : IUserRepository
 {
+    IConnectionString connectionString;
+    public UserRepository(IConnectionString connectionString)
+    {
+        this.connectionString = connectionString;
+    }
+
     /// <summary>
     /// Попытка получить пользователя при его авторизации
     /// </summary>
-    public async Task<User?> TryGetUserByLogin(string login, string password,IConnectionString connectionString, CancellationToken cancellationToken = default)
+    public async Task<User?> TryGetUserByLogin(string login, string password, CancellationToken cancellationToken = default)
     {
      
 
@@ -77,10 +83,10 @@ where u.login = '{login}' and
     {
         
         //если по какой то причине строка подключения пустая
-        if (string.IsNullOrWhiteSpace(PostgresConnectionString.ConnectionString))
+        if (connectionString == null)
             throw new Exception("Не задана строка подключения");
 
-        await using var connection = new NpgsqlConnection(PostgresConnectionString.ConnectionString);
+        await using var connection = connectionString.TryGetConnetion();
         await connection.OpenAsync();
 
         List<User> result = new();

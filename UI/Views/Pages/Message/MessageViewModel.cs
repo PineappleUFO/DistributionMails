@@ -125,7 +125,7 @@ public partial class MessageViewModel : ObservableObject
 
     private async void LoadTree()
     {
-        var treeRep =ServiceHelper.GetService<TreeRepository>();
+        var treeRep =new TreeRepository(TestHelper.GetConnectionSingltone());
         DistributionTreeSource = TreeHelper.GenerateTreeFromDbData(await  treeRep.GetTreeByMailId(2));
     }
 }

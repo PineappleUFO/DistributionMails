@@ -1,4 +1,5 @@
 ﻿using Core.Models;
+using EF.Interfaces;
 using Npgsql;
 using PostgresRepository.Interfaces;
 using PostgresRepository.PostgresCommon;
@@ -7,6 +8,12 @@ namespace EF.Repositories;
 
 public class MailRepository : IMailRepository
 {
+    IConnectionString connectionString;
+    public MailRepository(IConnectionString connectionString)
+    {
+        this.connectionString = connectionString;
+    }
+
     public async Task<List<Mail>> GetAllMails()
     {
         string query = @"select
@@ -146,11 +153,11 @@ public class MailRepository : IMailRepository
     private async Task<List<Mail>> loadMailByQuery(string query)
     {
         //если по какой то причине строка подключения пустая
-        if (string.IsNullOrWhiteSpace(PostgresConnectionString.ConnectionString))
+        if (connectionString == null)
             throw new Exception("Не задана строка подключения");
 
         var result = new List<Mail>();
-        await using var connection = new NpgsqlConnection(PostgresConnectionString.ConnectionString);
+        await using var connection = connectionString.TryGetConnetion();
         await connection.OpenAsync();
 
         try

@@ -1,4 +1,5 @@
 ﻿using Core.Models;
+using EF.Interfaces;
 using Npgsql;
 using PostgresRepository.Interfaces;
 using PostgresRepository.PostgresCommon;
@@ -7,6 +8,11 @@ namespace EF.Repositories;
 
 public class PositionRepository:IPositionRepository
 {
+    IConnectionString connectionString;
+    public PositionRepository(IConnectionString connectionString)
+    {
+        this.connectionString = connectionString;
+    }
     /// <summary>
     /// Получить должность пользователя
     /// </summary>
@@ -14,10 +20,10 @@ public class PositionRepository:IPositionRepository
     public async Task<Position?> GetPositionByUserId(int userId)
     {
         //если по какой то причине строка подключения пустая
-        if (string.IsNullOrWhiteSpace(PostgresConnectionString.ConnectionString))
+        if (connectionString == null)
             throw new Exception("Не задана строка подключения");
 
-        await using var connection = new NpgsqlConnection(PostgresConnectionString.ConnectionString);
+        await using var connection = connectionString.TryGetConnetion();
         await connection.OpenAsync();
 
         try

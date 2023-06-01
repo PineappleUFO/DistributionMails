@@ -1,4 +1,5 @@
 ﻿using Core.Models;
+using EF.Interfaces;
 using Npgsql;
 using PostgresRepository.Interfaces;
 using PostgresRepository.PostgresCommon;
@@ -7,10 +8,10 @@ using PostgresRepository.PostgresCommon;
 
 public class DepRepository : IDepRepository
 {
-    string _connectionString;
-    public DepRepository(string connectionString)
+    IConnectionString connectionString;
+    public DepRepository(IConnectionString connectionString)
     {
-        _connectionString = connectionString;
+        this.connectionString = connectionString;
     }
     /// <summary>
     /// Получить отдел пользователя
@@ -20,10 +21,10 @@ public class DepRepository : IDepRepository
     public async Task<Dep?> GetDepByUserId(int userId)
     {
         //если по какой то причине строка подключения пустая
-        if (string.IsNullOrWhiteSpace(_connectionString))
+        if (connectionString == null)
             throw new Exception("Не задана строка подключения");
 
-        await using var connection = new NpgsqlConnection(_connectionString);
+        await using var connection = connectionString.TryGetConnetion();
         await connection.OpenAsync();
 
         try

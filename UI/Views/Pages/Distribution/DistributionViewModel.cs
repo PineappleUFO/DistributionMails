@@ -28,7 +28,7 @@ namespace UI.Views.Pages.Distribution
         public async void GetAllUsers()
         {
             IsBusy = true;
-            var uRep = ServiceHelper.GetService<UserRepository>();
+            var uRep = new UserRepository(TestHelper.GetConnectionSingltone()) ;
             var users = await uRep.GetAllUsers();
             foreach (var user in users.Where(user => user != null))
             {

@@ -12,10 +12,10 @@ namespace Postgres.Test
         }
 
             private DepRepository depRepository;
-
+        //todo: доделать тесты
             public DepRepositoryTest()
             {
-                depRepository = new DepRepository("Host=localhost;Database=MailerAdmin;Username='zakharovdb';Password='zakharovdb'");
+            depRepository = null; 
             }
 
             [Fact]

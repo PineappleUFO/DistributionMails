@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Core.Models;
+using EF.Interfaces;
 using EF.Repositories;
 using PostgresRepository.PostgresCommon;
 using UI.Helpers;
@@ -39,9 +40,9 @@ public partial class LoginViewModel
     async void TryLogin()
     {
         IsBusy = true;
-        var userRepository = ServiceHelper.GetService<UserRepository>();
+        var userRepository = new UserRepository(TestHelper.GetConnectionSingltone());
         
-        User user = await userRepository.TryGetUserByLogin(Login, Password,new PostgresGenerateConnection());
+        User user = await userRepository.TryGetUserByLogin(Login, Password);
 
         
         if (user != null)
