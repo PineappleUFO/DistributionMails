@@ -16,6 +16,7 @@ using PostgresRepository.Interfaces;
 using UI.Helpers;
 using EF.Interfaces;
 using PostgresRepository.PostgresCommon;
+using PostgresRepository.Repositories;
 
 namespace UI.Views.Pages.MainForms.Input
 {
@@ -57,7 +58,15 @@ namespace UI.Views.Pages.MainForms.Input
         /// </summary>
         [ObservableProperty] public bool isLoading;
 
+        /// <summary>
+        /// Текущий пользователь  todo:заменить на сервис
+        /// </summary>
         [ObservableProperty] public User currentUser;
+
+        /// <summary>
+        /// Список прав на конф. разделы
+        /// </summary>
+        [ObservableProperty] public List<MailType> userAccessMailTypeList;
 
 
         /// <summary>
@@ -77,8 +86,15 @@ namespace UI.Views.Pages.MainForms.Input
         public InputMailMainViewModel()
         {
              mailsRep = new MailRepository(TestHelper.GetConnectionSingltone());
+          
+          
         }
 
+        private async void Init()
+        {
+            var mailTypeRep = new MailTypeRepository(TestHelper.GetConnectionSingltone());
+            UserAccessMailTypeList = await mailTypeRep.GetTypesAccessByUser(CurrentUser);
+        }
 
         /// <summary>
         /// Комманда открытия выбранного пользователем вложения
@@ -106,7 +122,7 @@ namespace UI.Views.Pages.MainForms.Input
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             CurrentUser = query["CurrentUser"] as User;
-            
+            Init();
         }
 
 

@@ -101,8 +101,22 @@ public partial class InputMailMain : ContentPage
         }
     }
 
-    private void Favorites_Clicked(object sender, EventArgs e)
+    private  void Favorites_Clicked(object sender, EventArgs e)
     {
+       
+    }
 
+    private async void Menu_Clicked(object sender, EventArgs e)
+    {
+        if (!brModesAccess.IsVisible)
+        {
+            brModesAccess.IsVisible = true;
+            await brModesAccess.FadeTo(1, 250,Easing.CubicIn);
+        }
+        else
+        {
+            await brModesAccess.FadeTo(0, 250, Easing.CubicOut);
+            brModesAccess.IsVisible = false;
+        }
     }
 }

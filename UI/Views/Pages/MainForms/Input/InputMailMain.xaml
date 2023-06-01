@@ -36,7 +36,7 @@
                     <Setter Property="BorderWidth" Value="0"/>
                 </Style>
             </Grid.Resources>
-            <ImageButton BorderWidth="0" Source="{FontImage , FontFamily=FASolid}" Grid.Column="0"/>
+            <ImageButton BorderWidth="0" Source="{FontImage , FontFamily=FASolid}" Grid.Column="0" Clicked="Menu_Clicked"/>
 
             <!--Поиск-->
             <Border Grid.Column="1" 
@@ -195,6 +195,17 @@
         </Grid>
 
 
+        <Border x:Name="brModesAccess" Background="{DynamicResource Selection}" Grid.Row="1" ZIndex="5" WidthRequest="250" HorizontalOptions="Start" IsVisible="true">
+            <CollectionView ItemsSource="{Binding UserAccessMailTypeList}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <Label Text="{Binding Name}"></Label>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
 
         <!--Главная таблица писем-->
 
