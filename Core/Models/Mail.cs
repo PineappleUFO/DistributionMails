@@ -15,6 +15,7 @@ public class Mail:Entity
     public Sender Sender { get; set; }
     public OutgoingMail OutgoingMail { get; set; }
 
+    public MailType MailType { get; set; }
 
     public DirectoryInfo PathFolder { get; set; }
 

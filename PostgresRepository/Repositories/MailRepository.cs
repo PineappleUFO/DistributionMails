@@ -9,7 +9,7 @@ public class MailRepository : IMailRepository
 {
     public async Task<List<Mail>> GetAllMails()
     {
-        string query = @"select 
+        string query = @"select
         m.mail_id,  --0
         m.number,   --1
         m.date_input,--2
@@ -33,6 +33,8 @@ public class MailRepository : IMailRepository
         inner join projects p on m.id_project=p.project_id
         inner join sender s on m.id_sender = s.sender_id
         left join outgoing_mail om on m.id_outgoing_mail = om.mail_id
+        inner join mail_type mt on m.id_type = mt.mail_type_id
+        where mt.mail_type_id=3
         order by m.date_input desc";
 
         return await loadMailByQuery(query);
