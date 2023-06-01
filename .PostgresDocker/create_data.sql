@@ -299,6 +299,16 @@ create table if not exists public.users_archive_mails
 
 comment on table public.users_archive_mails is 'архив распределенных писем пользователя';
 
+--mail_type_access_user
+create table mail_type_access_user
+(
+    id_user      integer not null
+        constraint mail_type_access_user_users_user_id_fk
+            references users,
+    id_mail_type integer not null
+        constraint mail_type_access_user___fk
+            references mail_type
+);
 
 
 -- Создание ролей
