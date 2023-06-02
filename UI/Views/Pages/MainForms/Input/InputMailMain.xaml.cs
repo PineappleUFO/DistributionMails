@@ -1,4 +1,5 @@
 using Core.Models;
+using System.Reflection.Metadata.Ecma335;
 using UI.Helpers;
 
 namespace UI.Views.Pages.MainForms.Input;
@@ -12,7 +13,7 @@ public partial class InputMailMain : ContentPage
     {
         InitializeComponent();
         BindingContext = ServiceHelper.GetService<InputMailMainViewModel>();
-
+        pickerModes.SelectedIndex = 0;
     }
 
 
@@ -132,4 +133,36 @@ public partial class InputMailMain : ContentPage
             }
         }
     }
+
+    private void Search_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        var mode = StringToModesEnum(pickerModes.SelectedItem.ToString());
+        if (mode is null) return;
+        if (BindingContext is InputMailMainViewModel vm)
+        {
+            vm.SearchModesEnum = mode.Value;
+            vm.TextSearchCommand.Execute(((Entry)sender).Text);
+        }
+    }
+
+    private SearchModesEnum? StringToModesEnum(string str)
+    {
+        switch (str) {
+            case "Умный":
+                return SearchModesEnum.Smart;
+            case "По номеру письма":
+                return SearchModesEnum.Number;
+            case "По проекту":
+                return SearchModesEnum.Project;
+            case "По отправителю":
+                return SearchModesEnum.Sender;
+            case "По теме":
+                return SearchModesEnum.Theme;
+            case "По дате поступления":
+                return SearchModesEnum.Date;
+        }
+        return null;
+    }
 }
+
+

@@ -5,6 +5,7 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.PdfViewer;assembly=Syncfusion.Maui.PdfViewer"
              xmlns:input="clr-namespace:UI.Views.Pages.MainForms.Input"
              BackgroundColor="{StaticResource Background}"
+           
              xmlns:controls="clr-namespace:UraniumUI.Material.Controls;assembly=UraniumUI.Material"
               xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
                xmlns:converters="clr-namespace:UI.Converters"
@@ -55,9 +56,12 @@
                        ClearButtonVisibility="WhileEditing"
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
+                       TextChanged="Search_TextChanged"
+                           
                        Margin="2"/>
-                    <Picker VerticalTextAlignment="Center" 
+                    <Picker x:Name="pickerModes" VerticalTextAlignment="Center" 
                         Margin="2" 
+                            
                         BackgroundColor="Transparent"
                         VerticalOptions="Center">
                         <Picker.Items>
@@ -72,8 +76,8 @@
                 </HorizontalStackLayout>
             </Border>
 
-            <!--Фильтр-->
-            <HorizontalStackLayout Grid.Column="2">
+            <!--Фильтр todo:доделать-->
+            <HorizontalStackLayout Grid.Column="2" IsEnabled="False">
                 <ImageButton Source="{FontImage , FontFamily=FASolid,Size=18}" Margin="5,0" Grid.Column="4"/>
                 <Picker VerticalTextAlignment="Center" 
                         Margin="2" 
@@ -236,7 +240,7 @@
                 x:Name="dgMails"
                 RefreshingEnabled="True"
                 IsRefreshing="{Binding IsLoading}"
-                ItemsSource="{Binding ListSourceMail}" 
+                ItemsSource="{Binding FilteredSourceMail}" 
                          BackgroundColor="{StaticResource Background}"
                          HeaderBackground="{StaticResource Selection}"
                          HeaderBordersVisible="False"
@@ -270,7 +274,7 @@
                         </dg:DataGridColumn.FormattedTitle>
                         <dg:DataGridColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Text="{Binding Mail.DateInput,StringFormat='{0:dd MMM, yyyy}'}" Margin="5"  TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding Mail.DateInput,StringFormat='{0:dd.MM.yyyy}'}" Margin="5"  TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
                             </DataTemplate>
                         </dg:DataGridColumn.CellTemplate>
                     </dg:DataGridColumn>
@@ -318,7 +322,7 @@
                         </dg:DataGridColumn.FormattedTitle>
                         <dg:DataGridColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Text="{Binding Mail.NumberOut}" Margin="5" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding Mail.OutgoingMail.Number}" Margin="5" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
                             </DataTemplate>
                         </dg:DataGridColumn.CellTemplate>
                     </dg:DataGridColumn>
@@ -330,7 +334,7 @@
                         </dg:DataGridColumn.FormattedTitle>
                         <dg:DataGridColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Text="{Binding Mail.DateOut}" Margin="5" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding Mail.OutgoingMail.DateAnswer,StringFormat='{0:dd.MM.yyyy}'}" Margin="5" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
                             </DataTemplate>
                         </dg:DataGridColumn.CellTemplate>
                     </dg:DataGridColumn>

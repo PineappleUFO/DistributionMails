@@ -18,7 +18,7 @@ public class OutgoingMail:Entity
 
     public string Number { get; set; }
     public DateTime DateExport { get; set; }
-    public DateTime DateAnswer { get; set; }
+    public DateTime? DateAnswer { get; set; }
     public string Theme { get; set; }
     public string Text { get; set; }
 }

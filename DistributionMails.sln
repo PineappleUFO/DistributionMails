@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Test", "Services.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{10DFF6E5-19EC-4550-AD08-2A37DFA9C0F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Postgres.Test", "Postgres.Test\Postgres.Test.csproj", "{36FBBB22-7560-49F6-9057-851EB70D2907}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Postgres.Test", "Postgres.Test\Postgres.Test.csproj", "{36FBBB22-7560-49F6-9057-851EB70D2907}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +62,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{1E41D3B2-0342-4A95-845F-3FD446E7FC17} = {857E27B1-B18E-40BC-AF85-7273ADAC1EB4}
 		{4445414F-5489-4DE8-9DC3-8F2B9F20D432} = {857E27B1-B18E-40BC-AF85-7273ADAC1EB4}
+		{36FBBB22-7560-49F6-9057-851EB70D2907} = {857E27B1-B18E-40BC-AF85-7273ADAC1EB4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {98BED49B-1927-47B6-BFC2-949BD346DEE2}
