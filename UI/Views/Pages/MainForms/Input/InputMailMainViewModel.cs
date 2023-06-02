@@ -23,6 +23,8 @@ namespace UI.Views.Pages.MainForms.Input
 
     public partial class InputMailMainViewModel : ObservableObject,IQueryAttributable
     {
+        [ObservableProperty] public ObservableCollection<MailWrapper> filteredSourceMail = new();
+
         /// <summary>
         /// Коллекция писем
         /// </summary>
@@ -68,6 +70,7 @@ namespace UI.Views.Pages.MainForms.Input
         /// </summary>
         [ObservableProperty] public List<MailType> userAccessMailTypeList;
 
+        public SearchModesEnum SearchModesEnum { get; set; }
 
         /// <summary>
         /// Комманда открытия письма
@@ -79,21 +82,22 @@ namespace UI.Views.Pages.MainForms.Input
             await Shell.Current.GoToAsync($"{nameof(MessageView)}", new Dictionary<string, object>()
             {
                 ["SelectedMail"] = mail
-            });
+            }); 
         }
 
         MailRepository mailsRep;
         public InputMailMainViewModel()
         {
              mailsRep = new MailRepository(TestHelper.GetConnectionSingltone());
-          
-          
+         
+
         }
 
         private async void Init()
         {
             var mailTypeRep = new MailTypeRepository(TestHelper.GetConnectionSingltone());
             UserAccessMailTypeList = await mailTypeRep.GetTypesAccessByUser(CurrentUser);
+           
         }
 
         /// <summary>
@@ -159,6 +163,7 @@ namespace UI.Views.Pages.MainForms.Input
             foreach (Mail mail in await mailsRep.GetFavoriteUser(new User() { Id = 157 }))
             {
                 ListSourceMail.Add(new MailWrapper() { Mail = mail, IsSelected = false });
+                FilteredSourceMail = ListSourceMail;
             }
             IsLoading = false;
         }
@@ -177,6 +182,7 @@ namespace UI.Views.Pages.MainForms.Input
             foreach (Mail mail in await mailsRep.GetArchiveUser(new User() { Id = 157 }))
             {
                 ListSourceMail.Add(new MailWrapper() { Mail = mail, IsSelected = false });
+                FilteredSourceMail = ListSourceMail;
             }
             IsLoading = false;
         }
@@ -195,6 +201,7 @@ namespace UI.Views.Pages.MainForms.Input
             foreach (Mail mail in await mailsRep.GetDistributedToUser(new User() { Id=157}))
             {
                 ListSourceMail.Add(new MailWrapper() { Mail = mail, IsSelected = false });
+                FilteredSourceMail = ListSourceMail;
             }
             IsLoading = false;
         }
@@ -213,12 +220,65 @@ namespace UI.Views.Pages.MainForms.Input
             foreach (Mail mail in await mailsRep.GetAllMails())
             {
                 ListSourceMail.Add(new MailWrapper() { Mail = mail, IsSelected = false });
+                FilteredSourceMail = ListSourceMail;
             }
             IsLoading = false;
+
         }
+        /// <summary>
+        /// Команда поиска
+        /// </summary>
+        /// <param name="text"></param>
+        [RelayCommand]
+        public async void TextSearch(string text)
+        {
+            //todo: оптимизировать
 
 
-
+            if(text.Length > 0)
+            {
+                switch (SearchModesEnum)
+                {
+                    case SearchModesEnum.Smart:
+                        FilteredSourceMail = new ObservableCollection<MailWrapper>(
+                            ListSourceMail.Where(a => a.Mail.Theme.Contains(text) ||
+                             a.Mail.Number.Contains(text) ||
+                             a.Mail.Sender.Name.Contains(text) ||
+                             a.Mail.Project.Name.Contains(text) ||
+                             a.Mail.DateInput.ToString("dd.MM.yyyy").Contains(text) ||
+                             a.Mail.Theme.Contains(text) 
+                        ).ToList());
+                        break;
+                    case SearchModesEnum.Theme:
+                        FilteredSourceMail = new ObservableCollection<MailWrapper>(
+                           ListSourceMail.Where(a => a.Mail.Theme.Contains(text)).ToList());
+                        break;
+                    case SearchModesEnum.Number:
+                        FilteredSourceMail = new ObservableCollection<MailWrapper>(
+                        ListSourceMail.Where(a => a.Mail.Number.Contains(text)).ToList());
+                        break;
+                    case SearchModesEnum.Sender:
+                        FilteredSourceMail = new ObservableCollection<MailWrapper>(
+                        ListSourceMail.Where(a => a.Mail.Sender.Name.Contains(text)).ToList());
+                        break;
+                    case SearchModesEnum.Project:
+                        FilteredSourceMail = new ObservableCollection<MailWrapper>(
+                        ListSourceMail.Where(a => a.Mail.Project.Name.Contains(text)).ToList());
+                        break;
+                    case SearchModesEnum.Date:
+                        FilteredSourceMail = new ObservableCollection<MailWrapper>(
+                        ListSourceMail.Where(a => a.Mail.DateInput.ToString("dd.MM.yyyy").Contains(text)).ToList());
+                        break;
+                    default:
+                        break;
+                }
+               
+            }
+            else
+            {
+                FilteredSourceMail = ListSourceMail;
+            }
+        }
      
     }
 }

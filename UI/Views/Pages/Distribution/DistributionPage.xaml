@@ -120,7 +120,7 @@
                         </dataGrid:DataGridColumn.FormattedTitle>
                         <dataGrid:DataGridColumn.CellTemplate>
                             <DataTemplate>
-                                <DatePicker HorizontalOptions="FillAndExpand" Margin="5" Date="{Binding Deadline}" FontSize="14" VerticalOptions="Center"></DatePicker>
+                                <DatePicker HorizontalOptions="FillAndExpand" Margin="5" MinimumDate="06.01.2023" Date="{Binding Deadline,StringFormat='{0:dd.MM.yyyy}'}" FontSize="14" VerticalOptions="Center"></DatePicker>
                             </DataTemplate>
                         </dataGrid:DataGridColumn.CellTemplate>
                     </dataGrid:DataGridColumn>
