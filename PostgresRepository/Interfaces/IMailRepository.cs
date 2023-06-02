@@ -26,4 +26,9 @@ public interface IMailRepository
     /// </summary>
     /// <param name="user">Пользователь чьи письма загружаем</param>
     Task<List<Mail>> GetFavoriteUser(User user);
+
+    /// <summary>
+    /// Получить письма в зависимости от типа
+    /// </summary>
+    Task<List<Mail>> GetMailsByType(MailType type);
 }

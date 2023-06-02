@@ -8,6 +8,7 @@
         Archive,
         DistributedToMe,
         All,
-        Favorite
+        Favorite,
+        None
     }
 }

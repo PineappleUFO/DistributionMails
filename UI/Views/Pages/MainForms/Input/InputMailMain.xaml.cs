@@ -119,4 +119,17 @@ public partial class InputMailMain : ContentPage
             brModesAccess.IsVisible = false;
         }
     }
+
+
+
+    private void CV_Modes_Changed(object sender, SelectionChangedEventArgs e)
+    {
+        if(e.CurrentSelection[0] is MailType type)
+        {
+            if (BindingContext is InputMailMainViewModel vm)
+            {
+                vm.LoadMailByTypeCommand.Execute(type);
+            }
+        }
+    }
 }

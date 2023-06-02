@@ -97,6 +97,25 @@ namespace UI.Views.Pages.MainForms.Input
         }
 
         /// <summary>
+        /// Комманда загрузки писем в зависимости от выбранной конф. папки
+        /// </summary>
+        /// <param name="mailType"></param>
+        [RelayCommand]
+        public async void LoadMailByType(MailType mailType)
+        {
+            ListSourceMail.Clear();
+            IsLoading = true;
+            await Task.Delay(200);
+            CurrentMode = EnumModes.None;
+            //todo: user service
+            foreach (Mail mail in await mailsRep.GetMailsByType(mailType))
+            {
+                ListSourceMail.Add(new MailWrapper() { Mail = mail, IsSelected = false });
+            }
+            IsLoading = false;
+        }
+
+        /// <summary>
         /// Комманда открытия выбранного пользователем вложения
         /// </summary>
         [RelayCommand]

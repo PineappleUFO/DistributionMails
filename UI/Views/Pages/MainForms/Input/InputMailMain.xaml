@@ -112,6 +112,11 @@
                             <Setter Property="BorderWidth" Value="0" />
                             <Setter Property="TextColor" Value="White"/>
                         </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding CurrentMode}" Value="{x:Static modes:EnumModes.None}">
+                            <Setter Property="BorderColor" Value="Transparent" />
+                            <Setter Property="BorderWidth" Value="0" />
+                            <Setter Property="TextColor" Value="White"/>
+                        </DataTrigger>
                     </Button.Triggers>
                 </Button>
                 <Button Style="{StaticResource HeaderButtons}" Text="Распределено мне" Command="{Binding LoadDistibutinToMeCommand}">
@@ -132,6 +137,11 @@
                             <Setter Property="TextColor" Value="White"/>
                         </DataTrigger>
                         <DataTrigger TargetType="Button" Binding="{Binding CurrentMode}" Value="{x:Static modes:EnumModes.All}">
+                            <Setter Property="BorderColor" Value="Transparent" />
+                            <Setter Property="BorderWidth" Value="0" />
+                            <Setter Property="TextColor" Value="White"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding CurrentMode}" Value="{x:Static modes:EnumModes.None}">
                             <Setter Property="BorderColor" Value="Transparent" />
                             <Setter Property="BorderWidth" Value="0" />
                             <Setter Property="TextColor" Value="White"/>
@@ -160,6 +170,11 @@
                             <Setter Property="BorderWidth" Value="0" />
                             <Setter Property="TextColor" Value="White"/>
                         </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding CurrentMode}" Value="{x:Static modes:EnumModes.None}">
+                            <Setter Property="BorderColor" Value="Transparent" />
+                            <Setter Property="BorderWidth" Value="0" />
+                            <Setter Property="TextColor" Value="White"/>
+                        </DataTrigger>
                     </Button.Triggers>
                 </Button>
                 <Button Style="{StaticResource HeaderButtons}" Text="Избранное" Command="{Binding LoadFavoriteCommand}">
@@ -184,6 +199,11 @@
                             <Setter Property="BorderWidth" Value="0" />
                             <Setter Property="TextColor" Value="White"/>
                         </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding CurrentMode}" Value="{x:Static modes:EnumModes.None}">
+                            <Setter Property="BorderColor" Value="Transparent" />
+                            <Setter Property="BorderWidth" Value="0" />
+                            <Setter Property="TextColor" Value="White"/>
+                        </DataTrigger>
                     </Button.Triggers>
                 </Button>
             </HorizontalStackLayout>
@@ -195,13 +215,13 @@
         </Grid>
 
 
-        <Border x:Name="brModesAccess" Background="{DynamicResource Selection}" Grid.Row="1" ZIndex="5" WidthRequest="250" HorizontalOptions="Start" IsVisible="true">
-            <CollectionView ItemsSource="{Binding UserAccessMailTypeList}">
+        <!-- Меню с доступами к конф. папкам -->
+        <Border x:Name="brModesAccess" Background="{StaticResource Selection}" Grid.Row="1" ZIndex="5" WidthRequest="250" HorizontalOptions="Start" IsVisible="false">
+            <CollectionView ItemsSource="{Binding UserAccessMailTypeList}" SelectionChanged="CV_Modes_Changed" SelectionMode="Single" VerticalOptions="Center" Margin="5">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Border>
-                            <Label Text="{Binding Name}"></Label>
-                        </Border>
+                        <Label  Padding="5" VerticalOptions="Center" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" HorizontalOptions="Center" HeightRequest="50" Margin="0,5,0,0" Text="{Binding Name}" Background="{StaticResource Background}" >
+                        </Label>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
