@@ -18,7 +18,7 @@ namespace EF.Repositories
         {
             this.connectionString = connectionString;
         }
-        public async Task<List<DistributionTreeElement>> GetTreeByMailId(int mailId)
+        public async Task<List<DistributionTreeElement>> GetTreeByMailId(Mail mail)
         {
 
 
@@ -34,7 +34,7 @@ namespace EF.Repositories
             {
                 await using var command = connection.CreateCommand();
                 command.CommandText =
-                    @"select t.id,
+                    $@"select t.id,
        t.id_mail,
        u.user_id,
        u.family,
@@ -51,7 +51,7 @@ namespace EF.Repositories
        t.log
 from distribution_tree t
 inner join users u on u.user_id = t.id_user
-where t.id_mail = 2";
+where t.id_mail = {mail.Id}";
 
                 await using var reader = await command.ExecuteReaderAsync();
                 while (await reader.ReadAsync())

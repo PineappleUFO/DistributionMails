@@ -10,8 +10,7 @@ using static iTextSharp.text.pdf.AcroFields;
 
 namespace UI.Views.Pages.Message;
 
-[QueryProperty("SelectedMail","SelectedMail")]
-public partial class MessageViewModel : ObservableObject
+public partial class MessageViewModel : ObservableObject, IQueryAttributable
 { 
     [ObservableProperty]
     MailWrapper selectedMail;
@@ -120,12 +119,18 @@ public partial class MessageViewModel : ObservableObject
 
     public MessageViewModel()
     {
-        LoadTree();
+       
     }
 
     private async void LoadTree()
     {
         var treeRep =new TreeRepository(TestHelper.GetConnectionSingltone());
-        DistributionTreeSource = TreeHelper.GenerateTreeFromDbData(await  treeRep.GetTreeByMailId(2));
+        DistributionTreeSource = TreeHelper.GenerateTreeFromDbData(await  treeRep.GetTreeByMailId(SelectedMail.Mail));
+    }
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        SelectedMail = query["SelectedMail"] as MailWrapper;
+        LoadTree();
     }
 }
