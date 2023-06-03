@@ -330,7 +330,7 @@
                     <dg:DataGridColumn Width="0.6*">
                         <dg:DataGridColumn.FormattedTitle>
                             <FormattedString>
-                                <Span Text="Срок ответа"  ToolTipProperties.Text="Срок &lt; Сегодня - красный\n Срок > сегодня &lt; недели - оранжевый"  TextColor="White" FontSize="16" FontAttributes="Bold">
+                                <Span Text="Срок ответа"  TextColor="White" FontSize="16" FontAttributes="Bold">
                                   
                                 </Span>
                             </FormattedString>
