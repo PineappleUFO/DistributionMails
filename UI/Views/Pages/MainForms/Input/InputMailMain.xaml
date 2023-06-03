@@ -214,7 +214,7 @@
             
             <!--Поменять иконки на Regular-->
             <ImageButton Source="{FontImage , FontFamily=FASolid}" Margin="5,0" Grid.Column="4"/>
-            <ImageButton Source="{FontImage , FontFamily=FASolid}" Margin="5,0" Grid.Column="5"/>
+            
 
         </Grid>
 
