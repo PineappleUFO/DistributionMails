@@ -241,33 +241,33 @@ namespace UI.Views.Pages.MainForms.Input
                 {
                     case SearchModesEnum.Smart:
                         FilteredSourceMail = new ObservableCollection<MailWrapper>(
-                            ListSourceMail.Where(a => a.Mail.Theme.Contains(text) ||
-                             a.Mail.Number.Contains(text) ||
-                             a.Mail.Sender.Name.Contains(text) ||
-                             a.Mail.Project.Name.Contains(text) ||
-                             a.Mail.DateInput.ToString("dd.MM.yyyy").Contains(text) ||
-                             a.Mail.Theme.Contains(text) 
+                            ListSourceMail.Where(a => a.Mail.Theme.ToLower().Contains(text.ToLower()) ||
+                             a.Mail.Number.ToLower().Contains(text.ToLower()) ||
+                             a.Mail.Sender.Name.ToLower().Contains(text.ToLower()) ||
+                             a.Mail.Project.Name.ToLower().Contains(text.ToLower()) ||
+                             a.Mail.DateInput.ToString("dd.MM.yyyy").ToLower().Contains(text.ToLower()) ||
+                             a.Mail.Theme.ToLower().Contains(text.ToLower()) 
                         ).ToList());
                         break;
                     case SearchModesEnum.Theme:
                         FilteredSourceMail = new ObservableCollection<MailWrapper>(
-                           ListSourceMail.Where(a => a.Mail.Theme.Contains(text)).ToList());
+                           ListSourceMail.Where(a => a.Mail.Theme.ToLower().Contains(text.ToLower())).ToList());
                         break;
                     case SearchModesEnum.Number:
                         FilteredSourceMail = new ObservableCollection<MailWrapper>(
-                        ListSourceMail.Where(a => a.Mail.Number.Contains(text)).ToList());
+                        ListSourceMail.Where(a => a.Mail.Number.ToLower().Contains(text.ToLower())).ToList());
                         break;
                     case SearchModesEnum.Sender:
                         FilteredSourceMail = new ObservableCollection<MailWrapper>(
-                        ListSourceMail.Where(a => a.Mail.Sender.Name.Contains(text)).ToList());
+                        ListSourceMail.Where(a => a.Mail.Sender.Name.ToLower().Contains(text.ToLower())).ToList());
                         break;
                     case SearchModesEnum.Project:
                         FilteredSourceMail = new ObservableCollection<MailWrapper>(
-                        ListSourceMail.Where(a => a.Mail.Project.Name.Contains(text)).ToList());
+                        ListSourceMail.Where(a => a.Mail.Project.Name.ToLower().Contains(text.ToLower())).ToList());
                         break;
                     case SearchModesEnum.Date:
                         FilteredSourceMail = new ObservableCollection<MailWrapper>(
-                        ListSourceMail.Where(a => a.Mail.DateInput.ToString("dd.MM.yyyy").Contains(text)).ToList());
+                        ListSourceMail.Where(a => a.Mail.DateInput.ToString("dd.MM.yyyy").ToLower().Contains(text.ToLower())).ToList());
                         break;
                     default:
                         break;
