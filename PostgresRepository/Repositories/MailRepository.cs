@@ -250,6 +250,22 @@ public class MailRepository : IMailRepository
                     date_answer, reader.GetString(4),
                     responsible, project, sender, outMail);
 
+                //генерируем предпологаемый путь до файлов  (в продакшнене тут ссылка на файловый сервер, в данном случае сделана динамическая ссылка на папку проекта и в ней папка с pdf симулирующая файловый сервер)
+                var CurentPath = new DirectoryInfo(Path.Combine(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory)
+                    ?.Parent
+                    ?.Parent
+                    ?.Parent
+                    ?.Parent
+                    ?.Parent
+                    ?.Parent
+                    .FullName, ".FileServer","Input", reader.GetInt32(0).ToString()));
+
+                //елсли путь существует то добавляем его к письму
+                if(CurentPath.Exists)
+                {
+                    mail.PathFolder = CurentPath;
+                }
+
                 result.Add(mail);
             }
         }

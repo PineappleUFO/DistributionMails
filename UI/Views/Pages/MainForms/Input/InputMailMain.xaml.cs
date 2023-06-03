@@ -67,6 +67,12 @@ public partial class InputMailMain : ContentPage
 
     private void dgMails_ItemSelected(object sender, SelectionChangedEventArgs e)
     {
+
+        if (this.BindingContext is InputMailMainViewModel vm1)
+        {
+                Previewer.FilePath = vm1.CurrentFilePath;
+        }
+
         if (e.CurrentSelection.Count== 0) return;
 
         if (e.CurrentSelection[0] is MailWrapper currentSelection)

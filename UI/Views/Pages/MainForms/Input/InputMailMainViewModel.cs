@@ -130,16 +130,20 @@ namespace UI.Views.Pages.MainForms.Input
 
         partial void OnSelectedMailChanged(MailWrapper value)
         {
-         //   if (value == null) return;
-         ////   var pdfFiles = value.PathFolder.GetAllPdfInFolder();
-         //   CurrentFilePath = null;
-         //   //todo: Если нет файлов то показываем плашку
-         //   if (pdfFiles.Count > 0)
-         //   {
-         //       CurrentFiles = pdfFiles.Select(a => a.FullName).ToList();
-         //       CurrentFilePath = pdfFiles[0].FullName;
-         //       OnPropertyChanged(nameof(CurrentFilePath));
-         //   }
+            CurrentFilePath = null;
+            CurrentFiles = null;
+            OnPropertyChanged(nameof(CurrentFilePath));
+            OnPropertyChanged(nameof(CurrentFiles));
+            if (value == null || value.Mail.PathFolder == null) return;
+              var pdfFiles = value.Mail.PathFolder.GetAllPdfInFolder();
+         
+            //todo: Если нет файлов то показываем плашку
+            if (pdfFiles.Count > 0)
+            {
+                CurrentFiles = pdfFiles.Select(a => a.FullName).ToList();
+                CurrentFilePath = pdfFiles[0].FullName;
+                OnPropertyChanged(nameof(CurrentFilePath));
+            }
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
