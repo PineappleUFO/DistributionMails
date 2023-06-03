@@ -164,7 +164,6 @@ public class MailRepository : IMailRepository
         om.mail_id as owMail,--12
         om.number,--13
         om.date_export,--14
-        om.date_answer as owDate_answer,--15
         om.theme,--16
         om.text--17
             from incoming_mail m

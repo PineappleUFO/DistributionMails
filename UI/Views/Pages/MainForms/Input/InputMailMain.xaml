@@ -15,7 +15,7 @@
    
     <ContentPage.Resources>
         <converters:StringToColorConverter x:Key="StringToColorConverter"/>
-
+        <converters:DateAnswerToColorConverter x:Key="DateAnswerToColorConverter"/>
         <Style x:Key="HeaderButtons" TargetType="{x:Type Button}">
             <Setter Property="BackgroundColor" Value="{DynamicResource Background}"></Setter>
         </Style>
@@ -251,6 +251,7 @@
                 HeaderHeight="70"
                          RowHeight="50"
                          Margin="8"
+                IsSortable="False"
                          SelectionEnabled="True" 
                          ActiveRowColor="{StaticResource Primary}">
                 <dg:DataGrid.Columns>
@@ -329,12 +330,21 @@
                     <dg:DataGridColumn Width="0.6*">
                         <dg:DataGridColumn.FormattedTitle>
                             <FormattedString>
-                                <Span Text="Срок ответа" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                                <Span Text="Срок ответа"  ToolTipProperties.Text="Срок &lt; Сегодня - красный\n Срок > сегодня &lt; недели - оранжевый"  TextColor="White" FontSize="16" FontAttributes="Bold">
+                                  
+                                </Span>
                             </FormattedString>
                         </dg:DataGridColumn.FormattedTitle>
                         <dg:DataGridColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Text="{Binding Mail.OutgoingMail.DateAnswer,StringFormat='{0:dd.MM.yyyy}'}" Margin="5" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding Mail.DateAnswer,StringFormat='{0:dd.MM.yyyy}'}"  Margin="5" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center">
+                                    <Label.TextColor>
+                                        <MultiBinding Converter="{StaticResource DateAnswerToColorConverter}">
+                                            <Binding  Path="Mail.DateAnswer"/>
+                                            <Binding Path="Mail.OutgoingMail.Number"/>
+                                        </MultiBinding>
+                                    </Label.TextColor>
+                                </Label>
                             </DataTemplate>
                         </dg:DataGridColumn.CellTemplate>
                     </dg:DataGridColumn>
