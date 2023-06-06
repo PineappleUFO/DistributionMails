@@ -332,67 +332,79 @@ CREATE USER petrovaom PASSWORD 'petrovaom';
 GRANT ogk TO petrovaom;
 GRANT ALL PRIVILEGES ON DATABASE mailer TO petrovaom;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO petrovaom;
+GRANT USAGE, SELECT ON SEQUENCE distribution_tree_id_seq TO petrovaom;
 
 CREATE USER medvedevii PASSWORD 'medvedevii';
 GRANT ogk TO medvedevii;
 GRANT ALL PRIVILEGES ON DATABASE mailer TO medvedevii;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO medvedevii;
+GRANT USAGE, SELECT ON SEQUENCE distribution_tree_id_seq TO medvedevii;
 
 CREATE USER ivanovaa PASSWORD 'ivanovaa';
 GRANT ogk TO ivanovaa;
 GRANT ALL PRIVILEGES ON DATABASE mailer TO ivanovaa;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO ivanovaa;
+GRANT USAGE, SELECT ON SEQUENCE distribution_tree_id_seq TO ivanovaa;
 
 CREATE USER smirnovaom PASSWORD 'smirnovaom';
 GRANT ogk TO smirnovaom;
 GRANT ALL PRIVILEGES ON DATABASE mailer TO smirnovaom;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO smirnovaom;
+GRANT USAGE, SELECT ON SEQUENCE distribution_tree_id_seq TO smirnovaom;
 
 CREATE USER nikitinaa PASSWORD 'nikitinaa';
 GRANT ogk TO nikitinaa;
 GRANT ALL PRIVILEGES ON DATABASE mailer TO nikitinaa;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO nikitinaa;
+GRANT USAGE, SELECT ON SEQUENCE distribution_tree_id_seq TO nikitinaa;
 
 CREATE USER zaytsevaem PASSWORD 'zaytsevaem';
 GRANT ogk TO zaytsevaem;
 GRANT ALL PRIVILEGES ON DATABASE mailer TO zaytsevaem;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO zaytsevaem;
+GRANT USAGE, SELECT ON SEQUENCE distribution_tree_id_seq TO zaytsevaem;
 
 CREATE USER pavlovda PASSWORD 'pavlovda';
 GRANT automationdepartment TO pavlovda;
 GRANT ALL PRIVILEGES ON DATABASE mailer TO pavlovda;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO pavlovda;
+GRANT USAGE, SELECT ON SEQUENCE distribution_tree_id_seq TO pavlovda;
 
 CREATE USER kovalevaaa PASSWORD 'kovalevaaa';
 GRANT automationdepartment TO kovalevaaa;
 GRANT ALL PRIVILEGES ON DATABASE mailer TO kovalevaaa;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO kovalevaaa;
+GRANT USAGE, SELECT ON SEQUENCE distribution_tree_id_seq TO kovalevaaa;
 
 CREATE USER sokolovaea PASSWORD 'sokolovaea';
 GRANT automationdepartment TO sokolovaea;
 GRANT ALL PRIVILEGES ON DATABASE mailer TO sokolovaea;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO sokolovaea;
+GRANT USAGE, SELECT ON SEQUENCE distribution_tree_id_seq TO sokolovaea;
 
 CREATE USER grigoryevas PASSWORD 'grigoryevas';
 GRANT automationdepartment TO grigoryevas;
 GRANT ALL PRIVILEGES ON DATABASE mailer TO grigoryevas;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO grigoryevas;
+GRANT USAGE, SELECT ON SEQUENCE distribution_tree_id_seq TO grigoryevas;
 
 CREATE USER nikolayevaam PASSWORD 'nikolayevaam';
 GRANT documentationdepartment TO nikolayevaam;
 GRANT ALL PRIVILEGES ON DATABASE mailer TO nikolayevaam;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO nikolayevaam;
+GRANT USAGE, SELECT ON SEQUENCE distribution_tree_id_seq TO nikolayevaam;
 
 CREATE USER petrovsi PASSWORD 'petrovsi';
-GRANT documentationdepartment TO medvedevii;
+GRANT documentationdepartment TO petrovsi;
 GRANT ALL PRIVILEGES ON DATABASE mailer TO petrovsi;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO petrovsi;
+GRANT USAGE, SELECT ON SEQUENCE distribution_tree_id_seq TO petrovsi;
 
 CREATE USER zakharovdb PASSWORD 'zakharovdb';
 GRANT legaldpartment TO zakharovdb;
 GRANT ALL PRIVILEGES ON DATABASE mailer TO zakharovdb;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO zakharovdb;
-
+GRANT USAGE, SELECT ON SEQUENCE distribution_tree_id_seq TO zakharovdb;
 
 --заполнение данных
 insert into public.status (status_id, status_name, status_color)
