@@ -81,7 +81,8 @@ namespace UI.Views.Pages.MainForms.Input
         {
             await Shell.Current.GoToAsync($"{nameof(MessageView)}", new Dictionary<string, object>()
             {
-                ["SelectedMail"] = mail
+                ["SelectedMail"] = mail,
+                ["CurrentUser"] = CurrentUser
             }); 
         }
 

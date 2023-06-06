@@ -16,9 +16,12 @@ namespace UI.Views.Pages.Distribution
 {
     [QueryProperty("SelectedMail", "SelectedMail")]
     [QueryProperty("SelectedUserFrom", "SelectedUserFrom")]
+    [QueryProperty("CurrentUser", "CurrentUser")]
     public partial class DistributionViewModel : ObservableObject
     {
+        [ObservableProperty] public User currentUser;
         [ObservableProperty] public User selectedUserFrom;
+        [ObservableProperty] public Mail selectedMail;
         [ObservableProperty] DistributionItem selectedUser;
         [ObservableProperty] public bool isBusy;
         [ObservableProperty] public ObservableCollection<DistributionItem> userSource = new();
@@ -36,6 +39,24 @@ namespace UI.Views.Pages.Distribution
             }
             IsBusy = false;
         }
+        TreeRepository treeRep = new TreeRepository(TestHelper.GetConnectionSingltone());
+
+        [RelayCommand]
+        public void Save()
+        {
+            //todo:message back notification
+            if (SelectedUserSource.Count == 0) return;
+
+            foreach (DistributionItem item in SelectedUserSource)
+            {
+                treeRep.AddOneLevelDistributionInMail(SelectedMail, item.User, item.Deadline, item.Resolution, item.IsResponsible, item.IsReplying);
+            }
+        
+
+        }
+
+     
+
 
         [RelayCommand]
         public async void Cancel()
@@ -48,7 +69,8 @@ namespace UI.Views.Pages.Distribution
         {
             if(user.IsChecked)
             {
-                SelectedUserSource.Add(user);
+                if(!SelectedUserSource.Contains(user))
+                    SelectedUserSource.Add(user);
             }
             else
             {

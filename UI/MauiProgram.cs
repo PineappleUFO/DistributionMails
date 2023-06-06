@@ -4,6 +4,7 @@ using EF.Repositories;
 using Microsoft.Extensions.Logging;
 using PostgresRepository.PostgresCommon;
 using Syncfusion.Maui.Core.Hosting;
+using System.Globalization;
 using UI.Views.Components;
 using UI.Views.Pages.Distribution;
 using UI.Views.Pages.Login;
@@ -18,6 +19,11 @@ namespace UI
         
         public static MauiApp CreateMauiApp()
         {
+
+            var cultureInfo = new CultureInfo("ru-RU");
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()

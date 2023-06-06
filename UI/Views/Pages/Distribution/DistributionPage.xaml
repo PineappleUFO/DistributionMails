@@ -120,7 +120,7 @@
                         </dataGrid:DataGridColumn.FormattedTitle>
                         <dataGrid:DataGridColumn.CellTemplate>
                             <DataTemplate>
-                                <DatePicker HorizontalOptions="FillAndExpand" Margin="5" MinimumDate="06.01.2023" Date="{Binding Deadline,StringFormat='{0:dd.MM.yyyy}'}" FontSize="14" VerticalOptions="Center"></DatePicker>
+                                <DatePicker HorizontalOptions="FillAndExpand" Format="dd.MM.yyyy" Margin="5" MinimumDate="06.01.2023" Date="{Binding Deadline,StringFormat='{0:dd.MM.yyyy}'}" FontSize="14" VerticalOptions="Center"></DatePicker>
                             </DataTemplate>
                         </dataGrid:DataGridColumn.CellTemplate>
                     </dataGrid:DataGridColumn>
@@ -251,6 +251,7 @@
                                         </dataGrid:DataGridColumn.FormattedTitle>
                                         <dataGrid:DataGridColumn.CellTemplate>
                                             <DataTemplate>
+                                              
                                                 <DatePicker HorizontalOptions="FillAndExpand" Margin="5" Date="{Binding Deadline}" FontSize="14" VerticalOptions="Center"></DatePicker>
                                             </DataTemplate>
                                         </dataGrid:DataGridColumn.CellTemplate>
@@ -327,7 +328,7 @@
                         </VerticalStackLayout>
 
                         <HorizontalStackLayout Grid.Row="4" HorizontalOptions="End">
-                            <Button BackgroundColor="#70FF75" TextColor="{StaticResource Background}" FontAttributes="Bold" Text="Поручить" WidthRequest="200" Margin="0,0,10,0"></Button>
+                            <Button BackgroundColor="#70FF75" TextColor="{StaticResource Background}" Command="{Binding SaveCommand}" FontAttributes="Bold" Text="Поручить" WidthRequest="200" Margin="0,0,10,0"></Button>
                             <Button BackgroundColor="#CB3A3A" Command="{Binding CancelCommand}" Text="Отменить"></Button>
                         </HorizontalStackLayout>
                     </Grid>

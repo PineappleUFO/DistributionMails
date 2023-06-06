@@ -16,6 +16,10 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     MailWrapper selectedMail;
 
     [ObservableProperty]
+    User currentUser;
+
+
+    [ObservableProperty]
     ObservableCollection<TreeItem> distributionTreeSource = new();
 
 
@@ -26,10 +30,11 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     public  void OpenDistributionPage(MailWrapper mail)
     {
-         Shell.Current.GoToAsync($"{nameof(DistributionPage)}", new Dictionary<string, object>()
-        {
-            ["SelectedMail"] = mail
-        });
+        // Shell.Current.GoToAsync($"{nameof(DistributionPage)}", new Dictionary<string, object>()
+        //{
+        //    ["SelectedMail"] = mail,
+        //     ["CurrentUser"] = CurrentUser
+        // });
     }
 
     /// <summary>
@@ -99,21 +104,22 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
         Shell.Current.GoToAsync($"{nameof(DistributionPage)}", new Dictionary<string, object>()
         {
             ["SelectedMail"] = SelectedMail,
-            ["SelectedUserForm"] = s.User
+            ["SelectedUserForm"] = s.User,
+            ["CurrentUser"] = CurrentUser
         });
     }
 
     /// <summary>
-    /// Кнопка "добавить распределение 1 уровня"
+    /// Кнопка "добавить распределение"
     /// </summary>
     [RelayCommand]
-    public void AddFirstLevel(TreeItem s)
+    public async void AddFirstLevel()
     {
        //todo: service Current user
-        Shell.Current.GoToAsync($"{nameof(DistributionPage)}", new Dictionary<string, object>()
+         await Shell.Current.GoToAsync($"{nameof(DistributionPage)}", new Dictionary<string, object>()
         {
-            ["SelectedMail"] = SelectedMail,
-            ["SelectedUserForm"] = s.User
+            ["SelectedMail"] = SelectedMail.Mail,
+            ["CurrentUser"] = CurrentUser
         });
     }
 
@@ -131,6 +137,7 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         SelectedMail = query["SelectedMail"] as MailWrapper;
+        CurrentUser = query["CurrentUser"] as User;
         LoadTree();
     }
 }

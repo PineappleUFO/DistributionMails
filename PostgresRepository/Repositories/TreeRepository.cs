@@ -18,6 +18,31 @@ namespace EF.Repositories
         {
             this.connectionString = connectionString;
         }
+
+        public void AddOneLevelDistributionInMail(Mail mail,User user,DateTime deadline,string resolution,bool isResponible, bool isReplying)
+        {
+            //если по какой то причине строка подключения пустая
+            if (connectionString == null)
+                throw new Exception("Не задана строка подключения");
+            using var connection = connectionString.TryGetConnetion();
+            connection.Open();
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+
+                cmd.CommandText = "INSERT INTO distribution_tree (id_mail, id_user, deadline, resolution, is_responsible, is_replying, log) VALUES (@id_mail, @id_user, @deadline, @resolution, @is_responsible, @is_replying, @log) ON CONFLICT DO NOTHING";
+                cmd.Parameters.AddWithValue("id_mail", mail.Id);
+                cmd.Parameters.AddWithValue("id_user", user.Id);
+                cmd.Parameters.AddWithValue("deadline", deadline);
+                cmd.Parameters.AddWithValue("resolution", resolution);
+                cmd.Parameters.AddWithValue("is_responsible", isResponible);
+                cmd.Parameters.AddWithValue("is_replying", isReplying);
+                cmd.Parameters.AddWithValue("log", "Добавление 1 уровня распределения");
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         public async Task<List<DistributionTreeElement>> GetTreeByMailId(Mail mail)
         {
 

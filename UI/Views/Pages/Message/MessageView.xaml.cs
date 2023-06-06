@@ -17,13 +17,12 @@ public partial class MessageView : ContentPage
 
     private void MenuFlyoutItem_Clicked(object sender, EventArgs e)
     {
-       if(((sender as MenuFlyoutItem).Parent as MenuFlyout).BindingContext is TreeItem treeItem )
-        {
+  
             if(BindingContext is MessageViewModel viewModel)
             {
-                viewModel.AddFirstLevelCommand.Execute(treeItem);
+                viewModel.AddFirstLevelCommand.Execute(null);
             }
-        }
+        
     }
 
     private void ChangeMyDistribution_Clicked(object sender, EventArgs e)
