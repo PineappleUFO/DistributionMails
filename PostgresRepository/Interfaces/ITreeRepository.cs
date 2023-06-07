@@ -39,5 +39,16 @@ namespace EF.Interfaces
         /// Выбрать другой срок исполнения
         /// </summary>
         void ChangeDeadline(int treeId,DateTime deadline);
+
+        /// <summary>
+        /// Принято
+        /// </summary>
+        void SetAccept(int treeId);
+
+
+        /// <summary>
+        /// Выполнено
+        /// </summary>
+        void SetDone(int treeId);
     }
 }

@@ -193,6 +193,38 @@ where t.id_mail = {mail.Id}";
             return result;
         }
 
+        public void SetAccept(int treeId)
+        {
+            //если по какой то причине строка подключения пустая
+            if (connectionString == null)
+                throw new Exception("Не задана строка подключения");
+            using var connection = connectionString.TryGetConnetion();
+            connection.Open();
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+                cmd.CommandText = $"UPDATE distribution_tree SET id_status = 1 WHERE id = @treeId;";
+                cmd.Parameters.AddWithValue("@treeId", treeId);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void SetDone(int treeId)
+        {
+            //если по какой то причине строка подключения пустая
+            if (connectionString == null)
+                throw new Exception("Не задана строка подключения");
+            using var connection = connectionString.TryGetConnetion();
+            connection.Open();
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+                cmd.CommandText = $"UPDATE distribution_tree SET id_status = 2 WHERE id = @treeId;";
+                cmd.Parameters.AddWithValue("@treeId", treeId);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         public void SetReplyingInTree(int treeId)
         {
             //если по какой то причине строка подключения пустая

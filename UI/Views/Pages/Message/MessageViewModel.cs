@@ -87,7 +87,7 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     public void MyCompleted(TreeItem item)
     {
-        //todo: service Current user
+        treeRep.SetDone(item.Id);
     }
 
     /// <summary>
@@ -96,8 +96,7 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     public void MyAccept(TreeItem item)
     {
-        //todo: service Current user
-
+        treeRep.SetAccept(item.Id);
     }
 
     /// <summary>
