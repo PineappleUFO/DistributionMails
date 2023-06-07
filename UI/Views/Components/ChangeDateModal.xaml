@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UI.Views.Components.ChangeDateModal"
+             Title=""  BackgroundColor="{StaticResource Background}">
+    <Border HorizontalOptions="Center" VerticalOptions="Center" Padding="50" Background="{StaticResource Selection}" Stroke="{StaticResource Secondary}" StrokeThickness="1">
+        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <DatePicker Date="{Binding SelectedDate}" HorizontalOptions="Center" Margin="5" WidthRequest="200" FontSize="18"></DatePicker>
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Button FontSize="18" Command="{Binding CancelCommand}" Text="Отмена" TextColor="#641c1c" Margin="2" BackgroundColor="#CB3A3A" CornerRadius="2"></Button>
+                <Button  FontSize="18" Command="{Binding AcceptCommand}" Text="Сохранить" TextColor="#2c652e" Margin="2" BackgroundColor="#70FF75" CornerRadius="2"></Button>
+            </HorizontalStackLayout>
+    </VerticalStackLayout>
+    </Border>
+</ContentPage>
