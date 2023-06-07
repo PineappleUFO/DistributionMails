@@ -107,12 +107,13 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     public async void ChangeMyDistribution(TreeItem s)
     {
         //todo: service Current user
-       await Shell.Current.GoToAsync($"{nameof(DistributionPage)}", new Dictionary<string, object>()
+        await Shell.Current.GoToAsync($"{nameof(DistributionPage)}", new Dictionary<string, object>()
         {
-            ["SelectedMail"] = SelectedMail,
-            ["SelectedUserForm"] = s.User,
-            ["CurrentUser"] = CurrentUser
-        });
+            ["SelectedMail"] = SelectedMail.Mail,
+            ["SelectedUserFrom"] = s.User,
+            ["CurrentUser"] = CurrentUser,
+            ["SelectedTreeItem"] = s
+        }) ;
     }
 
     /// <summary>
@@ -126,7 +127,7 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
         {
             ["SelectedMail"] = SelectedMail.Mail,
             ["CurrentUser"] = CurrentUser
-        });
+         });
     }
 
     public MessageViewModel()

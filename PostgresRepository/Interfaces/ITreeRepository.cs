@@ -15,6 +15,11 @@ namespace EF.Interfaces
         void AddOneLevelDistributionInMail(Mail mail, User user, DateTime deadline, string resolution, bool isResponible, bool isReplying);
 
         /// <summary>
+        /// Добавить распределяющего далее
+        /// </summary>
+        void AddDistributionInMail(Mail mail, int treeId, User toUser, DateTime deadline, string resolution, bool isResponible, bool isReplying);
+
+        /// <summary>
         /// Изменить значение "ответсвенный" на противоположное
         /// </summary>
         /// <param name="treeId"></param>

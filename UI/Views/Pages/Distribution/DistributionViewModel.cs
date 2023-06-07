@@ -1,27 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using Core.Models;
 using EF.Repositories;
+using System.Collections.ObjectModel;
 using UI.Helpers;
-using UI.Views.Pages.MainForms.Input;
-using Microsoft.Maui.ApplicationModel.Communication;
 
 namespace UI.Views.Pages.Distribution
 {
-    [QueryProperty("SelectedMail", "SelectedMail")]
-    [QueryProperty("SelectedUserFrom", "SelectedUserFrom")]
-    [QueryProperty("CurrentUser", "CurrentUser")]
-    public partial class DistributionViewModel : ObservableObject
+    public partial class DistributionViewModel : ObservableObject, IQueryAttributable
     {
-        [ObservableProperty] public User currentUser;
-        [ObservableProperty] public User selectedUserFrom;
-        [ObservableProperty] public Mail selectedMail;
+        private User currentUser;
+        private User selectedUserFrom;
+        private Mail selectedMail;
+        private TreeItem selectedTreeItem;
         [ObservableProperty] DistributionItem selectedUser;
         [ObservableProperty] public bool isBusy;
         [ObservableProperty] public ObservableCollection<DistributionItem> userSource = new();
@@ -31,7 +22,7 @@ namespace UI.Views.Pages.Distribution
         public async void GetAllUsers()
         {
             IsBusy = true;
-            var uRep = new UserRepository(TestHelper.GetConnectionSingltone()) ;
+            var uRep = new UserRepository(TestHelper.GetConnectionSingltone());
             var users = await uRep.GetAllUsers();
             foreach (var user in users.Where(user => user != null))
             {
@@ -46,16 +37,25 @@ namespace UI.Views.Pages.Distribution
         {
             //todo:message back notification
             if (SelectedUserSource.Count == 0) return;
-
-            foreach (DistributionItem item in SelectedUserSource)
+            
+            foreach (var item in SelectedUserSource)
             {
-                treeRep.AddOneLevelDistributionInMail(SelectedMail, item.User, item.Deadline, item.Resolution, item.IsResponsible, item.IsReplying);
+                if (selectedUserFrom != null)
+                {
+                    treeRep.AddDistributionInMail(selectedMail, selectedTreeItem.Id, item.User, item.Deadline, item.Resolution, item.IsResponsible, item.IsReplying);
+
+                }
+                else
+                {
+                    treeRep.AddOneLevelDistributionInMail(selectedMail, item.User, item.Deadline, item.Resolution, item.IsResponsible, item.IsReplying);
+                }
             }
-        
+
+
 
         }
 
-     
+
 
 
         [RelayCommand]
@@ -67,15 +67,23 @@ namespace UI.Views.Pages.Distribution
         [RelayCommand]
         public void CheckUser(DistributionItem user)
         {
-            if(user.IsChecked)
+            if (user.IsChecked)
             {
-                if(!SelectedUserSource.Contains(user))
+                if (!SelectedUserSource.Contains(user))
                     SelectedUserSource.Add(user);
             }
             else
             {
                 SelectedUserSource.Remove(user);
             }
+        }
+
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            selectedMail = query["SelectedMail"] as Mail;
+            selectedUserFrom = query["SelectedUserFrom"] as User;
+            currentUser = query["CurrentUser"] as User;
+            selectedTreeItem = query["SelectedTreeItem"] as TreeItem;
         }
 
         public DistributionViewModel()
