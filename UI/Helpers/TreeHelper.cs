@@ -21,6 +21,7 @@ namespace UI.Helpers
                 TreeItem treeItem = new TreeItem();
                 
                 string RowName = $"{element.User?.Family} {element.User?.Inicials} (Срок до:{element.DeadLine:d};Резолюция:{element.Resolution})";
+                treeItem.Id = element.Id;
                 treeItem.TreeElement = element;
                 treeItem.Name = RowName;
                 treeItem.User = element.User;

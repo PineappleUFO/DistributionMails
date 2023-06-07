@@ -1,13 +1,6 @@
 ﻿using Core.Models;
 using EF.Interfaces;
 using Npgsql;
-using PostgresRepository.PostgresCommon;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EF.Repositories
 {
@@ -19,7 +12,7 @@ namespace EF.Repositories
             this.connectionString = connectionString;
         }
 
-        public void AddOneLevelDistributionInMail(Mail mail,User user,DateTime deadline,string resolution,bool isResponible, bool isReplying)
+        public void AddOneLevelDistributionInMail(Mail mail, User user, DateTime deadline, string resolution, bool isResponible, bool isReplying)
         {
             //если по какой то причине строка подключения пустая
             if (connectionString == null)
@@ -39,6 +32,38 @@ namespace EF.Repositories
                 cmd.Parameters.AddWithValue("is_replying", isReplying);
                 cmd.Parameters.AddWithValue("log", "Добавление 1 уровня распределения");
 
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void ChangeDeadline(int treeId, DateTime deadline)
+        {
+            //если по какой то причине строка подключения пустая
+            if (connectionString == null)
+                throw new Exception("Не задана строка подключения");
+            using var connection = connectionString.TryGetConnetion();
+            connection.Open();
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+                cmd.CommandText = $"UPDATE distribution_tree SET deadline = @deadline WHERE id = @treeId;";
+                cmd.Parameters.AddWithValue("@deadline", deadline);
+                cmd.Parameters.AddWithValue("@treeId", treeId);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteUserFromTree(int treeId)
+        {
+            //если по какой то причине строка подключения пустая
+            if (connectionString == null)
+                throw new Exception("Не задана строка подключения");
+            using var connection = connectionString.TryGetConnetion();
+            connection.Open();
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+                cmd.CommandText = $"DELETE from distribution_tree where id = {treeId};";
                 cmd.ExecuteNonQuery();
             }
         }
@@ -94,7 +119,7 @@ where t.id_mail = {mail.Id}";
                     distr.MailId = Convert.ToInt32(reader["id_mail"]);
 
                     int upId = default;
-                    if(reader["up_id"] != DBNull.Value)
+                    if (reader["up_id"] != DBNull.Value)
                         upId = Convert.ToInt32(reader["up_id"]);
 
                     distr.UpId = upId;
@@ -141,6 +166,36 @@ where t.id_mail = {mail.Id}";
 
             //Если подключение не корректно 
             return result;
+        }
+
+        public void SetReplyingInTree(int treeId)
+        {
+            //если по какой то причине строка подключения пустая
+            if (connectionString == null)
+                throw new Exception("Не задана строка подключения");
+            using var connection = connectionString.TryGetConnetion();
+            connection.Open();
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+                cmd.CommandText = $"UPDATE distribution_tree SET is_replying = NOT is_replying WHERE id = {treeId};";
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void SetResponibleInTree(int treeId)
+        {
+            //если по какой то причине строка подключения пустая
+            if (connectionString == null)
+                throw new Exception("Не задана строка подключения");
+            using var connection = connectionString.TryGetConnetion();
+            connection.Open();
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+                cmd.CommandText = $"UPDATE distribution_tree SET is_responsible = NOT is_responsible WHERE id = {treeId};";
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }

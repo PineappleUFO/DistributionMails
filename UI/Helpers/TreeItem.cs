@@ -18,7 +18,7 @@ namespace UI.Helpers
         {
             Name = name;
         }
-
+        public virtual int Id { get; set; }
         public virtual bool IsExpanded { get; set; } = true;
         public virtual DistributionTreeElement TreeElement { get; set; }
         public virtual string Name { get; set; }

@@ -2,8 +2,10 @@
 using CommunityToolkit.Mvvm.Input;
 using Core.Models;
 using EF.Repositories;
+using Microsoft.Maui.ApplicationModel.Communication;
 using System.Collections.ObjectModel;
 using UI.Helpers;
+using UI.Views.Components;
 using UI.Views.Pages.Distribution;
 using UI.Views.Pages.MainForms.Input;
 using static iTextSharp.text.pdf.AcroFields;
@@ -43,7 +45,7 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     public void Remove(TreeItem item)
     {
-        //todo: service Current user
+        treeRep.DeleteUserFromTree(item.Id);
     }
 
 
@@ -51,9 +53,14 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     /// Перенести срок исполнителя
     /// </summary>
     [RelayCommand]
-    public void ChangeDeadline(TreeItem item)
+    public async void ChangeDeadline(TreeItem item)
     {
-        //todo: service Current user
+        await Shell.Current.GoToAsync(nameof(ChangeDateModal), new Dictionary<string, object>()
+        {
+            ["TreeItem"] = item,
+            ["TreeRepository"] = treeRep,
+            ["SelectedDate"] = item.TreeElement.DeadLine
+        }) ; 
     }
 
     /// <summary>
@@ -62,7 +69,7 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     public void GetReplying(TreeItem item)
     {
-        //todo: service Current user
+        treeRep.SetReplyingInTree(item.Id);
     }
 
     /// <summary>
@@ -71,7 +78,7 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     public void GetResponsible(TreeItem item) 
     {
-        //todo: service Current user
+        treeRep.SetReplyingInTree(item.Id);
     }
 
     /// <summary>
@@ -94,14 +101,13 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     }
 
     /// <summary>
-    /// Кнопка "изменить распределение"
+    /// Кнопка "Добавить исполнителя"
     /// </summary>
-    /// <param name="s"></param>
     [RelayCommand]
-    public void ChangeMyDistribution(TreeItem s)
+    public async void ChangeMyDistribution(TreeItem s)
     {
         //todo: service Current user
-        Shell.Current.GoToAsync($"{nameof(DistributionPage)}", new Dictionary<string, object>()
+       await Shell.Current.GoToAsync($"{nameof(DistributionPage)}", new Dictionary<string, object>()
         {
             ["SelectedMail"] = SelectedMail,
             ["SelectedUserForm"] = s.User,
@@ -127,10 +133,10 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     {
        
     }
-
+    TreeRepository treeRep;
     private async void LoadTree()
     {
-        var treeRep =new TreeRepository(TestHelper.GetConnectionSingltone());
+        treeRep =new TreeRepository(TestHelper.GetConnectionSingltone());
         DistributionTreeSource = TreeHelper.GenerateTreeFromDbData(await  treeRep.GetTreeByMailId(SelectedMail.Mail));
     }
 

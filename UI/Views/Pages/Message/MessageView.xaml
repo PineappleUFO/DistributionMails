@@ -131,7 +131,7 @@
                                     <Label Margin="0" Padding="0"  Text="{Binding Name}" FontSize="18" VerticalOptions="Center" VerticalTextAlignment="Center">
                                         <FlyoutBase.ContextFlyout>
                                             <MenuFlyout>
-                                                <MenuFlyoutItem Text="Изменить исполнителей" CommandParameter="{Binding}" Clicked="ChangeMyDistribution_Clicked" />
+                                                <MenuFlyoutItem Text="Добавить исполнителя" CommandParameter="{Binding}" Clicked="ChangeMyDistribution_Clicked" />
                                                 <MenuFlyoutSeparator/>
                                                 <MenuFlyoutItem Text="Принято" CommandParameter="{Binding}" Clicked="MyAccept_Clicked"/>
                                                 <MenuFlyoutItem Text="Выполнено" CommandParameter="{Binding}" Clicked="MyCompleted_Clicked"/>

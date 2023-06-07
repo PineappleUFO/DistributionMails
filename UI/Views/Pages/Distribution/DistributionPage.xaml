@@ -251,7 +251,6 @@
                                         </dataGrid:DataGridColumn.FormattedTitle>
                                         <dataGrid:DataGridColumn.CellTemplate>
                                             <DataTemplate>
-                                              
                                                 <DatePicker HorizontalOptions="FillAndExpand" Margin="5" Date="{Binding Deadline}" FontSize="14" VerticalOptions="Center"></DatePicker>
                                             </DataTemplate>
                                         </dataGrid:DataGridColumn.CellTemplate>
