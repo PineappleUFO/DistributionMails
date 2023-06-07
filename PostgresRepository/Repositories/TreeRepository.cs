@@ -116,16 +116,19 @@ namespace EF.Repositories
        u.name,
        u.surname,
        (SELECT CONCAT(LEFT(u.name, 1), '.', LEFT(u.surname, 1),'.')) AS inicials,
-       t.id_status,
        t.up_id,
        t.deadline,
        t.resolution,
        t.is_responsible,
        t.is_replying,
        t.date_add,
-       t.log
+       t.log,
+       s.status_id,
+       s.status_name,
+       s.status_color
 from distribution_tree t
 inner join users u on u.user_id = t.id_user
+left join status s on t.id_status = s.status_id
 where t.id_mail = {mail.Id}";
 
                 await using var reader = await command.ExecuteReaderAsync();
@@ -155,7 +158,7 @@ where t.id_mail = {mail.Id}";
 
                     bool isReplying = false;
                     if (reader["is_replying"] != DBNull.Value)
-                        isResponible = Convert.ToBoolean(reader["is_replying"]);
+                        isReplying = Convert.ToBoolean(reader["is_replying"]);
 
                     distr.IsResponsible = isResponible;
                     distr.IsReplying = isReplying;
@@ -174,6 +177,15 @@ where t.id_mail = {mail.Id}";
                     if (reader["date_add"] != DBNull.Value)
                         date_add = Convert.ToDateTime(reader["date_add"]);
                     distr.DateAdd = date_add;
+
+                    var status = new Status();
+                    if (reader["status_id"] != DBNull.Value)
+                    {
+                        status.Id = Convert.ToInt32(reader["status_id"]);
+                        status.Name = reader["status_name"].ToString();
+                        status.Color = $"#{reader["status_color"]}";
+                    }
+                    distr.Status = status;
 
                     result.Add(distr);
                 }
@@ -235,7 +247,7 @@ where t.id_mail = {mail.Id}";
             using (var cmd = new NpgsqlCommand())
             {
                 cmd.Connection = connection;
-                cmd.CommandText = $"UPDATE distribution_tree SET is_replying = NOT is_replying WHERE id = {treeId};";
+                cmd.CommandText = $"UPDATE distribution_tree SET is_replying = NOT is_replying, is_responsible = false WHERE id = {treeId};";
                 cmd.ExecuteNonQuery();
             }
         }
@@ -250,7 +262,7 @@ where t.id_mail = {mail.Id}";
             using (var cmd = new NpgsqlCommand())
             {
                 cmd.Connection = connection;
-                cmd.CommandText = $"UPDATE distribution_tree SET is_responsible = NOT is_responsible WHERE id = {treeId};";
+                cmd.CommandText = $"UPDATE distribution_tree SET is_responsible = NOT is_responsible,is_replying = false WHERE id = {treeId};";
                 cmd.ExecuteNonQuery();
             }
         }

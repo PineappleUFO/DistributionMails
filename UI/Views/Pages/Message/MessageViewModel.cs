@@ -32,11 +32,6 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     public  void OpenDistributionPage(MailWrapper mail)
     {
-        // Shell.Current.GoToAsync($"{nameof(DistributionPage)}", new Dictionary<string, object>()
-        //{
-        //    ["SelectedMail"] = mail,
-        //     ["CurrentUser"] = CurrentUser
-        // });
     }
 
     /// <summary>
@@ -45,7 +40,9 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     public void Remove(TreeItem item)
     {
+     
         treeRep.DeleteUserFromTree(item.Id);
+        LoadTree();
     }
 
 
@@ -60,7 +57,8 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
             ["TreeItem"] = item,
             ["TreeRepository"] = treeRep,
             ["SelectedDate"] = item.TreeElement.DeadLine
-        }) ; 
+        }) ;
+        LoadTree();
     }
 
     /// <summary>
@@ -70,6 +68,7 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     public void GetReplying(TreeItem item)
     {
         treeRep.SetReplyingInTree(item.Id);
+        LoadTree();
     }
 
     /// <summary>
@@ -78,7 +77,8 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     public void GetResponsible(TreeItem item) 
     {
-        treeRep.SetReplyingInTree(item.Id);
+        treeRep.SetResponibleInTree(item.Id);
+        LoadTree();
     }
 
     /// <summary>
@@ -88,6 +88,7 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     public void MyCompleted(TreeItem item)
     {
         treeRep.SetDone(item.Id);
+        LoadTree();
     }
 
     /// <summary>
@@ -97,6 +98,7 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     public void MyAccept(TreeItem item)
     {
         treeRep.SetAccept(item.Id);
+        LoadTree();
     }
 
     /// <summary>
@@ -113,6 +115,7 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
             ["CurrentUser"] = CurrentUser,
             ["SelectedTreeItem"] = s
         }) ;
+        LoadTree();
     }
 
     /// <summary>
@@ -127,6 +130,8 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
             ["SelectedMail"] = SelectedMail.Mail,
             ["CurrentUser"] = CurrentUser
          });
+
+         LoadTree();
     }
 
     public MessageViewModel()

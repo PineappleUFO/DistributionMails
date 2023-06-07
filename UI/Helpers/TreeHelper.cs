@@ -19,8 +19,22 @@ namespace UI.Helpers
             foreach (var element in filteredElements)
             {
                 TreeItem treeItem = new TreeItem();
-                
-                string RowName = $"{element.User?.Family} {element.User?.Inicials} (Срок до:{element.DeadLine:d};Резолюция:{element.Resolution})";
+                string status= string.Empty;
+
+                if(element.IsResponsible)
+                {
+                    treeItem.Status = "*(Ответственный)";
+                    treeItem.StatusColor = $"#305adc";
+
+
+                }
+                else if(element.IsReplying)
+                {
+                    treeItem.Status = "$(Отвечающий)";
+                    treeItem.StatusColor = $"#ffda84";
+                }
+
+                string RowName = $"{element.User?.Family} {element.User?.Inicials}  (Срок до:{element.DeadLine:d};Резолюция:{element.Resolution})";
                 treeItem.Id = element.Id;
                 treeItem.TreeElement = element;
                 treeItem.Name = RowName;

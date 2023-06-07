@@ -6,6 +6,7 @@
              x:Class="UI.Views.Pages.Message.MessageView"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              BackgroundColor="{StaticResource Background}"
+               xmlns:converters="clr-namespace:UI.Converters"
              >
     
     
@@ -16,6 +17,7 @@
             <Setter Property="BorderColor" Value="Transparent" />
             <Setter Property="BorderWidth" Value="0" />
         </Style>
+        <converters:StringToColorConverter x:Key="StringToColorConverter"/>
     </ContentPage.Resources>
 
     <Grid ColumnDefinitions="0.9*,*" RowDefinitions="60,*" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
@@ -121,14 +123,16 @@
                             <MenuFlyoutItem Command="{Binding AddFirstLevelCommand}" Text="Добавить нового исполнителя 1-го уровня"  />
                         </MenuFlyout>
                     </FlyoutBase.ContextFlyout>
-                    
+                    <!--    TreeElement.Status-->
                     <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource Secondary}">Дерево распределения</Label>
-                    <material:TreeView x:Name="diTree" Spacing="15" Padding="0" ItemsSource="{Binding DistributionTreeSource}" IsExpandedPropertyName="IsExpanded" Margin="10">
+                    <material:TreeView x:Name="diTree" Spacing="15" ArrowColor="{Binding StatusColor,Converter={StaticResource StringToColorConverter}}" Padding="0" ItemsSource="{Binding DistributionTreeSource}" IsExpandedPropertyName="IsExpanded" Margin="10">
                         <material:TreeView.ItemTemplate>
                             <DataTemplate>
                                 <HorizontalStackLayout>
                                     <Label Margin="0" Padding="0" x:Name="lbUserId"  Text="{Binding UserId}" FontSize="18" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
-                                    <Label Margin="0" Padding="0"  Text="{Binding Name}" FontSize="18" VerticalOptions="Center" VerticalTextAlignment="Center">
+                                    <HorizontalStackLayout>
+                                        <Label Margin="0" Padding="0"  Text="{Binding Name}" TextColor="{Binding TreeElement.Status.Color,Converter={StaticResource StringToColorConverter}}" FontSize="18" VerticalOptions="Center" VerticalTextAlignment="Center"/>
+                                        <Label Margin="0" Padding="0"  Text="{Binding Status}" TextColor="{Binding StatusColor,Converter={StaticResource StringToColorConverter}}" FontSize="18" VerticalOptions="Center" VerticalTextAlignment="Center"/>
                                         <FlyoutBase.ContextFlyout>
                                             <MenuFlyout>
                                                 <MenuFlyoutItem Text="Добавить исполнителя" CommandParameter="{Binding}" Clicked="ChangeMyDistribution_Clicked" />
@@ -143,7 +147,8 @@
                                                 <MenuFlyoutItem Text="Удалить исполнителя" CommandParameter="{Binding}" Clicked="Remove_Clicked"/>
                                             </MenuFlyout>
                                         </FlyoutBase.ContextFlyout>
-                                    </Label>
+                                    </HorizontalStackLayout>
+                                   
                                 </HorizontalStackLayout>
                              
                             </DataTemplate>

@@ -23,6 +23,8 @@ namespace UI.Helpers
         public virtual DistributionTreeElement TreeElement { get; set; }
         public virtual string Name { get; set; }
         public virtual User User { get; set; }
+        public virtual string Status { get; set; }
+        public virtual string StatusColor { get; set; }
         public virtual IList<TreeItem> Children { get; set; } = new ObservableCollection<TreeItem>();
     }
 }

@@ -18,5 +18,7 @@ namespace Core.Models
         public bool IsReplying { get; set; }
         public DateTime? DateAdd { get; set; }
         public string Log { get; set; }
+
+        public Status Status { get; set; }
     }
 }
