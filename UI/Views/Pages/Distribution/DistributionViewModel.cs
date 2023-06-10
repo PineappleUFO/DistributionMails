@@ -33,7 +33,7 @@ namespace UI.Views.Pages.Distribution
         TreeRepository treeRep = new TreeRepository(TestHelper.GetConnectionSingltone());
 
         [RelayCommand]
-        public void Save()
+        public async void Save()
         {
             //todo:message back notification
             if (SelectedUserSource.Count == 0) return;
@@ -51,7 +51,7 @@ namespace UI.Views.Pages.Distribution
                 }
             }
 
-
+            await Shell.Current.GoToAsync("..");
 
         }
 

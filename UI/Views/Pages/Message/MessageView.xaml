@@ -162,7 +162,8 @@
             <Border Grid.Row="4"  Grid.ColumnSpan="2" Background="{StaticResource Selection}" StrokeShape="RoundRectangle 0,0,15,15">
                 <VerticalStackLayout >
                     <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Чат</Label>
-                    <Button Text="add" Command="{Binding AddFirstLevelCommand}"></Button>
+                    <Label>Пусто</Label>
+                    <!--<Button Text="add" Command="{Binding AddFirstLevelCommand}"></Button>-->
                 </VerticalStackLayout>
             </Border>
 
