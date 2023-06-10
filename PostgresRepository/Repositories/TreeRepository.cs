@@ -52,7 +52,7 @@ namespace EF.Repositories
                 cmd.Parameters.AddWithValue("id_mail", mail.Id);
                 cmd.Parameters.AddWithValue("id_user", user.Id);
                 cmd.Parameters.AddWithValue("deadline", deadline);
-                cmd.Parameters.AddWithValue("resolution", resolution);
+                cmd.Parameters.AddWithValue("resolution", resolution??"");
                 cmd.Parameters.AddWithValue("is_responsible", isResponible);
                 cmd.Parameters.AddWithValue("is_replying", isReplying);
                 cmd.Parameters.AddWithValue("log", "Добавление 1 уровня распределения");

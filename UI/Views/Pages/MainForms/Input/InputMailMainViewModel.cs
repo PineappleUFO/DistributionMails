@@ -98,7 +98,7 @@ namespace UI.Views.Pages.MainForms.Input
         {
             var mailTypeRep = new MailTypeRepository(TestHelper.GetConnectionSingltone());
             UserAccessMailTypeList = await mailTypeRep.GetTypesAccessByUser(CurrentUser);
-           
+            LoadDistibutinToMeCommand.Execute(null);
         }
 
         /// <summary>

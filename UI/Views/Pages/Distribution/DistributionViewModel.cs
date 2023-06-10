@@ -81,9 +81,13 @@ namespace UI.Views.Pages.Distribution
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             selectedMail = query["SelectedMail"] as Mail;
-            selectedUserFrom = query["SelectedUserFrom"] as User;
+            if(query.ContainsKey("SelectedUserFrom"))
+                selectedUserFrom = query["SelectedUserFrom"] as User;
+            
+            
             currentUser = query["CurrentUser"] as User;
-            selectedTreeItem = query["SelectedTreeItem"] as TreeItem;
+            if (query.ContainsKey("SelectedTreeItem"))
+                selectedTreeItem = query["SelectedTreeItem"] as TreeItem;
         }
 
         public DistributionViewModel()
