@@ -9,22 +9,13 @@
 Группа: *Z8431*  
 
 ***
-### Описание
-todo
+### Работа
+![work]([https://github.com/winnie1312/grab/blob/master/grab-landingpage-winnie.gif](https://github.com/PineappleUFO/DistributionMails/blob/master/.materials/NVIDIA_Share_RG07oPj78T.gif))
 ***
 ### Структура
-### Диаграмма проектов
-![project diagram](https://github.com/PineappleUFO/DistributionMails/blob/master/.materials/images/DistributionMails_Projects_Diagram.jpg)
-***
-### SQL Диаграмма
-### Часть 1
-![sql diagram part1](https://github.com/PineappleUFO/DistributionMails/blob/master/.materials/images/sql_diagram_part1.png)
-### Часть 2
-![sql diagram part2](https://github.com/PineappleUFO/DistributionMails/blob/master/.materials/images/sql_diagram_part2.png)
+todo
 ***
 ### UML Диаграмма
 todo
 ***
-### Скриншоты
-todo
-***
+
