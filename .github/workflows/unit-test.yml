@@ -30,8 +30,8 @@ jobs:
         run: dotnet restore Core.Test/Core.Test.csproj
       - name: Install dependencies UI
         run: dotnet restore UI/UI.csproj
-      - name: Install dependencies EF.Test
-        run: dotnet restore EF.Test/EF.Test.csproj
+      - name: Install dependencies Postgres.Test
+        run: dotnet restore Postgres.Test/Postgres.Test.csproj
       - name: Install dependencies Services.Test
         run: dotnet restore Services.Test/Services.Test.csproj
       - name: Build Core.Test
