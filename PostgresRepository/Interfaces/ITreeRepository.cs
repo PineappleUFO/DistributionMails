@@ -7,7 +7,7 @@ namespace EF.Interfaces
         /// <summary>
         /// Получить дерево письма
         /// </summary>
-        Task<List<DistributionTreeElement>> GetTreeByMailId(Mail mail);
+        Task<List<TreeItem>> GetTreeByMailId(Mail mail);
 
         /// <summary>
         /// Добавить распределяющего первого уровня в письмо

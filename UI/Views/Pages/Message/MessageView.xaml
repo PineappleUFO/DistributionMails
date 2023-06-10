@@ -18,6 +18,7 @@
             <Setter Property="BorderWidth" Value="0" />
         </Style>
         <converters:StringToColorConverter x:Key="StringToColorConverter"/>
+        <converters:StringEmptyToBollean x:Key="StringEmptyToBollean"/>
     </ContentPage.Resources>
 
     <Grid ColumnDefinitions="0.9*,*" RowDefinitions="60,*" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
@@ -125,14 +126,15 @@
                     </FlyoutBase.ContextFlyout>
                     <!--    TreeElement.Status-->
                     <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource Secondary}">Дерево распределения</Label>
-                    <material:TreeView x:Name="diTree" Spacing="15" ArrowColor="{Binding StatusColor,Converter={StaticResource StringToColorConverter}}" Padding="0" ItemsSource="{Binding DistributionTreeSource}" IsExpandedPropertyName="IsExpanded" Margin="10">
+                    <material:TreeView x:Name="diTree" Spacing="15"   Padding="0" ItemsSource="{Binding DistributionTreeSource}" IsExpandedPropertyName="IsExpanded" Margin="10">
                         <material:TreeView.ItemTemplate>
                             <DataTemplate>
                                 <HorizontalStackLayout>
                                     <Label Margin="0" Padding="0" x:Name="lbUserId"  Text="{Binding UserId}" FontSize="18" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
-                                    <HorizontalStackLayout>
-                                        <Label Margin="0" Padding="0"  Text="{Binding Name}" TextColor="{Binding TreeElement.Status.Color,Converter={StaticResource StringToColorConverter}}" FontSize="18" VerticalOptions="Center" VerticalTextAlignment="Center"/>
-                                        <Label Margin="0" Padding="0"  Text="{Binding Status}" TextColor="{Binding StatusColor,Converter={StaticResource StringToColorConverter}}" FontSize="18" VerticalOptions="Center" VerticalTextAlignment="Center"/>
+                                    <HorizontalStackLayout >
+                                        <Label Margin="0" Padding="0"  Text="{Binding Status.Name, StringFormat='({0})_'}" IsVisible="{Binding Status.Name,Converter={StaticResource StringEmptyToBollean}}" TextColor="{Binding Status.Color,Converter={StaticResource StringToColorConverter}}" FontSize="18" VerticalOptions="Center" VerticalTextAlignment="Center"/>
+                                        <Label Margin="0" Padding="0"  Text="{Binding Name}" TextColor="{Binding Status.Color,Converter={StaticResource StringToColorConverter}}" FontSize="18" VerticalOptions="Center" VerticalTextAlignment="Center"/>
+                                        <Label Margin="0" Padding="0"  Text="{Binding PrefixStatus}" TextColor="{Binding PrefixStatusColor,Converter={StaticResource StringToColorConverter}}" FontSize="18" VerticalOptions="Center" VerticalTextAlignment="Center"/>
                                         <FlyoutBase.ContextFlyout>
                                             <MenuFlyout>
                                                 <MenuFlyoutItem Text="Добавить исполнителя" CommandParameter="{Binding}" Clicked="ChangeMyDistribution_Clicked" />

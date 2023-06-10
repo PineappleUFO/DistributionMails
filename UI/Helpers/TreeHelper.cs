@@ -10,7 +10,10 @@ namespace UI.Helpers
 {
     public static class TreeHelper
     {
-        public static ObservableCollection<TreeItem> GenerateTreeFromDbData(IEnumerable<DistributionTreeElement> elements, int parentId = 0)
+        /// <summary>
+        /// генерация ветвей 
+        /// </summary>
+        public static ObservableCollection<TreeItem> GenerateTreeFromDbData(IEnumerable<TreeItem> elements, int parentId = 0)
         {
             ObservableCollection<TreeItem> treeItems = new ObservableCollection<TreeItem>();
 
@@ -18,30 +21,32 @@ namespace UI.Helpers
 
             foreach (var element in filteredElements)
             {
-                TreeItem treeItem = new TreeItem();
+              
                 string status= string.Empty;
 
                 if(element.IsResponsible)
                 {
-                    treeItem.Status = "*(Ответственный)";
-                    treeItem.StatusColor = $"#305adc";
-
-
+                    element.PrefixStatus = "*(Ответственный)";
+                    element.PrefixStatusColor = $"#305adc";
                 }
                 else if(element.IsReplying)
                 {
-                    treeItem.Status = "$(Отвечающий)";
-                    treeItem.StatusColor = $"#ffda84";
+                    element.PrefixStatus = "$(Отвечающий)";
+                    element.PrefixStatusColor = $"#ffda84";
+                }
+                else if (element.IsReplying && element.IsResponsible)
+                {
+                    element.PrefixStatus = "$(Ответсвенный и Отвечающий)";
+                    element.PrefixStatusColor = $"#305adc";
                 }
 
-                string RowName = $"{element.User?.Family} {element.User?.Inicials}  (Срок до:{element.DeadLine:d};Резолюция:{element.Resolution})";
-                treeItem.Id = element.Id;
-                treeItem.TreeElement = element;
-                treeItem.Name = RowName;
-                treeItem.User = element.User;
-                treeItem.Children = GenerateTreeFromDbData(elements, element.Id);
+                string RowName = $"{element.User?.Family} {element.User?.Inicials}  (Срок до:{element.Deadline:d};Резолюция:{element.Resolution})";
+                element.Id = element.Id;
+                element.Name = RowName;
+                element.User = element.User;
+                element.Children = GenerateTreeFromDbData(elements, element.Id);
 
-                treeItems.Add(treeItem);
+                treeItems.Add(element);
             }
 
             return treeItems;

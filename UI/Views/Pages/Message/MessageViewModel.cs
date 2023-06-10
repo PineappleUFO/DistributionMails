@@ -56,7 +56,7 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
         {
             ["TreeItem"] = item,
             ["TreeRepository"] = treeRep,
-            ["SelectedDate"] = item.TreeElement.DeadLine
+            ["SelectedDate"] = item.Deadline
         }) ;
         LoadTree();
     }

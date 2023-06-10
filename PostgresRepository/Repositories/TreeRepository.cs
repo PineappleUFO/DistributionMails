@@ -93,7 +93,7 @@ namespace EF.Repositories
             }
         }
 
-        public async Task<List<DistributionTreeElement>> GetTreeByMailId(Mail mail)
+        public async Task<List<TreeItem>> GetTreeByMailId(Mail mail)
         {
 
 
@@ -101,7 +101,7 @@ namespace EF.Repositories
             if (connectionString == null)
                 throw new Exception("Не задана строка подключения");
 
-            var result = new List<DistributionTreeElement>();
+            var result = new List<TreeItem>();
             await using var connection = connectionString.TryGetConnetion();
             await connection.OpenAsync();
 
@@ -134,7 +134,7 @@ where t.id_mail = {mail.Id}";
                 await using var reader = await command.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
                 {
-                    var distr = new DistributionTreeElement();
+                    var distr = new TreeItem();
                     var user = new User();
                     user.Id = Convert.ToInt32(reader["user_id"]);
                     user.Name = Convert.ToString(reader["name"]);
@@ -167,7 +167,7 @@ where t.id_mail = {mail.Id}";
                     if (reader["deadline"] != DBNull.Value)
                         deadline = Convert.ToDateTime(reader["deadline"]);
 
-                    distr.DeadLine = deadline;
+                    distr.Deadline = deadline;
 
                     distr.Resolution = reader["resolution"].ToString();
 
