@@ -10,7 +10,7 @@
 
 ***
 ### Работа
-![work]([https://github.com/winnie1312/grab/blob/master/grab-landingpage-winnie.gif](https://github.com/PineappleUFO/DistributionMails/blob/master/.materials/NVIDIA_Share_RG07oPj78T.gif))
+![work](https://github.com/PineappleUFO/DistributionMails/blob/master/.materials/NVIDIA_Share_RG07oPj78T.gif)
 ***
 ### Структура
 todo
