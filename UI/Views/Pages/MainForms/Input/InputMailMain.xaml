@@ -352,7 +352,7 @@
                                     </Label.TextColor>
                                 </Label>
 
-                                    <Label Text="{Binding Mail.IsMailDone,Converter={StaticResource IsDoneConverter}}"></Label>
+                                    <Label Text="{Binding Mail.IsMailDone,Converter={StaticResource IsDoneConverter}}" TextColor="LawnGreen" Margin="5" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
                                 </HorizontalStackLayout>
                             </DataTemplate>
                         </dg:DataGridColumn.CellTemplate>
