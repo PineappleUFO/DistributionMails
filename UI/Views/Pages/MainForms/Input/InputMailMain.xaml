@@ -18,6 +18,8 @@
     <ContentPage.Resources>
         <converters:StringToColorConverter x:Key="StringToColorConverter"/>
         <converters:DateAnswerToColorConverter x:Key="DateAnswerToColorConverter"/>
+        <converters:IsDoneConverter x:Key="IsDoneConverter"/>
+        
         <Style x:Key="HeaderButtons" TargetType="{x:Type Button}">
             <Setter Property="BackgroundColor" Value="{DynamicResource Background}"></Setter>
         </Style>
@@ -332,21 +334,26 @@
                     <dg:DataGridColumn Width="0.6*">
                         <dg:DataGridColumn.FormattedTitle>
                             <FormattedString>
-                                <Span Text="Срок ответа"  TextColor="White" FontSize="16" FontAttributes="Bold">
-                                  
-                                </Span>
+                                <Span Text="Срок ответа"  TextColor="White" FontSize="16" FontAttributes="Bold"/>
+
+
                             </FormattedString>
                         </dg:DataGridColumn.FormattedTitle>
                         <dg:DataGridColumn.CellTemplate>
                             <DataTemplate>
+                                <HorizontalStackLayout>
                                 <Label Text="{Binding Mail.DateAnswer,StringFormat='{0:dd.MM.yyyy}'}"  Margin="5" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center">
                                     <Label.TextColor>
                                         <MultiBinding Converter="{StaticResource DateAnswerToColorConverter}">
                                             <Binding  Path="Mail.DateAnswer"/>
-                                            <Binding Path="Mail.OutgoingMail.Number"/>
-                                        </MultiBinding>
+                                                <Binding Path="Mail.OutgoingMail.Number"/>
+                                                <Binding Path="Mail.IsMailDone"/>
+                                            </MultiBinding>
                                     </Label.TextColor>
                                 </Label>
+
+                                    <Label Text="{Binding Mail.IsMailDone,Converter={StaticResource IsDoneConverter}}"></Label>
+                                </HorizontalStackLayout>
                             </DataTemplate>
                         </dg:DataGridColumn.CellTemplate>
                     </dg:DataGridColumn>

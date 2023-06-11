@@ -10,12 +10,18 @@ namespace UI.Converters
         {
             DateTime? dateTime = null;
             string numberOut = null;
+            bool isMailDone = false;
 
             if (values[0] != null && values[0] is DateTime time)
                dateTime = time;
             if (values[1] != null && values[1] is string number)
                 numberOut = number;
+            if (values[2] != null && values[2] is bool b)
+                isMailDone = b;
 
+            //если письмо выполнено то срок не выводим
+            if (isMailDone) return default;
+          
             if (dateTime is null) return default;
 
             if(numberOut is not null)

@@ -34,7 +34,12 @@ public class MailRepository : IMailRepository
         om.date_export,--14
         om.date_answer as owDate_answer,--15
         om.theme,--16
-        om.text--17
+        om.text,--17
+        m.reply_required,--18
+(select count(*) from distribution_tree d where
+                                      d.id_mail = m.mail_id
+                                    and d.id_user = m.responsible
+                                    and d.is_responsible = true) as mailIsDone
             from incoming_mail m
         left join users u on u.user_id = m.responsible
         inner join projects p on m.id_project=p.project_id
@@ -67,7 +72,12 @@ public class MailRepository : IMailRepository
         om.date_export,--14
         om.date_answer as owDate_answer,--15
         om.theme,--16
-        om.text--17
+        om.text,--17
+   m.reply_required,--18
+(select count(*) from distribution_tree d where
+                                      d.id_mail = m.mail_id
+                                    and d.id_user = m.responsible
+                                    and d.is_responsible = true) as mailIsDone
             from incoming_mail m
         left join users u on u.user_id = m.responsible
         inner join projects p on m.id_project=p.project_id
@@ -100,7 +110,12 @@ public class MailRepository : IMailRepository
         om.date_export,--14
         om.date_answer as owDate_answer,--15
         om.theme,--16
-        om.text--17
+        om.text,--17
+   m.reply_required,--18
+(select count(*) from distribution_tree d where
+                                      d.id_mail = m.mail_id
+                                    and d.id_user = m.responsible
+                                    and d.is_responsible = true) as mailIsDone
             from incoming_mail m
         left join users u on u.user_id = m.responsible
         inner join projects p on m.id_project=p.project_id
@@ -169,7 +184,12 @@ public class MailRepository : IMailRepository
         om.date_export,--14
         om.date_answer as owDate_answer,--15
         om.theme,--16
-        om.text--17
+        om.text,--17
+        m.reply_required,--18
+(select count(*) from distribution_tree d where
+                                      d.id_mail = m.mail_id
+                                    and d.id_user = m.responsible
+                                    and d.is_responsible = true) as mailIsDone
             from incoming_mail m
         left join users u on u.user_id = m.responsible
         inner join projects p on m.id_project=p.project_id
@@ -201,7 +221,12 @@ public class MailRepository : IMailRepository
         om.number,--13
         om.date_export,--14
         om.theme,--16
-        om.text--17
+        om.text,--17
+        m.reply_required,--18
+(select count(*) from distribution_tree d where
+                                      d.id_mail = m.mail_id
+                                    and d.id_user = m.responsible
+                                    and d.is_responsible = true) as mailIsDone
             from incoming_mail m
         left join users u on u.user_id = m.responsible
         inner join projects p on m.id_project=p.project_id
@@ -331,6 +356,14 @@ AND im.id_outgoing_mail IS NULL";
                 if(CurentPath.Exists)
                 {
                     mail.PathFolder = CurentPath;
+                }
+
+                if (reader.GetInt32(19)>0)
+                {
+                    mail.IsMailDone =true;
+                }else
+                {
+                    mail.IsMailDone = false;
                 }
 
                 result.Add(mail);
