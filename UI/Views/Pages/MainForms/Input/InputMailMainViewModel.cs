@@ -92,17 +92,21 @@ namespace UI.Views.Pages.MainForms.Input
         }
 
         [RelayCommand]
-        public async void RefreshCommand()
+        public async void Refresh()
         {
             switch (CurrentMode)
             {
                 case EnumModes.All:
+                    LoadAllCommand.Execute(null);
                     break;
                 case EnumModes.Archive:
+                    LoadArchiveCommand.Execute(null);   
                     break;
                 case EnumModes.Favorite:
+                    LoadFavoriteCommand.Execute(null); 
                     break;
                 case EnumModes.DistributedToMe:
+                    LoadDistibutinToMeCommand.Execute(null);
                     break;
             }
         }
