@@ -295,10 +295,10 @@ AND im.id_outgoing_mail IS NULL";
                     u.user_id,
                     u.family,
                     u.photo,
-                    u.id_position
+                    u.id_position,
  (SELECT CONCAT(LEFT(u.name, 1), '.', LEFT(u.surname, 1),'.')) AS inicials
-                    from mail_chat c,users
-                    nwhere
+                    from mail_chat c,users u
+                    where
                     u.user_id = c.user_id and
                     c.mail_id = {mailId}";
 
@@ -309,7 +309,7 @@ AND im.id_outgoing_mail IS NULL";
               var user = new User();
 
                 user.Id = Convert.ToInt32(reader["user_id"]);
-                user.Family = reader["famaly"].ToString();
+                user.Family = reader["family"].ToString();
                 user.Inicials = reader["inicials"].ToString();
                 try
                 {
@@ -321,9 +321,10 @@ AND im.id_outgoing_mail IS NULL";
                 }
 
                 chat.User = user;
-                chat.MessageDate = Convert.ToDateTime(reader["date_message]"]);
+                chat.MessageDate = reader.GetDateTime(1);
                 chat.Message = reader["message"].ToString();
-           
+
+                result.Add(chat);
 
             }
         }

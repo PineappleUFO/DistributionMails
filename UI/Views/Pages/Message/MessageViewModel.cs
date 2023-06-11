@@ -21,14 +21,20 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
 
     [ObservableProperty] public bool isOutgoingMailExist = false;
 
+    [ObservableProperty] public ObservableCollection<Chat> chatList= new();
+
+    [ObservableProperty] public string messageInChat;
+
     MailRepository mRep = new MailRepository(TestHelper.GetConnectionSingltone());
-    /// <summary>
-    /// Комманда открытия формы распределения
-    /// </summary>
-    /// <param name="mail">Модель письма</param>
+    
+
+
+
     [RelayCommand]
-    public void OpenDistributionPage(MailWrapper mail)
+    public async void SendMessage()
     {
+        mRep.SendMessageToMailChat(SelectedMail.Mail.Id, CurrentUser.Id, MessageInChat);
+        ChatList = new ObservableCollection<Chat>(await mRep.GetChatByMailId(SelectedMail.Mail.Id));
     }
 
     /// <summary>
@@ -133,7 +139,17 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
 
     public MessageViewModel()
     {
-    
+        
+    }
+
+    private async void Init()
+    {
+        if (SelectedMail.Mail.OutgoingMail != null)
+        {
+            IsOutgoingMailExist = true;
+        }
+
+        ChatList = new ObservableCollection<Chat>(await mRep.GetChatByMailId(SelectedMail.Mail.Id));
     }
     TreeRepository treeRep = new TreeRepository(TestHelper.GetConnectionSingltone());
     private async void LoadTree()
@@ -162,11 +178,8 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
         CurrentUser = query["CurrentUser"] as User;
         SelectedMail = query["SelectedMail"] as MailWrapper;
         LoadTree();
+        Init();
 
-        if(SelectedMail.Mail.OutgoingMail != null)
-        {
-            IsOutgoingMailExist = true;
-        }
-       
+
     }
 }

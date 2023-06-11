@@ -20,6 +20,7 @@
         </Style>
         <converters:StringToColorConverter x:Key="StringToColorConverter"/>
         <converters:StringEmptyToBollean x:Key="StringEmptyToBollean"/>
+        <converters:ByteToImageConverter x:Key="ByteToImageConverter"/>
     </ContentPage.Resources>
 
     <Grid ColumnDefinitions="0.9*,*" RowDefinitions="60,*" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
@@ -98,7 +99,7 @@
 
                 
             <!--Правая часть-->
-        <Grid Grid.Row="1"  Grid.Column="1" Margin="15" ColumnDefinitions="3*,*" RowDefinitions="Auto,Auto,Auto,*,0.4*" RowSpacing="5">
+        <Grid Grid.Row="1"  Grid.Column="1" Margin="15" ColumnDefinitions="3*,*" RowDefinitions="Auto,Auto,Auto,*,0.7*" RowSpacing="5">
             <HorizontalStackLayout Grid.Row="0" Grid.Column="0">
                 <Label Text="Адресовано:" FontSize="16"></Label>
                 <Label TextColor="{StaticResource BlueTextHeader}" FontSize="16" Margin="10,0,0,0" Text="{Binding SelectedMail.Mail.Responsible.FullName}"></Label>
@@ -160,11 +161,42 @@
             </Border>
 
             <Border Grid.Row="4"  Grid.ColumnSpan="2" Background="{StaticResource Selection}" StrokeShape="RoundRectangle 0,0,15,15">
-                <VerticalStackLayout >
-                    <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Чат</Label>
-                    <Label>Пусто</Label>
-                    <!--<Button Text="add" Command="{Binding AddFirstLevelCommand}"></Button>-->
-                </VerticalStackLayout>
+                <Grid RowDefinitions="Auto,*,Auto" >
+                    <Label Grid.Row="0" Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Чат</Label>
+
+                    <CollectionView ItemsSource="{Binding ChatList}"  Grid.Row="1" Margin="5">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Grid.Column="2" Background="#606580" Padding="10">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="10,10,10,10" />
+                                    </Border.StrokeShape>
+                                    
+                                    <Grid ColumnDefinitions="auto,auto" HeightRequest="40" >
+                                    <Image Grid.Column="0" Source="{Binding User.Photo,Converter={StaticResource ByteToImageConverter}}" Margin="0,0,10,0"></Image>
+                                 
+                                     
+
+                                        <HorizontalStackLayout Grid.Column="1">
+                                            <Label Text="{Binding User.FullName}" VerticalOptions="Center" FontSize="16" Margin="0,0,20,0"></Label>
+                                            <Label Text="{Binding MessageDate}" VerticalOptions="Center" FontSize="16" TextColor="{StaticResource Secondary}" Margin="0,0,20,0"></Label>
+                                            <Label Text="{Binding Message}" VerticalOptions="Center" FontSize="16"></Label>
+                                        </HorizontalStackLayout>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Frame Grid.Row="2" Margin="5"  Padding="5">
+                        <HorizontalStackLayout HorizontalOptions="FillAndExpand" >
+                            <Entry Placeholder="Введите сообщение" WidthRequest="400" HorizontalOptions="FillAndExpand" Text="{Binding MessageInChat}">
+                               
+                            </Entry>
+                            <Button Text="Отправить" Command="{Binding SendMessageCommand}"></Button>
+                        </HorizontalStackLayout>
+                    </Frame>
+                </Grid>
             </Border>
 
         </Grid>
