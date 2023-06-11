@@ -41,4 +41,7 @@ jobs:
       - name: Build Services.Test
         run: dotnet build Services.Test/Services.Test.csproj --configuration Release --no-restore
       - name: Test
-        run: dotnet test --no-restore --verbosity normal
+        run: |
+          docker-compose -f ../../.PostgresDocker/docker-compose.yml up -d
+          sleep 10 # Добавляем задержку для развертывания базы данных
+          dotnet test --no-restore --verbosity normal
