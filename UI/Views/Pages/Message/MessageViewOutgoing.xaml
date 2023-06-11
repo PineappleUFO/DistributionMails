@@ -67,7 +67,7 @@
         </Grid>
 
 
-        <Grid Padding="0 50 0 50" Grid.Column="2" Grid.Row="1" RowDefinitions="*,60" VerticalOptions="FillAndExpand">
+        <Grid Padding="0,50,0,50" Grid.Column="2" Grid.Row="1" RowDefinitions="*,60" VerticalOptions="FillAndExpand">
 
             <!--Предпросмоторщик-->
             <Border VerticalOptions="FillAndExpand"  Grid.Row="0">

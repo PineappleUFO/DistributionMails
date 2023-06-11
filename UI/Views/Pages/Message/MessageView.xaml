@@ -82,7 +82,7 @@
             <Border Grid.Row="3" Grid.Column="1"  Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="110">
                 <VerticalStackLayout VerticalOptions="Center" >
                     <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Получатель письма</Label>
-                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="---"></Label>
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="{Binding SelectedMail.Mail.Responsible.FullName}"></Label>
                     </VerticalStackLayout>
                 </Border>
 
@@ -101,10 +101,10 @@
         <Grid Grid.Row="1"  Grid.Column="1" Margin="15" ColumnDefinitions="3*,*" RowDefinitions="Auto,Auto,Auto,*,0.4*" RowSpacing="5">
             <HorizontalStackLayout Grid.Row="0" Grid.Column="0">
                 <Label Text="Адресовано:" FontSize="16"></Label>
-                <Label TextColor="{StaticResource BlueTextHeader}" FontSize="16" Margin="10,0,0,0" Text="Иванов И.И."></Label>
+                <Label TextColor="{StaticResource BlueTextHeader}" FontSize="16" Margin="10,0,0,0" Text="{Binding SelectedMail.Mail.Responsible.FullName}"></Label>
 
                 <Label Text="Распределил:" FontSize="16" Margin="10,0,0,0"></Label>
-                <Label TextColor="{StaticResource GreenTextHeader}" FontSize="16" Margin="10,0,0,0" Text="Иванов И.И."></Label>
+                <Label TextColor="{StaticResource GreenTextHeader}" FontSize="16" Margin="10,0,0,0" Text="{Binding SelectedMail.Mail.Responsible.FullName}"></Label>
             </HorizontalStackLayout>
 
             <Button Grid.Row="0" HeightRequest="30" Grid.Column="1" VerticalOptions="Start" Text="Требуется ответ" BorderColor="{StaticResource ButtonBorderColor}" BorderWidth="2" Background="{StaticResource Background}" CornerRadius="8"></Button>

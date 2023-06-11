@@ -39,7 +39,8 @@ public class MailRepository : IMailRepository
 (select count(*) from distribution_tree d where
                                       d.id_mail = m.mail_id
                                     and d.id_user = m.responsible
-                                    and d.is_responsible = true) as mailIsDone
+                                    and d.is_responsible = true) as mailIsDone,
+(SELECT CONCAT(LEFT(u.name, 1), '.', LEFT(u.surname, 1),'.')) AS inicials
             from incoming_mail m
         left join users u on u.user_id = m.responsible
         inner join projects p on m.id_project=p.project_id
@@ -77,7 +78,8 @@ public class MailRepository : IMailRepository
 (select count(*) from distribution_tree d where
                                       d.id_mail = m.mail_id
                                     and d.id_user = m.responsible
-                                    and d.is_responsible = true) as mailIsDone
+                                    and d.is_responsible = true) as mailIsDone,
+(SELECT CONCAT(LEFT(u.name, 1), '.', LEFT(u.surname, 1),'.')) AS inicials
             from incoming_mail m
         left join users u on u.user_id = m.responsible
         inner join projects p on m.id_project=p.project_id
@@ -115,7 +117,8 @@ public class MailRepository : IMailRepository
 (select count(*) from distribution_tree d where
                                       d.id_mail = m.mail_id
                                     and d.id_user = m.responsible
-                                    and d.is_responsible = true) as mailIsDone
+                                    and d.is_responsible = true) as mailIsDone,
+(SELECT CONCAT(LEFT(u.name, 1), '.', LEFT(u.surname, 1),'.')) AS inicials
             from incoming_mail m
         left join users u on u.user_id = m.responsible
         inner join projects p on m.id_project=p.project_id
@@ -189,7 +192,8 @@ public class MailRepository : IMailRepository
 (select count(*) from distribution_tree d where
                                       d.id_mail = m.mail_id
                                     and d.id_user = m.responsible
-                                    and d.is_responsible = true) as mailIsDone
+                                    and d.is_responsible = true) as mailIsDone,
+(SELECT CONCAT(LEFT(u.name, 1), '.', LEFT(u.surname, 1),'.')) AS inicials
             from incoming_mail m
         left join users u on u.user_id = m.responsible
         inner join projects p on m.id_project=p.project_id
@@ -226,7 +230,8 @@ public class MailRepository : IMailRepository
 (select count(*) from distribution_tree d where
                                       d.id_mail = m.mail_id
                                     and d.id_user = m.responsible
-                                    and d.is_responsible = true) as mailIsDone
+                                    and d.is_responsible = true) as mailIsDone,
+        (SELECT CONCAT(LEFT(u.name, 1), '.', LEFT(u.surname, 1),'.')) AS inicials
             from incoming_mail m
         left join users u on u.user_id = m.responsible
         inner join projects p on m.id_project=p.project_id
@@ -341,6 +346,7 @@ AND im.id_outgoing_mail IS NULL";
                 {
                     responsible.Id = Convert.ToInt32(reader["user_id"]);
                     responsible.Family = reader.GetString(6);
+                    responsible.Inicials = reader["inicials"].ToString();
                 }
 
 
