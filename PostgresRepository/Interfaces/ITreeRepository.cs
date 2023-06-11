@@ -50,5 +50,12 @@ namespace EF.Interfaces
         /// Выполнено
         /// </summary>
         void SetDone(int treeId);
+
+        /// <summary>
+        /// Обновления счетчика распределения
+        /// </summary>
+        /// <param name="userId">Кто распределял</param>
+        /// <param name="distributedUserId">Кому распределял</param>
+        void UpdateCounterDistibution(int userId, int distributedUserId);
     }
 }

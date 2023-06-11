@@ -12,7 +12,9 @@
              xmlns:modes="clr-namespace:Core.Models;assembly=Core"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:components="using:UI.Views.Components">
-   
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False"></BackButtonBehavior>
+    </Shell.BackButtonBehavior>
     <ContentPage.Resources>
         <converters:StringToColorConverter x:Key="StringToColorConverter"/>
         <converters:DateAnswerToColorConverter x:Key="DateAnswerToColorConverter"/>

@@ -49,7 +49,11 @@ namespace UI.Views.Pages.Distribution
                 {
                     treeRep.AddOneLevelDistributionInMail(selectedMail, item.User, item.Deadline, item.Resolution, item.IsResponsible, item.IsReplying);
                 }
+                //добавляем в счетчик распределения
+                treeRep.UpdateCounterDistibution(currentUser.Id, item.User.Id);
             }
+
+          
 
             await Shell.Current.GoToAsync("..");
 

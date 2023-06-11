@@ -61,6 +61,8 @@ namespace EF.Repositories
             }
         }
 
+
+
         public void ChangeDeadline(int treeId, DateTime deadline)
         {
             //если по какой то причине строка подключения пустая
@@ -263,6 +265,23 @@ where t.id_mail = {mail.Id}";
             {
                 cmd.Connection = connection;
                 cmd.CommandText = $"UPDATE distribution_tree SET is_responsible = NOT is_responsible,is_replying = false WHERE id = {treeId};";
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void UpdateCounterDistibution(int userId, int distributedUserId)
+        {
+            //если по какой то причине строка подключения пустая
+            if (connectionString == null)
+                throw new Exception("Не задана строка подключения");
+            using var connection = connectionString.TryGetConnetion();
+            connection.Open();
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+                cmd.CommandText = $"INSERT INTO distribution_counter (id_user, distributed_user_id, count) VALUES (@id_user, @distributed_user_id, 1) ON CONFLICT (id_user, distributed_user_id) DO UPDATE SET count = distribution_counter.count + 1;";
+                cmd.Parameters.AddWithValue("@id_user", userId);
+                cmd.Parameters.AddWithValue("@distributed_user_id", distributedUserId);
                 cmd.ExecuteNonQuery();
             }
         }

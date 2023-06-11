@@ -37,19 +37,7 @@
                        VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
                        Margin="2"/>
-                        <Picker VerticalTextAlignment="Center" 
-                        Margin="2" 
-                        BackgroundColor="Transparent"
-                        VerticalOptions="Center">
-                            <Picker.Items>
-                                <x:String>Умный</x:String>
-                                <x:String>По номеру письма</x:String>
-                                <x:String>По проекту</x:String>
-                                <x:String>По отправителю</x:String>
-                                <x:String>По теме</x:String>
-                                <x:String>По дате поступления</x:String>
-                            </Picker.Items>
-                        </Picker>
+                       
                     </HorizontalStackLayout>
                 </Border>
                 <!--Режимы-->
