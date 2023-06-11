@@ -1,27 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using Core.Models;
 using EF.Repositories;
-using UI.Views.Pages.Message;
-using UI.Extenstions;
-using Microsoft.Maui.ApplicationModel.Communication;
-using PostgresRepository.Interfaces;
-using UI.Helpers;
-using EF.Interfaces;
-using PostgresRepository.PostgresCommon;
 using PostgresRepository.Repositories;
+using System.Collections.ObjectModel;
+using UI.Extenstions;
+using UI.Helpers;
+using UI.Views.Pages.Message;
 
 namespace UI.Views.Pages.MainForms.Input
 {
 
-    public partial class InputMailMainViewModel : ObservableObject,IQueryAttributable
+    public partial class InputMailMainViewModel : ObservableObject, IQueryAttributable
     {
         [ObservableProperty] public ObservableCollection<MailWrapper> filteredSourceMail = new();
 
@@ -83,14 +73,14 @@ namespace UI.Views.Pages.MainForms.Input
             {
                 ["SelectedMail"] = mail,
                 ["CurrentUser"] = CurrentUser
-            }); 
+            });
         }
 
         MailRepository mailsRep;
         public InputMailMainViewModel()
         {
-             mailsRep = new MailRepository(TestHelper.GetConnectionSingltone());
-         
+            mailsRep = new MailRepository(TestHelper.GetConnectionSingltone());
+
 
         }
 
@@ -99,6 +89,22 @@ namespace UI.Views.Pages.MainForms.Input
             var mailTypeRep = new MailTypeRepository(TestHelper.GetConnectionSingltone());
             UserAccessMailTypeList = await mailTypeRep.GetTypesAccessByUser(CurrentUser);
             LoadDistibutinToMeCommand.Execute(null);
+        }
+
+        [RelayCommand]
+        public async void RefreshCommand()
+        {
+            switch (CurrentMode)
+            {
+                case EnumModes.All:
+                    break;
+                case EnumModes.Archive:
+                    break;
+                case EnumModes.Favorite:
+                    break;
+                case EnumModes.DistributedToMe:
+                    break;
+            }
         }
 
         /// <summary>
@@ -136,8 +142,8 @@ namespace UI.Views.Pages.MainForms.Input
             OnPropertyChanged(nameof(CurrentFilePath));
             OnPropertyChanged(nameof(CurrentFiles));
             if (value == null || value.Mail.PathFolder == null) return;
-              var pdfFiles = value.Mail.PathFolder.GetAllPdfInFolder();
-         
+            var pdfFiles = value.Mail.PathFolder.GetAllPdfInFolder();
+
             //todo: Если нет файлов то показываем плашку
             if (pdfFiles.Count > 0)
             {
@@ -203,7 +209,7 @@ namespace UI.Views.Pages.MainForms.Input
             await Task.Delay(200);
             CurrentMode = EnumModes.DistributedToMe;
             //todo: user service
-            foreach (Mail mail in await mailsRep.GetDistributedToUser(new User() { Id=157}))
+            foreach (Mail mail in await mailsRep.GetDistributedToUser(new User() { Id = 157 }))
             {
                 ListSourceMail.Add(new MailWrapper() { Mail = mail, IsSelected = false });
                 FilteredSourceMail = ListSourceMail;
@@ -240,7 +246,7 @@ namespace UI.Views.Pages.MainForms.Input
             //todo: оптимизировать
 
 
-            if(text.Length > 0)
+            if (text.Length > 0)
             {
                 switch (SearchModesEnum)
                 {
@@ -251,7 +257,7 @@ namespace UI.Views.Pages.MainForms.Input
                              a.Mail.Sender.Name.ToLower().Contains(text.ToLower()) ||
                              a.Mail.Project.Name.ToLower().Contains(text.ToLower()) ||
                              a.Mail.DateInput.ToString("dd.MM.yyyy").ToLower().Contains(text.ToLower()) ||
-                             a.Mail.Theme.ToLower().Contains(text.ToLower()) 
+                             a.Mail.Theme.ToLower().Contains(text.ToLower())
                         ).ToList());
                         break;
                     case SearchModesEnum.Theme:
@@ -277,13 +283,13 @@ namespace UI.Views.Pages.MainForms.Input
                     default:
                         break;
                 }
-               
+
             }
             else
             {
                 FilteredSourceMail = ListSourceMail;
             }
         }
-     
+
     }
 }

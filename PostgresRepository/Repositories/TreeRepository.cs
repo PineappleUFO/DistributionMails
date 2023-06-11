@@ -34,6 +34,33 @@ namespace EF.Repositories
                 cmd.Parameters.AddWithValue("log", "Добавление распределения");
 
                 cmd.ExecuteNonQuery();
+
+                
+            }
+            addToDistrToUser(mail.Id, toUser.Id);
+        }
+
+        /// <summary>
+        /// добавляем запись в таблицу "распределено пользователю"
+        /// </summary>
+        private void addToDistrToUser(int mailId,int userId)
+        {
+            //если по какой то причине строка подключения пустая
+            if (connectionString == null)
+                throw new Exception("Не задана строка подключения");
+            using var connection = connectionString.TryGetConnetion();
+            connection.Open();
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+
+                cmd.CommandText = "INSERT INTO distributed_to_user (id_mail, id_user) VALUES (@id_mail,@id_user) ON CONFLICT DO NOTHING";
+                cmd.Parameters.AddWithValue("id_mail", mailId);
+                cmd.Parameters.AddWithValue("id_user", userId);
+
+                cmd.ExecuteNonQuery();
+
+
             }
         }
 
@@ -59,6 +86,7 @@ namespace EF.Repositories
 
                 cmd.ExecuteNonQuery();
             }
+            addToDistrToUser(mail.Id, user.Id);
         }
 
 

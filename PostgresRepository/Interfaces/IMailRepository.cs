@@ -42,4 +42,9 @@ public interface IMailRepository
     /// </summary>
     /// <returns></returns>
     Task<List<string>> GetFastResolution();
+
+    /// <summary>
+    /// Переместить пиьмо в архив
+    /// </summary>
+    void TransferToArchive(Mail mail, User user);
 }

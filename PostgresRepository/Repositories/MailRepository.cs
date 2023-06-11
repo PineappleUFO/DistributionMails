@@ -269,6 +269,50 @@ AND im.id_outgoing_mail IS NULL";
         return result;
     }
 
+    public void TransferToArchive(Mail mail, User user)
+    {
+        //если по какой то причине строка подключения пустая
+        if (connectionString == null)
+            throw new Exception("Не задана строка подключения");
+        using var connection = connectionString.TryGetConnetion();
+        connection.Open();
+        
+        using (var cmd = new NpgsqlCommand())
+        {
+            cmd.Connection = connection;
+            cmd.CommandText = $"SELECT count(*) from distributed_to_user where id_mail = {mail.Id} and id_user={user.Id}";
+            if(Convert.ToInt32(cmd.ExecuteScalar())==0)
+            {
+                return;
+            }
+        }
+
+        using (var cmd = new NpgsqlCommand())
+        {
+            cmd.Connection = connection;
+            cmd.CommandText = $"DELETE from distributed_to_user where id_mail = {mail.Id} and id_user={user.Id}";
+            cmd.ExecuteNonQuery();
+        }
+
+        using (var cmd = new NpgsqlCommand())
+        {
+            cmd.Connection = connection;
+            cmd.CommandText = "INSERT INTO users_archive_mails (id_mail, id_user) VALUES (@id_mail, @id_user) ON CONFLICT DO NOTHING";
+            cmd.Parameters.AddWithValue("id_mail", mail.Id);
+            cmd.Parameters.AddWithValue("id_user", user.Id);
+            cmd.ExecuteNonQuery();
+        }
+        using (var cmd = new NpgsqlCommand())
+        {
+            cmd.Connection = connection;
+            cmd.CommandText = $"UPDATE distribution_tree SET id_status = 4 WHERE id_mail = @idMail and id_user = @idUser and id_status IS NULL";
+            cmd.Parameters.AddWithValue("@idMail", mail.Id);
+            cmd.Parameters.AddWithValue("@idUser", user.Id);
+            cmd.ExecuteNonQuery();
+        }
+       
+    }
+
 
     /// <summary>
     /// Функция получения писем

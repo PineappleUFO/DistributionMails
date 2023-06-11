@@ -80,20 +80,7 @@
                 </HorizontalStackLayout>
             </Border>
 
-            <!--Фильтр todo:доделать-->
-            <HorizontalStackLayout Grid.Column="2" IsEnabled="False">
-                <ImageButton Source="{FontImage , FontFamily=FASolid,Size=18}" Margin="5,0" Grid.Column="4"/>
-                <Picker VerticalTextAlignment="Center" 
-                        Margin="2" 
-                        
-                        BackgroundColor="{StaticResource Background}"
-                        VerticalOptions="Center">
-                    <Picker.Items>
-                        <x:String>Все</x:String>
-                        <x:String>Только с сроком ответа</x:String>
-                    </Picker.Items>
-                </Picker>
-            </HorizontalStackLayout>
+         
 
             <!--Режимы-->
             <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="10"  Grid.Column="3" RadioButtonGroup.GroupName="Modes">

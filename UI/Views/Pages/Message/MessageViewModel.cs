@@ -2,18 +2,15 @@
 using CommunityToolkit.Mvvm.Input;
 using Core.Models;
 using EF.Repositories;
-using Microsoft.Maui.ApplicationModel.Communication;
 using System.Collections.ObjectModel;
 using UI.Helpers;
 using UI.Views.Components;
 using UI.Views.Pages.Distribution;
-using UI.Views.Pages.MainForms.Input;
-using static iTextSharp.text.pdf.AcroFields;
 
 namespace UI.Views.Pages.Message;
 
 public partial class MessageViewModel : ObservableObject, IQueryAttributable
-{ 
+{
     [ObservableProperty]
     MailWrapper selectedMail;
 
@@ -24,13 +21,13 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     [ObservableProperty]
     ObservableCollection<TreeItem> distributionTreeSource = new();
 
-
+    MailRepository mRep = new MailRepository(TestHelper.GetConnectionSingltone());
     /// <summary>
     /// Комманда открытия формы распределения
     /// </summary>
     /// <param name="mail">Модель письма</param>
     [RelayCommand]
-    public  void OpenDistributionPage(MailWrapper mail)
+    public void OpenDistributionPage(MailWrapper mail)
     {
     }
 
@@ -40,7 +37,7 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     public void Remove(TreeItem item)
     {
-     
+
         treeRep.DeleteUserFromTree(item.Id);
         LoadTree();
     }
@@ -57,7 +54,7 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
             ["TreeItem"] = item,
             ["TreeRepository"] = treeRep,
             ["SelectedDate"] = item.Deadline
-        }) ;
+        });
         LoadTree();
     }
 
@@ -75,7 +72,7 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     /// Назначить ответсвенным
     /// </summary>
     [RelayCommand]
-    public void GetResponsible(TreeItem item) 
+    public void GetResponsible(TreeItem item)
     {
         treeRep.SetResponibleInTree(item.Id);
         LoadTree();
@@ -114,7 +111,7 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
             ["SelectedUserFrom"] = s.User,
             ["CurrentUser"] = CurrentUser,
             ["SelectedTreeItem"] = s
-        }) ;
+        });
         LoadTree();
     }
 
@@ -124,31 +121,38 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     public async void AddFirstLevel()
     {
-       //todo: service Current user
-         await Shell.Current.GoToAsync($"{nameof(DistributionPage)}", new Dictionary<string, object>()
+        //todo: service Current user
+        await Shell.Current.GoToAsync($"{nameof(DistributionPage)}", new Dictionary<string, object>()
         {
             ["SelectedMail"] = SelectedMail.Mail,
             ["CurrentUser"] = CurrentUser
-         });
+        });
 
-         LoadTree();
+        LoadTree();
     }
 
     public MessageViewModel()
     {
-       
+
     }
-    TreeRepository treeRep;
+    TreeRepository treeRep = new TreeRepository(TestHelper.GetConnectionSingltone());
     private async void LoadTree()
     {
-        treeRep =new TreeRepository(TestHelper.GetConnectionSingltone());
-        DistributionTreeSource = TreeHelper.GenerateTreeFromDbData(await  treeRep.GetTreeByMailId(SelectedMail.Mail));
+        DistributionTreeSource = TreeHelper.GenerateTreeFromDbData(await treeRep.GetTreeByMailId(SelectedMail.Mail));
     }
 
+
+    partial void OnSelectedMailChanged(MailWrapper value)
+    {
+        //при открытии отправляем письмо в архив и ставим начальный статус "прочитано"
+        mRep.TransferToArchive(SelectedMail.Mail, CurrentUser);
+    }
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        SelectedMail = query["SelectedMail"] as MailWrapper;
         CurrentUser = query["CurrentUser"] as User;
+        SelectedMail = query["SelectedMail"] as MailWrapper;
         LoadTree();
+
+       
     }
 }
