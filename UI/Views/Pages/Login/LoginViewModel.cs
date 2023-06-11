@@ -40,6 +40,7 @@ public partial class LoginViewModel
     async void TryLogin()
     {
         IsBusy = true;
+        await Task.Delay(200);
         var userRepository = new UserRepository(TestHelper.GetConnectionSingltone());
         
         User user = await userRepository.TryGetUserByLogin(Login, Password);

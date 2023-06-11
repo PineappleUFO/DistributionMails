@@ -43,10 +43,10 @@
                 <!--Режимы-->
                 <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="15"  Grid.Column="3" RadioButtonGroup.GroupName="Modes">
                     <!--todo: сделать стили-->
-                    <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Умное"/>
-                    <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Заместители"/>
-                    <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Отдел"/>
-                    <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Все"/>
+                    <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Умное" Command="{Binding GetUsersFromCounterCommand}"/>
+                    <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Заместители" Command="{Binding GetUsersFromReplacementCommand}"/>
+                    <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Отдел" Command="{Binding GetUsersFromDepCommand}"/>
+                    <Button BorderWidth="0" BackgroundColor="Transparent" FontFamily="RobotoSlabLight" FontSize="20" Text="Все" Command="{Binding GetAllUsersCommand}"/>
                 </HorizontalStackLayout>
             </Grid>
 
@@ -72,6 +72,7 @@
                          Margin="8"
                          SelectionEnabled="True" 
                          ActiveRowColor="{StaticResource Primary}">
+               
                 <dataGrid:DataGrid.Columns>
                 
                     <dataGrid:DataGridColumn Width="45">
@@ -300,19 +301,20 @@
                 <Border Grid.Row="2" Stroke="Gray" Background="{StaticResource Selection}">
                     <Grid RowDefinitions="Auto,Auto,Auto,*,Auto" RowSpacing="5" Margin="5">
                         <HorizontalStackLayout >
-                            <CheckBox x:Name="cbAll" ></CheckBox>
+                            <CheckBox x:Name="cbAll" IsChecked="{Binding IsGeneral}"></CheckBox>
                             <Label VerticalOptions="Center">Задать обший срок и резолюцию</Label>
                         </HorizontalStackLayout>
 
-                        <HorizontalStackLayout IsVisible="{Binding Source={x:Reference cbAll},Path=IsChecked}" HorizontalOptions="FillAndExpand" Grid.Row="1" Background="{StaticResource Background}" Padding="10">
-                            <Button Text="Rez"></Button>
-                            <Entry HorizontalOptions="Fill" WidthRequest="300" Placeholder="Резолюция общая"></Entry>
+                        <HorizontalStackLayout IsVisible="{Binding Source={x:Reference cbAll},Path=IsChecked}" HorizontalOptions="Center" Grid.Row="1" Background="{StaticResource Background}" Padding="10">
+                            <Button Text="Rez" Margin="5"></Button>
+                            <Entry HorizontalOptions="Fill" Margin="5" WidthRequest="300" Placeholder="Резолюция общая" Text="{Binding AllResolution}"></Entry>
+                            <VerticalStackLayout Margin="5" IsVisible="{Binding Source={x:Reference cbAll},Path=IsChecked}"  HorizontalOptions="End" Grid.Row="2" Background="{StaticResource Background}" Padding="10">
+                                <Label VerticalOptions="Center">Срок общий</Label>
+                                <DatePicker Date="{Binding AllDeadline}"></DatePicker>
+                            </VerticalStackLayout>
                         </HorizontalStackLayout>
 
-                        <VerticalStackLayout IsVisible="{Binding Source={x:Reference cbAll},Path=IsChecked}"  HorizontalOptions="End" Grid.Row="2" Background="{StaticResource Background}" Padding="10">
-                            <Label VerticalOptions="Center">Срок общий</Label>
-                            <DatePicker ></DatePicker>
-                        </VerticalStackLayout>
+                      
 
                         <HorizontalStackLayout Grid.Row="4" HorizontalOptions="End">
                             <Button BackgroundColor="#70FF75" TextColor="{StaticResource Background}" Command="{Binding SaveCommand}" FontAttributes="Bold" Text="Поручить" WidthRequest="200" Margin="0,0,10,0"></Button>
