@@ -13,7 +13,7 @@ public partial class OutputMail : ContentPage
 
     private void Button_Clicked(object sender, EventArgs e)
     {
-
+        Previewer.FilePath = ((Button)sender).CommandParameter.ToString();
     }
 
     private void Search_TextChanged(object sender, TextChangedEventArgs e)
@@ -70,10 +70,10 @@ public partial class OutputMail : ContentPage
     }
     private void Button_Clicked_1(object sender, EventArgs e)
     {
-
-        //if (this.BindingContext is InputMailMainViewModel vm)
-        //{
-        //    vm.OpenMailCommand.Execute(vm.SelectedMail);
-        //}
+        if (this.BindingContext is OutputMailViewModel vm)
+        {
+            vm.OpenMailCommand.Execute(vm.SelectedMail);
+        }
+        
     }
 }

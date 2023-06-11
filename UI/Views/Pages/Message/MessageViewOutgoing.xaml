@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UI.Views.Pages.Message.MessageViewOutgoing"
+                          xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             BackgroundColor="{StaticResource Background}"
+               xmlns:converters="clr-namespace:UI.Converters"
+               xmlns:components="using:UI.Views.Components">
+    <ContentPage.Resources>
+        <!--Стиль для кнопки с иконкой-->
+        <Style TargetType="ImageButton">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="BorderColor" Value="Transparent" />
+            <Setter Property="BorderWidth" Value="0" />
+        </Style>
+        <converters:StringToColorConverter x:Key="StringToColorConverter"/>
+        <converters:StringEmptyToBollean x:Key="StringEmptyToBollean"/>
+    </ContentPage.Resources>
+
+    <Grid ColumnDefinitions="0.9*,*" RowDefinitions="60,*"  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <!--Шапка-->
+        <Border Grid.Row="0" Grid.ColumnSpan="2" Background="{StaticResource Primary}"></Border>
+
+        <Label Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="24">Основная информация о письме</Label>
+        <Button Grid.Row="0" Grid.Column="0" WidthRequest="40" HorizontalOptions="End" Text="S"></Button>
+
+        <Label Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="24">Предпросмотр</Label>
+
+
+        <Grid  Padding="80" ColumnDefinitions="0.7*,*" VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.Column="0" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="15" ColumnSpacing="15" Margin="25">
+
+            <Border Grid.Row="0"  Grid.ColumnSpan="2" Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="120" StrokeShape="RoundRectangle 15,15,0,0">
+                <VerticalStackLayout VerticalOptions="Center" >
+                    <Label FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Тема письма</Label>
+                    <Label   FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="{Binding SelectedMail.Theme}"></Label>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="110">
+                <VerticalStackLayout VerticalOptions="Center" >
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Дата отправки</Label>
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="{Binding SelectedMail.DateExport,StringFormat='{0:dd.MM.yyyy}'}"></Label>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="1" Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="110">
+                <VerticalStackLayout VerticalOptions="Center" >
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Номер</Label>
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="{Binding SelectedMail.Number}"></Label>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="110">
+                <VerticalStackLayout VerticalOptions="Center" >
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">От кого</Label>
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="{Binding SelectedMail.Sender.Name}"></Label>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border MaximumHeightRequest="300" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource Selection}" StrokeShape="RoundRectangle 0,0,15,15">
+                <VerticalStackLayout VerticalOptions="Center" MinimumHeightRequest="300">
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Текст письма</Label>
+                    <Label  FontSize="20"  TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="{Binding SelectedMail.Text}" Padding="10"></Label>
+                </VerticalStackLayout>
+            </Border>
+
+        </Grid>
+
+
+        <Grid Padding="0 50 0 50" Grid.Column="2" Grid.Row="1" RowDefinitions="*,60" VerticalOptions="FillAndExpand">
+
+            <!--Предпросмоторщик-->
+            <Border VerticalOptions="FillAndExpand"  Grid.Row="0">
+                <components:FilePreviewer x:Name="Previewer"  FilePath="{Binding CurrentFilePath}"/>
+            </Border>
+
+            <HorizontalStackLayout Grid.Row="1" >
+                <CollectionView ItemsSource="{Binding CurrentFiles}"  HorizontalOptions="FillAndExpand">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="2"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Margin="5" Text="1" Clicked="Button_Clicked" CommandParameter="{Binding}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </HorizontalStackLayout>
+        </Grid>
+    </Grid>
+
+
+</ContentPage>

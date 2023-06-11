@@ -14,12 +14,12 @@ namespace UI
         {
             InitializeComponent();
 
-             Routing.RegisterRoute(nameof(MessageView),typeof(MessageView));
+            Routing.RegisterRoute(nameof(MessageView),typeof(MessageView));
             Routing.RegisterRoute(nameof(DistributionPage), typeof(DistributionPage));
             Routing.RegisterRoute(nameof(InputMailMain), typeof(InputMailMain));
             Routing.RegisterRoute(nameof(ChangeDateModal), typeof(ChangeDateModal));
             Routing.RegisterRoute(nameof(OutputMail), typeof(OutputMail));
-
+            Routing.RegisterRoute(nameof(MessageViewOutgoing), typeof(MessageViewOutgoing));
         }
     }
 }

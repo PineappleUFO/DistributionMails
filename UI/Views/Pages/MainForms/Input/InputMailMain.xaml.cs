@@ -48,17 +48,11 @@ public partial class InputMailMain : ContentPage
 
     private void Button_Clicked(object sender, EventArgs e)
     {
-
-        if (this.BindingContext is InputMailMainViewModel vm1)
-        {
-            vm1.OpenPreviewFileCommand.Execute(((Button)sender).CommandParameter);
-            Previewer.FilePath = vm1.CurrentFilePath;
-        }
+      Previewer.FilePath = ((Button)sender).CommandParameter.ToString();
     }
 
     private void Button_Clicked_1(object sender, EventArgs e)
     {
-
         if (this.BindingContext is InputMailMainViewModel vm)
         {
             vm.OpenMailCommand.Execute(vm.SelectedMail);

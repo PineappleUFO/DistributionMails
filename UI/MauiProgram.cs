@@ -50,6 +50,7 @@ namespace UI
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<ChangeDataModalViewModel>();
             builder.Services.AddTransient<OutputMailViewModel>();
+            builder.Services.AddTransient<MessageViewOutgoingViewModel>();
 
             builder.Services.AddSingleton<PostgresGenerateConnection>();
             //Repositories

@@ -137,14 +137,6 @@ namespace UI.Views.Pages.MainForms.Input
             IsLoading = false;
         }
 
-        /// <summary>
-        /// Комманда открытия выбранного пользователем вложения
-        /// </summary>
-        [RelayCommand]
-        public void OpenPreviewFile(object filePath)
-        {
-            CurrentFilePath = filePath.ToString();
-        }
 
         partial void OnSelectedMailChanged(MailWrapper value)
         {

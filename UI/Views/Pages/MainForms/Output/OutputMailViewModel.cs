@@ -6,6 +6,7 @@ using PostgresRepository.Repositories;
 using System.Collections.ObjectModel;
 using UI.Extenstions;
 using UI.Helpers;
+using UI.Views.Pages.Message;
 
 namespace UI.Views.Pages.MainForms.Output
 {
@@ -47,7 +48,18 @@ namespace UI.Views.Pages.MainForms.Output
                 OnPropertyChanged(nameof(CurrentFilePath));
             }
         }
-
+        /// <summary>
+        /// Комманда открытия письма
+        /// </summary>
+        /// <param name="mail">Модель письма</param>
+        [RelayCommand]
+        public async void OpenMail()
+        {
+            await Shell.Current.GoToAsync($"{nameof(MessageViewOutgoing)}", new Dictionary<string, object>()
+            {
+                ["SelectedMail"] = SelectedMail.Mail,
+            });
+        }
         public async void Init()
         {
             IsLoading = true;

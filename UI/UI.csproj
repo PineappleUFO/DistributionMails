@@ -91,6 +91,9 @@
 	  <MauiXaml Update="Views\Pages\MainForms\Output\OutputMail.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Pages\Message\MessageViewOutgoing.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
