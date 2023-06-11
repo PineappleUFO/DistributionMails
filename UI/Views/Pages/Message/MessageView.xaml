@@ -175,8 +175,6 @@
                                     <Grid ColumnDefinitions="auto,auto" HeightRequest="40" >
                                     <Image Grid.Column="0" Source="{Binding User.Photo,Converter={StaticResource ByteToImageConverter}}" Margin="0,0,10,0"></Image>
                                  
-                                     
-
                                         <HorizontalStackLayout Grid.Column="1">
                                             <Label Text="{Binding User.FullName}" VerticalOptions="Center" FontSize="16" Margin="0,0,20,0"></Label>
                                             <Label Text="{Binding MessageDate}" VerticalOptions="Center" FontSize="16" TextColor="{StaticResource Secondary}" Margin="0,0,20,0"></Label>
