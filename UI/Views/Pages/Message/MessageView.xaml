@@ -107,8 +107,7 @@
                 <Label TextColor="{StaticResource GreenTextHeader}" FontSize="16" Margin="10,0,0,0" Text="{Binding SelectedMail.Mail.Responsible.FullName}"></Label>
             </HorizontalStackLayout>
 
-            <Button Grid.Row="0" HeightRequest="30" Grid.Column="1" VerticalOptions="Start" Text="Требуется ответ" BorderColor="{StaticResource ButtonBorderColor}" BorderWidth="2" Background="{StaticResource Background}" CornerRadius="8"></Button>
-
+            
             <HorizontalStackLayout Grid.Row="1">
                 <Label Text="Срок ответа:" FontSize="16"></Label>
                 <Label Text="21.04.2023" Margin="10,0,0,0" FontAttributes="Bold" FontSize="16" ></Label>
