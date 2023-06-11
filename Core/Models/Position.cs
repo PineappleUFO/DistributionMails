@@ -8,6 +8,11 @@ public class Position:Entity
         PositionName = positionName;
     }
 
+    public Position()
+    {
+        
+    }
+
     public string PositionName { get; set; }
     
 }
