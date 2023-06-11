@@ -24,8 +24,16 @@ namespace UI.Views.Pages.Distribution
         [ObservableProperty] public DateTime? allDeadline;
         //Выбран ли режим с общей резолюцией и сроком
         [ObservableProperty] public bool isGeneral;
+        //число писем в работе у выбранного пользователя
+        [ObservableProperty] public int countMailInWork;
 
 
+        partial void OnSelectedUserChanged(DistributionItem value)
+        {
+            if (value == null) return;
+            CountMailInWork = mRep.GetMailsInWork(value.User.Id);
+
+        }
         partial void OnAllResolutionChanged(string value)
         {
             if (IsGeneral)
@@ -63,6 +71,7 @@ namespace UI.Views.Pages.Distribution
         }
 
         IUserRepository uRep = new UserRepository(TestHelper.GetConnectionSingltone());
+        IMailRepository mRep = new MailRepository(TestHelper.GetConnectionSingltone());
 
         [RelayCommand]
         public async void GetAllUsers()

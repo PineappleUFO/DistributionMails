@@ -31,4 +31,9 @@ public interface IMailRepository
     /// Получить письма в зависимости от типа
     /// </summary>
     Task<List<Mail>> GetMailsByType(MailType type);
+
+    /// <summary>
+    /// Сколько писем у пользователя в работе
+    /// </summary>
+    int GetMailsInWork(int userId);
 }

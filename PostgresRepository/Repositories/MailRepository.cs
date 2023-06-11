@@ -177,6 +177,37 @@ public class MailRepository : IMailRepository
         return await loadMailByQuery(query);
     }
 
+    public int GetMailsInWork(int userId)
+    {
+        //если по какой то причине строка подключения пустая
+        if (connectionString == null)
+            throw new Exception("Не задана строка подключения");
+
+        var result = 0;
+        using var connection = connectionString.TryGetConnetion();
+        connection.Open();
+
+
+
+        try
+        {
+            using var command = connection.CreateCommand();
+            command.CommandText = $@"SELECT COUNT(*) AS num_of_emails
+FROM distribution_tree dt
+JOIN incoming_mail im ON dt.id_mail = im.mail_id
+WHERE dt.id_user = {userId}
+AND im.id_outgoing_mail IS NULL";
+        
+            result = Convert.ToInt32(command.ExecuteScalar());
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+        return result;
+    }
+
 
     /// <summary>
     /// Функция получения писем

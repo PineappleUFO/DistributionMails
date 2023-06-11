@@ -193,7 +193,7 @@
 
                         <FlexLayout JustifyContent="SpaceBetween">
                             <Label TextColor="{StaticResource Primary}" Text="Кол-во писем в работе"/>
-                            <Label>---</Label>
+                            <Label Text="{Binding CountMailInWork}"></Label>
                         </FlexLayout>
                         <BoxView StyleClass="Divider"  Margin="5"/>
                     </VerticalStackLayout>
