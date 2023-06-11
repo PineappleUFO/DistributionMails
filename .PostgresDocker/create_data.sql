@@ -643,3 +643,6 @@ values  (10, 157, '(0,1)'),
         (15, 157, '(0,2)'),
         (20, 157, '(0,3)');
 COMMIT;
+
+CREATE UNIQUE INDEX idx_distribution_counter_unique
+ON distribution_counter (id_user, distributed_user_id);
