@@ -312,7 +312,20 @@ create table mail_type_access_user
         constraint mail_type_access_user___fk
             references mail_type
 );
-
+create table mail_chat
+(
+    id           serial  not null
+        constraint mail_chat_pk
+            primary key,
+    user_id      integer not null
+        constraint mail_chat_users_user_id_fk
+            references users,
+    mail_id      integer not null
+        constraint mail_chat_incoming_mail_mail_id_fk
+            references incoming_mail,
+    message      varchar,
+    date_message timestamp default current_timestamp
+);
 
 -- Создание ролей
 CREATE  ROLE ogk;
