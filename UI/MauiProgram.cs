@@ -9,6 +9,7 @@ using UI.Views.Components;
 using UI.Views.Pages.Distribution;
 using UI.Views.Pages.Login;
 using UI.Views.Pages.MainForms.Input;
+using UI.Views.Pages.MainForms.Output;
 using UI.Views.Pages.Message;
 using UraniumUI;
 
@@ -48,6 +49,7 @@ namespace UI
             builder.Services.AddTransient<DistributionViewModel>();
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<ChangeDataModalViewModel>();
+            builder.Services.AddTransient<OutputMailViewModel>();
 
             builder.Services.AddSingleton<PostgresGenerateConnection>();
             //Repositories

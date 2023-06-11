@@ -6,6 +6,7 @@ using PostgresRepository.Repositories;
 using System.Collections.ObjectModel;
 using UI.Extenstions;
 using UI.Helpers;
+using UI.Views.Pages.MainForms.Output;
 using UI.Views.Pages.Message;
 
 namespace UI.Views.Pages.MainForms.Input
@@ -109,6 +110,12 @@ namespace UI.Views.Pages.MainForms.Input
                     LoadDistibutinToMeCommand.Execute(null);
                     break;
             }
+        }
+
+        [RelayCommand]
+        public async void OpenOutputMails()
+        {
+            await Shell.Current.GoToAsync(nameof(OutputMail));
         }
 
         /// <summary>

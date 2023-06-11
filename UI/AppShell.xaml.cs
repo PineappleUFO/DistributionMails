@@ -3,6 +3,7 @@
 using UI.Views.Components;
 using UI.Views.Pages.Distribution;
 using UI.Views.Pages.MainForms.Input;
+using UI.Views.Pages.MainForms.Output;
 using UI.Views.Pages.Message;
 
 namespace UI
@@ -17,7 +18,7 @@ namespace UI
             Routing.RegisterRoute(nameof(DistributionPage), typeof(DistributionPage));
             Routing.RegisterRoute(nameof(InputMailMain), typeof(InputMailMain));
             Routing.RegisterRoute(nameof(ChangeDateModal), typeof(ChangeDateModal));
-        
+            Routing.RegisterRoute(nameof(OutputMail), typeof(OutputMail));
 
         }
     }

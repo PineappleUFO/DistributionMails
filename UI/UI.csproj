@@ -88,10 +88,9 @@
 	  <MauiXaml Update="Views\Pages\MainForms\Input\InputMailMain.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Views\Pages\MainForms\Output\" />
+	  <MauiXaml Update="Views\Pages\MainForms\Output\OutputMail.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

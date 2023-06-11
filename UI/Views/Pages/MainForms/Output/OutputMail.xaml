@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UI.Views.Pages.MainForms.Output.OutputMail"
+              BackgroundColor="{StaticResource Background}"
+             xmlns:controls="clr-namespace:UraniumUI.Material.Controls;assembly=UraniumUI.Material"
+             xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
+             xmlns:converters="clr-namespace:UI.Converters"
+             xmlns:modes="clr-namespace:Core.Models;assembly=Core"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:components="using:UI.Views.Components">
+    <ContentPage.Resources>
+        <converters:StringToColorConverter x:Key="StringToColorConverter"/>
+        <converters:DateAnswerToColorConverter x:Key="DateAnswerToColorConverter"/>
+        <converters:IsDoneConverter x:Key="IsDoneConverter"/>
+
+        <Style x:Key="HeaderButtons" TargetType="{x:Type Button}">
+            <Setter Property="BackgroundColor" Value="{DynamicResource Background}"></Setter>
+        </Style>
+
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="60,*" ColumnDefinitions="2*,1*">
+        <!--Шапка для формы исходящих писем -->
+        <Grid ColumnDefinitions="30,auto,auto,*,auto,auto" 
+          ColumnSpacing="10" 
+          Padding="15,5" Grid.ColumnSpan="2"
+          Background="{StaticResource PrimaryBrush}">
+
+            <Grid.Resources>
+                <!--Стиль для кнопки с иконкой-->
+                <Style TargetType="ImageButton">
+                    <Setter Property="BackgroundColor" Value="Transparent"/>
+                    <Setter Property="BorderColor" Value="Transparent"/>
+                    <Setter Property="BorderWidth" Value="0"/>
+                </Style>
+            </Grid.Resources>
+
+            <!--Поиск-->
+            <Border Grid.Column="1" 
+                StrokeThickness="1" Padding="5"
+               BackgroundColor="{StaticResource Background}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="0,10,10,0" />
+                </Border.StrokeShape>
+                <HorizontalStackLayout>
+                    <ImageButton  Source="{FontImage , FontFamily=FASolid,Size=18}" Margin="5,0" Grid.Column="3"/>
+                    <Entry Placeholder="Поиск" 
+                       WidthRequest="150" 
+                       VerticalTextAlignment="Center"
+                       FontFamily="RobotoSlab"
+                       BackgroundColor="Transparent"
+                       ClearButtonVisibility="WhileEditing"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       TextChanged="Search_TextChanged"
+                           
+                       Margin="2"/>
+                    <Picker x:Name="pickerModes" VerticalTextAlignment="Center" 
+                        Margin="2" 
+                            
+                        BackgroundColor="Transparent"
+                        VerticalOptions="Center">
+                        <Picker.Items>
+                            <x:String>Умный</x:String>
+                            <x:String>По номеру письма</x:String>
+                            <x:String>По проекту</x:String>
+                            <x:String>По теме</x:String>
+                            <x:String>По дате отрпавки</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </HorizontalStackLayout>
+            </Border>
+
+            <Button Text="Входящие" Command="{Binding OpenInputMailCommand}" Grid.Column="4"/>
+            <!--Поменять иконки на Regular-->
+            <ImageButton Source="{FontImage , FontFamily=FASolid}" Margin="5,0" Grid.Column="5" Command="{Binding RefreshCommand}"/>
+
+
+        </Grid>
+
+
+        <!--Главная таблица писем-->
+
+        <ScrollView VerticalScrollBarVisibility="Always" HorizontalScrollBarVisibility="Always" Grid.Column="0" Grid.Row="1" VerticalOptions="Fill">
+
+            <!--Todo: добавить Срок ответа и цветовую градацию-->
+            <dg:DataGrid 
+                x:Name="dgMails"
+                RefreshingEnabled="True"
+                IsRefreshing="{Binding IsLoading}"
+                ItemsSource="{Binding FilteredSourceMail}" 
+                         BackgroundColor="{StaticResource Background}"
+                         HeaderBackground="{StaticResource Selection}"
+                         HeaderBordersVisible="False"
+                         BorderColor="{StaticResource Selection}"
+                         SelectedItem="{Binding SelectedMail}"
+                MinimumWidthRequest="1000"
+                ItemSelected="dgMails_ItemSelected"
+                HeaderHeight="70"
+                         RowHeight="50"
+                         Margin="8"
+                IsSortable="False"
+                         SelectionEnabled="True" 
+                         ActiveRowColor="{StaticResource Primary}">
+                <dg:DataGrid.Columns>
+                    <dg:DataGridColumn Width="0.7*">
+                        <dg:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="Номер письма" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dg:DataGridColumn.FormattedTitle>
+                        <dg:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding Mail.Number}" Margin="5" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                            </DataTemplate>
+                        </dg:DataGridColumn.CellTemplate>
+                    </dg:DataGridColumn>
+                    <dg:DataGridColumn Width="0.9*">
+                        <dg:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="Дата отправки" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dg:DataGridColumn.FormattedTitle>
+                        <dg:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding Mail.DateExport,StringFormat='{0:dd.MM.yyyy}'}" Margin="5"  TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                            </DataTemplate>
+                        </dg:DataGridColumn.CellTemplate>
+                    </dg:DataGridColumn>
+                    <dg:DataGridColumn  Width="0.9*">
+                        <dg:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="Проект" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dg:DataGridColumn.FormattedTitle>
+                        <dg:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding Mail.Project.Name}" Margin="5" TextColor="{Binding Mail.Project.Color,Converter={StaticResource StringToColorConverter}}" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                            </DataTemplate>
+                        </dg:DataGridColumn.CellTemplate>
+                    </dg:DataGridColumn>
+                    <dg:DataGridColumn  Width="1.5*" >
+                        <dg:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="Отправитель" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dg:DataGridColumn.FormattedTitle>
+                        <dg:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding Mail.Sender.Name}" Margin="5" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                            </DataTemplate>
+                        </dg:DataGridColumn.CellTemplate>
+                    </dg:DataGridColumn>
+                    <dg:DataGridColumn LineBreakMode="CharacterWrap" Width="3*">
+                        <dg:DataGridColumn.FormattedTitle>
+                            <FormattedString>
+                                <Span Text="Тема" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </dg:DataGridColumn.FormattedTitle>
+                        <dg:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding Mail.Theme}" Margin="5" LineBreakMode="CharacterWrap" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                            </DataTemplate>
+                        </dg:DataGridColumn.CellTemplate>
+                    </dg:DataGridColumn>
+                    
+                    <dg:DataGridColumn Title="" Width="60">
+                        <dg:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Text="->" IsVisible="{Binding IsSelected}" Clicked="Button_Clicked_1"  Margin="5,0,0,0" FontSize="14" Padding="0" WidthRequest="60" />
+                            </DataTemplate>
+                        </dg:DataGridColumn.CellTemplate>
+                    </dg:DataGridColumn>
+                </dg:DataGrid.Columns>
+
+                <dg:DataGrid.RowsBackgroundColorPalette>
+                    <dg:PaletteCollection>
+                        <Color>#282A36</Color>
+
+                    </dg:PaletteCollection>
+                </dg:DataGrid.RowsBackgroundColorPalette>
+            </dg:DataGrid>
+        </ScrollView>
+
+
+
+        <Grid Grid.Column="1" Grid.Row="1" RowDefinitions="*,60" VerticalOptions="FillAndExpand">
+
+            <!--Предпросмоторщик-->
+            <Border VerticalOptions="FillAndExpand"  Grid.Row="0">
+                <components:FilePreviewer x:Name="Previewer"  FilePath="{Binding CurrentFilePath}"/>
+            </Border>
+
+            <HorizontalStackLayout Grid.Row="1" >
+                <CollectionView ItemsSource="{Binding CurrentFiles}"  HorizontalOptions="FillAndExpand">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="2"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Margin="5" Text="1" Clicked="Button_Clicked" CommandParameter="{Binding}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </HorizontalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

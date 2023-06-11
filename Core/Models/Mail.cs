@@ -22,6 +22,10 @@ public class Mail:Entity
 
     public DirectoryInfo PathFolder { get; set; }
 
+    public Mail()
+    {
+        
+    }
     public Mail(int id, string number, DateTime dateInput, DateTime? dateAnswer, string theme, User? responsible, Project project, Sender sender, OutgoingMail outgoingMail) : base(id)
     {
         Id = id;

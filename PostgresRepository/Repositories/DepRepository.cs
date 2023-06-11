@@ -35,7 +35,6 @@ public class DepRepository : IDepRepository
             await using var reader = await command.ExecuteReaderAsync();
             if (await reader.ReadAsync())
             {
-                //todo: dep и position
                 return new Dep(reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
             }
         }

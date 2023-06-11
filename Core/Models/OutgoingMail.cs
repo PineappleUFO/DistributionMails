@@ -2,6 +2,7 @@
 
 public class OutgoingMail:Entity
 {
+
     public OutgoingMail()
     {
         
@@ -21,4 +22,7 @@ public class OutgoingMail:Entity
     public DateTime? DateAnswer { get; set; }
     public string Theme { get; set; }
     public string Text { get; set; }
+    public Sender Sender { get; set; }
+    public DirectoryInfo PathFolder { get; set; }
+    public Project Project { get; set; }
 }
