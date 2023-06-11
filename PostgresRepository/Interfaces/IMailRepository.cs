@@ -47,4 +47,14 @@ public interface IMailRepository
     /// Переместить пиьмо в архив
     /// </summary>
     void TransferToArchive(Mail mail, User user);
+
+    /// <summary>
+    /// загрузить чат по письму
+    /// </summary>
+    Task<List<Chat>> GetChatByMailId(int mailId);
+
+    /// <summary>
+    /// Отправить сообщение в чат по письму
+    /// </summary>
+    void SendMessageToMailChat(int mailId,int userId,string message);
 }

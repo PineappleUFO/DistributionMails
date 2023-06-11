@@ -82,6 +82,7 @@ namespace UI.Views.Pages.MainForms.Input
         {
             mailsRep = new MailRepository(TestHelper.GetConnectionSingltone());
 
+         
 
         }
 

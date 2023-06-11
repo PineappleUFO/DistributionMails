@@ -42,9 +42,10 @@ public partial class LoginViewModel
         IsBusy = true;
         await Task.Delay(200);
         var userRepository = new UserRepository(TestHelper.GetConnectionSingltone());
-        
-        User user = await userRepository.TryGetUserByLogin(Login, Password);
 
+     
+
+        User user = await userRepository.TryGetUserByLogin(Login, Password);
         
         if (user != null)
         {

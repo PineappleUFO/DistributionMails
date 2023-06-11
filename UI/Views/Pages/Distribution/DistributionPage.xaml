@@ -6,8 +6,11 @@
              Shell.NavBarIsVisible="False"
            
              Background="{StaticResource Background}"
-             
+               xmlns:converters="clr-namespace:UI.Converters"
              >
+    <ContentPage.Resources>
+        <converters:ByteToImageConverter x:Key="ByteToImageConverter"/>
+    </ContentPage.Resources>
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="False"></BackButtonBehavior>
     </Shell.BackButtonBehavior>
@@ -193,11 +196,11 @@
                 <!--Данные-->
                 <Grid ColumnDefinitions="*,*" HorizontalOptions="Center" VerticalOptions="Center" Margin="5">
                    
-                    <Border HeightRequest="120" Margin="5" WidthRequest="120" Background="gray">
+                    <Border HeightRequest="120" ZIndex="50" Margin="5" WidthRequest="120" Stroke="gray">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="500" />
                         </Border.StrokeShape>
-                        <Image x:Name="imgPhoto" Margin="5"></Image>
+                        <Image  x:Name="imgPhoto" Margin="5"   IsOpaque="True" Source="{Binding SelectedUser.User.Photo,Converter={StaticResource ByteToImageConverter}}"></Image>
                     </Border>
 
                     <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Start" Grid.Row="0" Grid.Column="1" WidthRequest="300">
@@ -351,5 +354,6 @@
             
             
         </Border>
+      
     </Grid>
 </ContentPage>

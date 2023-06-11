@@ -92,6 +92,8 @@ public class MailRepository : IMailRepository
         return await loadMailByQuery(query);
     }
 
+
+
     public async Task<List<Mail>> GetDistributedToUser(User user)
     {
         string query = $@"select
@@ -272,6 +274,94 @@ AND im.id_outgoing_mail IS NULL";
 
         }
         return result;
+    }
+
+    public async Task<List<Chat>> GetChatByMailId(int mailId)
+    {
+        //если по какой то причине строка подключения пустая
+        if (connectionString == null)
+            throw new Exception("Не задана строка подключения");
+
+        var result = new List<Chat>();
+        await using var connection = connectionString.TryGetConnetion();
+        await connection.OpenAsync();
+
+        try
+        {
+            await using var command = connection.CreateCommand();
+            command.CommandText =$@"select
+                    c.message,
+                    c.date_message,
+                    u.user_id,
+                    u.family,
+                    u.photo,
+                    u.id_position
+ (SELECT CONCAT(LEFT(u.name, 1), '.', LEFT(u.surname, 1),'.')) AS inicials
+                    from mail_chat c,users
+                    nwhere
+                    u.user_id = c.user_id and
+                    c.mail_id = {mailId}";
+
+            await using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+              var chat = new Chat();
+              var user = new User();
+
+                user.Id = Convert.ToInt32(reader["user_id"]);
+                user.Family = reader["famaly"].ToString();
+                user.Inicials = reader["inicials"].ToString();
+                try
+                {
+                    user.Photo = (byte[])reader["photo"];
+                }
+                catch (Exception)
+                {
+
+                }
+
+                chat.User = user;
+                chat.MessageDate = Convert.ToDateTime(reader["date_message]"]);
+                chat.Message = reader["message"].ToString();
+           
+
+            }
+        }
+        catch (NpgsqlException e)
+        {
+            //todo: логирование
+            Console.WriteLine(e);
+            throw;
+        }
+        finally
+        {
+            await connection.CloseAsync();
+        }
+
+        //Если подключение не корректно 
+        return result;
+    }
+
+    public void SendMessageToMailChat(int mailId, int userId, string message)
+    {
+        //если по какой то причине строка подключения пустая
+        if (connectionString == null)
+            throw new Exception("Не задана строка подключения");
+        using var connection = connectionString.TryGetConnetion();
+        connection.Open();
+        using (var cmd = new NpgsqlCommand())
+        {
+            cmd.Connection = connection;
+
+            cmd.CommandText = "INSERT INTO mail_chat (user_id,mail_id, message) VALUES (@user_id,@mail_id, @message) ON CONFLICT DO NOTHING";
+            cmd.Parameters.AddWithValue("user_id", userId);
+            cmd.Parameters.AddWithValue("mail_id", mailId);
+            cmd.Parameters.AddWithValue("message", message);
+
+            cmd.ExecuteNonQuery();
+
+
+        }
     }
 
     public void TransferToArchive(Mail mail, User user)

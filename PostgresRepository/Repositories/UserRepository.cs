@@ -2,6 +2,7 @@
 using EF.Interfaces;
 using Npgsql;
 using PostgresRepository.Interfaces;
+using System.Text;
 
 namespace EF.Repositories;
 
@@ -50,12 +51,21 @@ where u.login = '{login}' and
             await using var reader = await command.ExecuteReaderAsync(cancellationToken);
             if (await reader.ReadAsync(cancellationToken))
             {
+                byte[]? photo = null;
+                try
+                {
+                    photo = (byte[])reader["photo"];
+                }
+                catch (Exception)
+                {
+
+                }
                 return new User(reader.GetInt32(0),
                     reader.GetString(1),
                     reader.GetString(2),
                     reader.GetString(3),
                     reader.GetString(4),
-                    null,
+                    photo,
                     reader.GetString(6),
                     new Dep(reader.GetInt32(7), reader.GetString(8), reader.GetString(9)),
                     new Position(reader.GetInt32(10), reader.GetString(11)));
@@ -195,12 +205,22 @@ order by u.family";
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
+                byte[]? photo = null;
+                try
+                {
+                   
+                    photo = (byte[])reader["photo"];
+                }
+                catch (Exception)
+                {
+
+                }
                 var user = new User(reader.GetInt32(0),
                     reader.GetString(1),
                     reader.GetString(2),
                     reader.GetString(3),
                     reader.GetString(4),
-                    null,
+                    photo,
                     reader.GetString(6),
                     new Dep(reader.GetInt32(7), reader.GetString(8), reader.GetString(9)),
                     new Position(reader.GetInt32(10), reader.GetString(11)));
@@ -221,6 +241,24 @@ order by u.family";
         }
 
         return result;
+    }
+
+    public void InsertImg()
+    {
+        //если по какой то причине строка подключения пустая
+        if (connectionString == null)
+            throw new Exception("Не задана строка подключения");
+        using var connection = connectionString.TryGetConnetion();
+        connection.Open();
+        using (var cmd = new NpgsqlCommand())
+        {
+            string svgContent = File.ReadAllText("F:\\BrowserDownloads\\mvvi3rdo9iilirsp73p.png");
+            string base64String = Convert.ToBase64String(Encoding.UTF8.GetBytes(svgContent));
+
+            cmd.Connection = connection;
+            cmd.CommandText = $"UPDATE users SET photo = (decode('{base64String}', 'base64'))  WHERE user_id = 157;";
+            cmd.ExecuteNonQuery();
+        }
     }
 
   

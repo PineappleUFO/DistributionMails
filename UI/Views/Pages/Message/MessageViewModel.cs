@@ -133,7 +133,7 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
 
     public MessageViewModel()
     {
-
+    
     }
     TreeRepository treeRep = new TreeRepository(TestHelper.GetConnectionSingltone());
     private async void LoadTree()
