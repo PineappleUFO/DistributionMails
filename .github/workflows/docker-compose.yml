@@ -1,0 +1,24 @@
+version: '3.9'
+
+volumes:
+    postgres:
+
+services:
+
+  postgres:
+    
+    container_name: MailerPg
+    image: "postgres:alpine"
+    environment:
+      POSTGRES_USER: "MailerAdmin"
+      POSTGRES_PASSWORD: "MailerPg"
+      PGDATA: "/data/postgres"
+    volumes:
+       - postgres:/data/postgres
+       - ./create_data.sql:/docker-entrypoint-initdb.d/create_data.sql
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+
+    
