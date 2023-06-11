@@ -17,7 +17,7 @@ namespace UI
             Routing.RegisterRoute(nameof(DistributionPage), typeof(DistributionPage));
             Routing.RegisterRoute(nameof(InputMailMain), typeof(InputMailMain));
             Routing.RegisterRoute(nameof(ChangeDateModal), typeof(ChangeDateModal));
-
+        
 
         }
     }

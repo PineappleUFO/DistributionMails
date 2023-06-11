@@ -12,6 +12,29 @@
         <BackButtonBehavior IsVisible="False"></BackButtonBehavior>
     </Shell.BackButtonBehavior>
     <Grid RowDefinitions="60,*" ColumnDefinitions="*,*" ColumnSpacing="5">
+
+        <!--Модалка с быстрыми резолюциями-->
+        <Grid RowDefinitions="*,Auto" IsVisible="{Binding IsFastResolutionVisible}" Grid.Column="0" Padding="50" Background="#282a36" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" ZIndex="10">
+            <CollectionView ItemsSource="{Binding AllResolutionList}"  SelectionMode="Single" SelectedItem="{Binding SelectedResolution}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition  />
+                            </Grid.ColumnDefinitions>
+                            <Frame Margin="5"> 
+                            <Label Grid.Column="1"
+                       Text="{Binding}"
+                       FontAttributes="Bold"
+                       LineBreakMode="TailTruncation" />
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Text="Выбрать" Command="{Binding SetResolutionCommand}"></Button>
+        </Grid>
         <!--Шапка-->
         <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource Primary}">
             <Grid>
@@ -306,8 +329,8 @@
                         </HorizontalStackLayout>
 
                         <HorizontalStackLayout IsVisible="{Binding Source={x:Reference cbAll},Path=IsChecked}" HorizontalOptions="Center" Grid.Row="1" Background="{StaticResource Background}" Padding="10">
-                            <Button Text="Rez" Margin="5"></Button>
-                            <Entry HorizontalOptions="Fill" Margin="5" WidthRequest="300" Placeholder="Резолюция общая" Text="{Binding AllResolution}"></Entry>
+                            <Button Text="Rez" Margin="5" Command="{Binding ShowFastResolutionListCommand}"></Button>
+                            <Entry HorizontalOptions="Fill"  Margin="5" WidthRequest="300" Placeholder="Резолюция общая" Text="{Binding AllResolution}"></Entry>
                             <VerticalStackLayout Margin="5" IsVisible="{Binding Source={x:Reference cbAll},Path=IsChecked}"  HorizontalOptions="End" Grid.Row="2" Background="{StaticResource Background}" Padding="10">
                                 <Label VerticalOptions="Center">Срок общий</Label>
                                 <DatePicker Date="{Binding AllDeadline}"></DatePicker>

@@ -36,4 +36,10 @@ public interface IMailRepository
     /// Сколько писем у пользователя в работе
     /// </summary>
     int GetMailsInWork(int userId);
+
+    /// <summary>
+    /// Загрузить быстрые резолюции
+    /// </summary>
+    /// <returns></returns>
+    Task<List<string>> GetFastResolution();
 }

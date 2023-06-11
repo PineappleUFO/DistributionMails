@@ -113,6 +113,42 @@ public class MailRepository : IMailRepository
         return await loadMailByQuery(query);
     }
 
+    public async Task<List<string>> GetFastResolution()
+    {
+        //если по какой то причине строка подключения пустая
+        if (connectionString == null)
+            throw new Exception("Не задана строка подключения");
+
+        var result = new List<string>();
+        await using var connection = connectionString.TryGetConnetion();
+        await connection.OpenAsync();
+
+        try
+        {
+            await using var command = connection.CreateCommand();
+            command.CommandText = "select resolution_text from fast_resolution";
+
+            await using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                result.Add(reader[0].ToString());
+            }
+        }
+        catch (NpgsqlException e)
+        {
+            //todo: логирование
+            Console.WriteLine(e);
+            throw;
+        }
+        finally
+        {
+            await connection.CloseAsync();
+        }
+
+        //Если подключение не корректно 
+        return result;
+    }
+
     public async Task<List<Mail>> GetFavoriteUser(User user)
     {
         string query = $@"select

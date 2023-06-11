@@ -5,6 +5,7 @@ using EF.Repositories;
 using PostgresRepository.Interfaces;
 using System.Collections.ObjectModel;
 using UI.Helpers;
+using UI.Views.Components;
 
 namespace UI.Views.Pages.Distribution
 {
@@ -26,7 +27,9 @@ namespace UI.Views.Pages.Distribution
         [ObservableProperty] public bool isGeneral;
         //число писем в работе у выбранного пользователя
         [ObservableProperty] public int countMailInWork;
-
+        [ObservableProperty] public string selectedResolution;
+        [ObservableProperty] public List<string> allResolutionList;
+        [ObservableProperty] public bool isFastResolutionVisible = false;
 
         partial void OnSelectedUserChanged(DistributionItem value)
         {
@@ -72,6 +75,16 @@ namespace UI.Views.Pages.Distribution
 
         IUserRepository uRep = new UserRepository(TestHelper.GetConnectionSingltone());
         IMailRepository mRep = new MailRepository(TestHelper.GetConnectionSingltone());
+
+        [RelayCommand]
+        public async void SetResolution()
+        {
+           if(IsGeneral)
+            {
+                AllResolution = SelectedResolution;
+            }
+            IsFastResolutionVisible = false;
+        }
 
         [RelayCommand]
         public async void GetAllUsers()
@@ -157,8 +170,7 @@ namespace UI.Views.Pages.Distribution
 
         }
 
-
-
+      
 
         [RelayCommand]
         public async void Cancel()
@@ -167,8 +179,15 @@ namespace UI.Views.Pages.Distribution
         }
 
         [RelayCommand]
+        public async void ShowFastResolutionList()
+        {
+            IsFastResolutionVisible = true;
+        }
+
+        [RelayCommand]
         public void CheckUser(DistributionItem user)
         {
+          
             if (user.IsChecked)
             {
                 if (!SelectedUserSource.Contains(user))
@@ -180,16 +199,38 @@ namespace UI.Views.Pages.Distribution
             }
         }
 
+        public DistributionViewModel()
+        {
+            Init();
+        }
+        private async void Init()
+        {
+            AllResolutionList =await mRep.GetFastResolution();
+        }
+        /// <summary>
+        /// Установка быстрой резолюции в режиме "общий срок и резолюция"
+        /// </summary>
+        /// <param name="resolution"></param>
+        private void setAllFastResolution(string resolution)
+        {
+            AllResolution = resolution;
+        }
+
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            selectedMail = query["SelectedMail"] as Mail;
+            if (query.ContainsKey("SelectedMail"))
+                selectedMail = query["SelectedMail"] as Mail;
+
             if (query.ContainsKey("SelectedUserFrom"))
                 selectedUserFrom = query["SelectedUserFrom"] as User;
 
+            if (query.ContainsKey("CurrentUser"))
+                currentUser = query["CurrentUser"] as User;
 
-            currentUser = query["CurrentUser"] as User;
             if (query.ContainsKey("SelectedTreeItem"))
                 selectedTreeItem = query["SelectedTreeItem"] as TreeItem;
+
+              
 
             GetUsersFromCounterCommand.Execute(null);
         }
