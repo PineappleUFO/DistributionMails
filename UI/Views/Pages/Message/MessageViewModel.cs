@@ -2,6 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using Core.Models;
 using EF.Repositories;
+using PostgresRepository.Interfaces;
+using PostgresRepository.Repositories;
 using System.Collections.ObjectModel;
 using UI.Helpers;
 using UI.Views.Components;
@@ -11,15 +13,13 @@ namespace UI.Views.Pages.Message;
 
 public partial class MessageViewModel : ObservableObject, IQueryAttributable
 {
-    [ObservableProperty]
-    MailWrapper selectedMail;
+    [ObservableProperty]MailWrapper selectedMail;
 
-    [ObservableProperty]
-    User currentUser;
+    [ObservableProperty]User currentUser;
 
+    [ObservableProperty]ObservableCollection<TreeItem> distributionTreeSource = new();
 
-    [ObservableProperty]
-    ObservableCollection<TreeItem> distributionTreeSource = new();
+    [ObservableProperty] public bool isOutgoingMailExist = false;
 
     MailRepository mRep = new MailRepository(TestHelper.GetConnectionSingltone());
     /// <summary>
@@ -141,6 +141,16 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
         DistributionTreeSource = TreeHelper.GenerateTreeFromDbData(await treeRep.GetTreeByMailId(SelectedMail.Mail));
     }
 
+    IOutgoingRepository oRep = new OutgoingMailRepository(TestHelper.GetConnectionSingltone());
+    [RelayCommand]
+    public async void GoToOutgoingMail()
+    {
+        var ougouingMail = oRep.GetOutgoingMailById(SelectedMail.Mail.OutgoingMail.Id);
+        await Shell.Current.GoToAsync($"{nameof(MessageViewOutgoing)}", new Dictionary<string, object>()
+        {
+            ["SelectedMail"] = SelectedMail.Mail.OutgoingMail,
+        });
+    }
 
     partial void OnSelectedMailChanged(MailWrapper value)
     {
@@ -153,6 +163,10 @@ public partial class MessageViewModel : ObservableObject, IQueryAttributable
         SelectedMail = query["SelectedMail"] as MailWrapper;
         LoadTree();
 
+        if(SelectedMail.Mail.OutgoingMail != null)
+        {
+            IsOutgoingMailExist = true;
+        }
        
     }
 }
