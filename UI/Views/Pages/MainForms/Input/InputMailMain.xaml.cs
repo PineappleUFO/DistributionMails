@@ -48,7 +48,7 @@ public partial class InputMailMain : ContentPage
 
     private void Button_Clicked(object sender, EventArgs e)
     {
-      Previewer.FilePath = ((Button)sender).CommandParameter.ToString();
+      Previewer.FilePath = ((ImageButton)sender).CommandParameter.ToString();
     }
 
     private void Button_Clicked_1(object sender, EventArgs e)

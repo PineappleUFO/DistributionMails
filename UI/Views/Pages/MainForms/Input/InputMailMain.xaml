@@ -9,6 +9,7 @@
              xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
              xmlns:converters="clr-namespace:UI.Converters"
              xmlns:modes="clr-namespace:Core.Models;assembly=Core"
+             xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:components="using:UI.Views.Components">
     <Shell.BackButtonBehavior>
@@ -40,7 +41,11 @@
                     <Setter Property="BorderWidth" Value="0"/>
                 </Style>
             </Grid.Resources>
-            <ImageButton BorderWidth="0" Source="{FontImage , FontFamily=FASolid}" Grid.Column="0" Clicked="Menu_Clicked"/>
+            <ImageButton BorderWidth="0"  Grid.Column="0" Clicked="Menu_Clicked">
+                <ImageButton.Source>
+                    <FontImageSource  FontFamily="FASolid" Glyph="{x:Static fa:Solid.Bars}" Color="{StaticResource Background}"/>
+                </ImageButton.Source>
+            </ImageButton>
 
             <!--Поиск-->
             <Border Grid.Column="1" 
@@ -78,8 +83,6 @@
                     </Picker>
                 </HorizontalStackLayout>
             </Border>
-
-         
 
             <!--Режимы-->
             <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="10"  Grid.Column="3" RadioButtonGroup.GroupName="Modes">
@@ -202,9 +205,24 @@
                 </Button>
             </HorizontalStackLayout>
 
-            <Button Text="Исходящие" Margin="5,0" Grid.Column="4" Command="{Binding OpenOutputMailsCommand}"></Button>
-            <!--Поменять иконки на Regular-->
-            <ImageButton Source="{FontImage , FontFamily=FASolid}" Margin="5,0" Grid.Column="5" Command="{Binding RefreshCommand}"/>
+            <!--Кнопка исходящие-->
+            <Frame  Margin="0,5" HeightRequest="40" Grid.Column="4" Padding="5" CornerRadius="20" WidthRequest="150" BackgroundColor="{StaticResource Background}">
+                <HorizontalStackLayout>
+                    <Image HeightRequest="20" WidthRequest="20" Margin="10,0,0,0">
+                        <Image.Source>
+                            <FontImageSource  FontFamily="FASolid" Glyph="{x:Static fa:Solid.Reply}" Color="#44a9e1"/>
+                        </Image.Source>
+                    </Image>
+                    <Button Text="Исходящие" BackgroundColor="Transparent" BorderColor="Transparent" Command="{Binding OpenOutputMailsCommand}"/>
+                </HorizontalStackLayout>
+            </Frame>
+            
+            <!--Кнопка обновить-->
+            <ImageButton Margin="5,0" Grid.Column="5" Command="{Binding RefreshCommand}">
+                <ImageButton.Source>
+                    <FontImageSource  FontFamily="FASolid" Glyph="{x:Static fa:Solid.ArrowsRotate}" Color="{StaticResource Background}"/>
+                </ImageButton.Source>
+            </ImageButton>
             
 
         </Grid>
@@ -232,96 +250,96 @@
                 RefreshingEnabled="True"
                 IsRefreshing="{Binding IsLoading}"
                 ItemsSource="{Binding FilteredSourceMail}" 
-                         BackgroundColor="{StaticResource Background}"
-                         HeaderBackground="{StaticResource Selection}"
-                         HeaderBordersVisible="False"
-                         BorderColor="{StaticResource Selection}"
-                         SelectedItem="{Binding SelectedMail}"
+                BackgroundColor="{StaticResource Background}"
+                HeaderBackground="SlateGray"
+                HeaderBordersVisible="True"
+                BorderColor="{StaticResource Selection}"
+                SelectedItem="{Binding SelectedMail}"
                 MinimumWidthRequest="1000"
                 ItemSelected="dgMails_ItemSelected"
                 HeaderHeight="70"
-                         RowHeight="50"
-                         Margin="8"
+                RowHeight="50"
+                Margin="8"
                 IsSortable="False"
-                         SelectionEnabled="True" 
-                         ActiveRowColor="{StaticResource Primary}">
+                SelectionEnabled="True" 
+                ActiveRowColor="{StaticResource Primary}">
                 <dg:DataGrid.Columns>
                     <dg:DataGridColumn Width="0.7*">
                         <dg:DataGridColumn.FormattedTitle>
                             <FormattedString>
-                                <Span Text="Номер письма" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                                <Span Text="Номер письма" TextColor="White" FontSize="16" FontFamily="Roboto"></Span>
                             </FormattedString>
                         </dg:DataGridColumn.FormattedTitle>
                         <dg:DataGridColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Text="{Binding Mail.Number}" Margin="5" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding Mail.Number}" Margin="5" TextColor="White" FontSize="14"  FontFamily="OpenSans" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
                             </DataTemplate>
                         </dg:DataGridColumn.CellTemplate>
                     </dg:DataGridColumn>
                     <dg:DataGridColumn Width="0.9*">
                         <dg:DataGridColumn.FormattedTitle>
                             <FormattedString>
-                                <Span Text="Дата поступления" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                                <Span Text="Дата поступления" TextColor="White" FontSize="16" FontFamily="Roboto"></Span>
                             </FormattedString>
                         </dg:DataGridColumn.FormattedTitle>
                         <dg:DataGridColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Text="{Binding Mail.DateInput,StringFormat='{0:dd.MM.yyyy}'}" Margin="5"  TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding Mail.DateInput,StringFormat='{0:dd.MM.yyyy}'}" Margin="5" FontFamily="OpenSans"  TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
                             </DataTemplate>
                         </dg:DataGridColumn.CellTemplate>
                     </dg:DataGridColumn>
                     <dg:DataGridColumn  Width="0.9*">
                         <dg:DataGridColumn.FormattedTitle>
                             <FormattedString>
-                                <Span Text="Проект" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                                <Span Text="Проект" TextColor="White" FontSize="16" FontFamily="Roboto"></Span>
                             </FormattedString>
                         </dg:DataGridColumn.FormattedTitle>
                         <dg:DataGridColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Text="{Binding Mail.Project.Name}" Margin="5" TextColor="{Binding Mail.Project.Color,Converter={StaticResource StringToColorConverter}}" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding Mail.Project.Name}" Margin="5" FontFamily="OpenSans"  TextColor="{Binding Mail.Project.Color,Converter={StaticResource StringToColorConverter}}" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
                             </DataTemplate>
                         </dg:DataGridColumn.CellTemplate>
                     </dg:DataGridColumn>
                     <dg:DataGridColumn  Width="1.5*" >
                         <dg:DataGridColumn.FormattedTitle>
                             <FormattedString>
-                                <Span Text="Отправитель" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                                <Span Text="Отправитель" TextColor="White" FontSize="16" FontFamily="Roboto"></Span>
                             </FormattedString>
                         </dg:DataGridColumn.FormattedTitle>
                         <dg:DataGridColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Text="{Binding Mail.Sender.Name}" Margin="5" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding Mail.Sender.Name}" Margin="5" FontFamily="OpenSans"  TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
                             </DataTemplate>
                         </dg:DataGridColumn.CellTemplate>
                     </dg:DataGridColumn>
                     <dg:DataGridColumn LineBreakMode="CharacterWrap" Width="3*">
                         <dg:DataGridColumn.FormattedTitle>
                             <FormattedString>
-                                <Span Text="Тема" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                                <Span Text="Тема" TextColor="White" FontSize="16" FontFamily="Roboto"></Span>
                             </FormattedString>
                         </dg:DataGridColumn.FormattedTitle>
                         <dg:DataGridColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Text="{Binding Mail.Theme}" Margin="5" LineBreakMode="CharacterWrap" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding Mail.Theme}" Margin="5" FontFamily="OpenSans"  LineBreakMode="CharacterWrap" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
                             </DataTemplate>
                         </dg:DataGridColumn.CellTemplate>
                     </dg:DataGridColumn>
                     <dg:DataGridColumn Width="0.6*">
                         <dg:DataGridColumn.FormattedTitle>
                             <FormattedString>
-                                <Span Text="Номер ответа" TextColor="White" FontSize="16" FontAttributes="Bold"></Span>
+                                <Span Text="Номер ответа" TextColor="White"  FontSize="16" FontFamily="Roboto"></Span>
                             </FormattedString>
                         </dg:DataGridColumn.FormattedTitle>
                         <dg:DataGridColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Text="{Binding Mail.OutgoingMail.Number}" Margin="5" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding Mail.OutgoingMail.Number}" FontFamily="OpenSans"  Margin="5" TextColor="White" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
                             </DataTemplate>
                         </dg:DataGridColumn.CellTemplate>
                     </dg:DataGridColumn>
                     <dg:DataGridColumn Width="0.6*">
                         <dg:DataGridColumn.FormattedTitle>
                             <FormattedString>
-                                <Span Text="Срок ответа"  TextColor="White" FontSize="16" FontAttributes="Bold"/>
+                                <Span Text="Срок ответа"  TextColor="White" FontSize="16" FontFamily="Roboto"/>
 
 
                             </FormattedString>
@@ -329,7 +347,7 @@
                         <dg:DataGridColumn.CellTemplate>
                             <DataTemplate>
                                 <HorizontalStackLayout>
-                                <Label Text="{Binding Mail.DateAnswer,StringFormat='{0:dd.MM.yyyy}'}"  Margin="5" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center">
+                                    <Label Text="{Binding Mail.DateAnswer,StringFormat='{0:dd.MM.yyyy}'}"  FontFamily="OpenSans"  Margin="5" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center">
                                     <Label.TextColor>
                                         <MultiBinding Converter="{StaticResource DateAnswerToColorConverter}">
                                             <Binding  Path="Mail.DateAnswer"/>
@@ -339,15 +357,19 @@
                                     </Label.TextColor>
                                 </Label>
 
-                                    <Label Text="{Binding Mail.IsMailDone,Converter={StaticResource IsDoneConverter}}" TextColor="LawnGreen" Margin="5" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
+                                    <Label Text="{Binding Mail.IsMailDone,Converter={StaticResource IsDoneConverter}}" FontFamily="OpenSans"  TextColor="LawnGreen" Margin="5" FontSize="14" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center"></Label>
                                 </HorizontalStackLayout>
                             </DataTemplate>
                         </dg:DataGridColumn.CellTemplate>
                     </dg:DataGridColumn>
-                    <dg:DataGridColumn Title="" Width="60">
+                    <dg:DataGridColumn Title="" Width="50">
                         <dg:DataGridColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Text="->" IsVisible="{Binding IsSelected}" Clicked="Button_Clicked_1"  Margin="5,0,0,0" FontSize="14" Padding="0" WidthRequest="60" />
+                                <ImageButton BackgroundColor="Transparent" BorderWidth="0" IsVisible="{Binding IsSelected}" Clicked="Button_Clicked_1"  Margin="5,0,0,0"  Padding="0" WidthRequest="60" >
+                                    <ImageButton.Source>
+                                        <FontImageSource  FontFamily="FASolid" Glyph="{x:Static fa:Solid.AngleRight}" Color="{StaticResource Background}"/>
+                                    </ImageButton.Source>
+                                </ImageButton>
                             </DataTemplate>
                         </dg:DataGridColumn.CellTemplate>
                     </dg:DataGridColumn>
@@ -372,13 +394,17 @@
         </Border>
 
             <HorizontalStackLayout Grid.Row="1" >
-                <CollectionView ItemsSource="{Binding CurrentFiles}"  HorizontalOptions="FillAndExpand">
+                <CollectionView ItemsSource="{Binding CurrentFiles}"  >
                     <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="2"/>
+                        <LinearItemsLayout Orientation="Horizontal"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Button Margin="5" Text="1" Clicked="Button_Clicked" CommandParameter="{Binding}"/>
+                            <ImageButton Margin="5" WidthRequest="40" HeightRequest="40" CornerRadius="30" BorderColor="White" BorderWidth="2" BackgroundColor="#31a3eb" Clicked="Button_Clicked" CommandParameter="{Binding}">
+                                <ImageButton.Source>
+                                    <FontImageSource  FontFamily="FASolid" Glyph="{x:Static fa:Solid.FilePdf}" Color="{StaticResource Background}"/>
+                                </ImageButton.Source>
+                            </ImageButton>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

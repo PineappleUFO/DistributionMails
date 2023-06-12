@@ -7,7 +7,7 @@ public class OutgoingMail:Entity
     {
         
     }
-    public OutgoingMail(int id, string number, DateTime dateExport, DateTime dateAnswer, string theme, string text) : base(id)
+    public OutgoingMail(int id, string number, DateTime dateExport, DateTime? dateAnswer, string theme, string text) : base(id)
     {
         Id = id;
         Number = number;

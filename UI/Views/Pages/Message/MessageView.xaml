@@ -7,7 +7,8 @@
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              BackgroundColor="{StaticResource Background}"
                xmlns:converters="clr-namespace:UI.Converters"
-             
+               xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
+             xmlns:m="clr-namespace:UraniumUI.Material.Resources;assembly=UraniumUI.Material"
              >
     
     
@@ -23,7 +24,7 @@
         <converters:ByteToImageConverter x:Key="ByteToImageConverter"/>
     </ContentPage.Resources>
 
-    <Grid ColumnDefinitions="0.9*,*" RowDefinitions="60,*" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+    <Grid ColumnDefinitions="0.6*,*"  RowDefinitions="60,*" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
         <!--Шапка-->
         <Border Grid.Row="0" Grid.ColumnSpan="2" Background="{StaticResource Primary}"></Border>
         
@@ -31,58 +32,69 @@
         <Button Grid.Row="0" Grid.Column="0" WidthRequest="40" HorizontalOptions="End" Text="S"></Button>
 
         <Label Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="24">Распределение</Label>
-        <Button Grid.Row="0" Grid.Column="1" WidthRequest="40" HorizontalOptions="End" Text="В избранное"></Button>
+        
+        <!--<Button Grid.Row="0" Grid.Column="1" WidthRequest="40" HorizontalOptions="End" Text="В избранное"></Button>-->
 
+        <Frame Grid.Row="0" Grid.Column="1" HorizontalOptions="End" IsVisible="{Binding IsOutgoingMailExist}" Margin="0,0,35,0" HeightRequest="40" Padding="5" CornerRadius="20" WidthRequest="190" BackgroundColor="{StaticResource Background}">
+            <HorizontalStackLayout>
+                <Image HeightRequest="20" WidthRequest="20" Margin="10,0,0,0">
+                    <Image.Source>
+                        <FontImageSource  FontFamily="FASolid" Glyph="{x:Static fa:Solid.Star}" Color="Orange"/>
+                    </Image.Source>
+                </Image>
+                <Button  BackgroundColor="Transparent" BorderColor="Transparent" Command="{Binding GoToOutgoingMailCommand}" HeightRequest="30" Grid.Column="1" VerticalOptions="Start" Text="В избранное"  BorderWidth="2" CornerRadius="8"></Button>
+            </HorizontalStackLayout>
+        </Frame>
 
-            <!--todo: в отдельный компонент-->
+        <!--todo: в отдельный компонент-->
             <!--Таблица с инфой-->
         <Grid  ColumnDefinitions="0.7*,*" VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.Column="0" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="15" ColumnSpacing="15" Margin="25">
 
             <Border Grid.Row="0"  Grid.ColumnSpan="2" Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="120" StrokeShape="RoundRectangle 15,15,0,0">
                 <VerticalStackLayout VerticalOptions="Center" >
-                    <Label FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Тема письма</Label>
+                    <Label FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}" FontFamily="OpenSans">Тема письма</Label>
                     <Label   FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="{Binding SelectedMail.Mail.Theme}"></Label>
                     </VerticalStackLayout>
                 </Border>
 
             <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="110">
                 <VerticalStackLayout VerticalOptions="Center" >
-                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Дата поступления</Label>
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}" FontFamily="OpenSans">Дата поступления</Label>
                     <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="{Binding SelectedMail.Mail.DateInput,StringFormat='{0:dd.MM.yyyy}'}"></Label>
                     </VerticalStackLayout>
                 </Border>
 
             <Border Grid.Row="1" Grid.Column="1"  Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="110">
                 <VerticalStackLayout  VerticalOptions="Center" >
-                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Дата отправки ответа</Label>
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}" FontFamily="OpenSans">Дата отправки ответа</Label>
                     <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="10.10.2023 17:00"></Label>
                     </VerticalStackLayout>
                 </Border>
 
             <Border Grid.Row="2" Grid.Column="0" Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="110">
                 <VerticalStackLayout VerticalOptions="Center" >
-                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Номер входящий</Label>
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}" FontFamily="OpenSans">Номер входящий</Label>
                     <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="{Binding SelectedMail.Mail.Number}"></Label>
                     </VerticalStackLayout>
                 </Border>
 
             <Border Grid.Row="2" Grid.Column="1"  Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="110">
                 <VerticalStackLayout VerticalOptions="Center" >
-                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Номер исходящий</Label>
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}" FontFamily="OpenSans">Номер исходящий</Label>
                     <Label FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="---"></Label>
                     </VerticalStackLayout>
                 </Border>
 
             <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="110">
-                <VerticalStackLayout VerticalOptions="Center" > 
-                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">От кого</Label>
+                <VerticalStackLayout VerticalOptions="Center" >
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}" FontFamily="OpenSans">От кого</Label>
                     <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="{Binding SelectedMail.Mail.Sender.Name}"></Label>
                     </VerticalStackLayout>
                 </Border>
 
             <Border Grid.Row="3" Grid.Column="1"  Background="{StaticResource Selection}" MinimumHeightRequest="80" MaximumHeightRequest="110">
                 <VerticalStackLayout VerticalOptions="Center" >
-                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Получатель письма</Label>
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}" FontFamily="OpenSans">Получатель письма</Label>
                     <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="{Binding SelectedMail.Mail.Responsible.FullName}"></Label>
                     </VerticalStackLayout>
                 </Border>
@@ -90,7 +102,7 @@
 
             <Border MaximumHeightRequest="300" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource Selection}" StrokeShape="RoundRectangle 0,0,15,15">
                 <VerticalStackLayout VerticalOptions="Center" MinimumHeightRequest="300">
-                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}">Текст письма</Label>
+                    <Label  FontSize="20" HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}" FontFamily="OpenSans">Текст письма</Label>
                     <Label  FontSize="20"  TextColor="White" Background="{StaticResource Selection}" BackgroundColor="{StaticResource Selection}" Text="{Binding SelectedMail.Mail.Text}"></Label>
                     </VerticalStackLayout>
                 </Border>
@@ -114,20 +126,31 @@
                 <Label Text="21.04.2023" Margin="10,0,0,0" FontAttributes="Bold" FontSize="16" ></Label>
             </HorizontalStackLayout>
 
-            <Button Grid.Row="1" IsVisible="{Binding IsOutgoingMailExist}" Command="{Binding GoToOutgoingMailCommand}" HeightRequest="30" Grid.Column="1" VerticalOptions="Start" Text="Перейти к ответу" BorderColor="{StaticResource ButtonBorderColor}" BorderWidth="2" Background="{StaticResource Background}" CornerRadius="8"></Button>
-
+            <Frame Grid.Row="1" IsVisible="{Binding IsOutgoingMailExist}" Margin="0,5" HeightRequest="40" Grid.Column="4" Padding="5" CornerRadius="20" WidthRequest="190" BackgroundColor="{StaticResource Selection}">
+                <HorizontalStackLayout>
+                    <Image HeightRequest="20" WidthRequest="20" Margin="10,0,0,0">
+                        <Image.Source>
+                            <FontImageSource  FontFamily="FASolid" Glyph="{x:Static fa:Solid.EnvelopeOpenText}" Color="#44a9e1"/>
+                        </Image.Source>
+                    </Image>
+                    <Button IsVisible="{Binding IsOutgoingMailExist}" BackgroundColor="Transparent" BorderColor="Transparent" Command="{Binding GoToOutgoingMailCommand}" HeightRequest="30" Grid.Column="1" VerticalOptions="Start" Text="Перейти к ответу"  BorderWidth="2" CornerRadius="8"></Button>
+                </HorizontalStackLayout>
+            </Frame>
+            
            
 
-            <Border Grid.Row="3"  Grid.ColumnSpan="2" Background="{StaticResource Selection}" >
+            <ScrollView Grid.Row="3"  Grid.ColumnSpan="2" VerticalScrollBarVisibility="Default">
+                <Border  Background="{StaticResource Selection}" >
                 <VerticalStackLayout >
                     <FlyoutBase.ContextFlyout>
                         <MenuFlyout>
-                            <MenuFlyoutItem Command="{Binding AddFirstLevelCommand}" Text="Добавить нового исполнителя 1-го уровня"  />
+                                <MenuFlyoutItem IconImageSource="{FontImageSource Glyph={x:Static fa:Solid.CirclePlus},FontFamily=FASolid,Color={StaticResource Blue200Accent}}" Command="{Binding AddFirstLevelCommand}" Text="Добавить нового исполнителя 1-го уровня"  />
                         </MenuFlyout>
                     </FlyoutBase.ContextFlyout>
                     <!--    TreeElement.Status-->
-                    <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource Secondary}">Дерево распределения</Label>
-                    <material:TreeView x:Name="diTree" Spacing="15"   Padding="0" ItemsSource="{Binding DistributionTreeSource}" IsExpandedPropertyName="IsExpanded" Margin="10">
+                    <Label Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource Secondary}" FontFamily="OpenSans">Дерево распределения</Label>
+                        <BoxView StyleClass="Divider" Color="{StaticResource Secondary}" />
+                        <material:TreeView x:Name="diTree" Spacing="15"  Padding="0" ItemsSource="{Binding DistributionTreeSource}" IsExpandedPropertyName="IsExpanded" Margin="10">
                         <material:TreeView.ItemTemplate>
                             <DataTemplate>
                                 <HorizontalStackLayout>
@@ -138,16 +161,17 @@
                                         <Label Margin="0" Padding="0"  Text="{Binding PrefixStatus}" TextColor="{Binding PrefixStatusColor,Converter={StaticResource StringToColorConverter}}" FontSize="18" VerticalOptions="Center" VerticalTextAlignment="Center"/>
                                         <FlyoutBase.ContextFlyout>
                                             <MenuFlyout>
-                                                <MenuFlyoutItem Text="Добавить исполнителя" CommandParameter="{Binding}" Clicked="ChangeMyDistribution_Clicked" />
+
+                                                    <MenuFlyoutItem IconImageSource="{FontImageSource Glyph={x:Static fa:Solid.CirclePlus},FontFamily=FASolid,Color={StaticResource Blue200Accent}}"  Text="Добавить исполнителя" CommandParameter="{Binding}" Clicked="ChangeMyDistribution_Clicked"/>
+                                                    <MenuFlyoutSeparator/>
+                                                    <MenuFlyoutItem IconImageSource="{FontImageSource Glyph={x:Static fa:Solid.PersonCircleCheck},FontFamily=FASolid,Color={StaticResource Cyan200Accent}}" Text="Принято" CommandParameter="{Binding}" Clicked="MyAccept_Clicked"/>
+                                                    <MenuFlyoutItem IconImageSource="{FontImageSource Glyph={x:Static fa:Solid.Check},FontFamily=FASolid,Color={StaticResource GreenTextHeader}}" Text="Выполнено" CommandParameter="{Binding}" Clicked="MyCompleted_Clicked"/>
                                                 <MenuFlyoutSeparator/>
-                                                <MenuFlyoutItem Text="Принято" CommandParameter="{Binding}" Clicked="MyAccept_Clicked"/>
-                                                <MenuFlyoutItem Text="Выполнено" CommandParameter="{Binding}" Clicked="MyCompleted_Clicked"/>
+                                                    <MenuFlyoutItem IconImageSource="{FontImageSource Glyph={x:Static fa:Solid.StarOfLife},FontFamily=FASolid,Color=Orange}" Text="Назначить ответсвенным" CommandParameter="{Binding}" Clicked="GetResponsible_Clicked"/>
+                                                    <MenuFlyoutItem IconImageSource="{FontImageSource Glyph={x:Static fa:Solid.DollarSign},FontFamily=FASolid,Color=Yellow}" Text="Назначить отвечающим" CommandParameter="{Binding}" Clicked="GetReplying_Clicked"/>
+                                                    <MenuFlyoutItem IconImageSource="{FontImageSource Glyph={x:Static fa:Solid.ArrowRightArrowLeft},FontFamily=FASolid,Color=Coral}" Text="Перенести срок ответа исполнителя" CommandParameter="{Binding}" Clicked="ChangeDeadline_Clicked"/>
                                                 <MenuFlyoutSeparator/>
-                                                <MenuFlyoutItem Text="Назначить ответсвенным" CommandParameter="{Binding}" Clicked="GetResponsible_Clicked"/>
-                                                <MenuFlyoutItem Text="Назначить отвечающим" CommandParameter="{Binding}" Clicked="GetReplying_Clicked"/>
-                                                <MenuFlyoutItem Text="Перенести срок ответа исполнителя" CommandParameter="{Binding}" Clicked="ChangeDeadline_Clicked"/>
-                                                <MenuFlyoutSeparator/>
-                                                <MenuFlyoutItem Text="Удалить исполнителя" CommandParameter="{Binding}" Clicked="Remove_Clicked"/>
+                                                    <MenuFlyoutItem IconImageSource="{FontImageSource Glyph={x:Static fa:Solid.UserMinus},FontFamily=FASolid,Color=Red}" Text="Удалить исполнителя" CommandParameter="{Binding}" Clicked="Remove_Clicked"/>
                                             </MenuFlyout>
                                         </FlyoutBase.ContextFlyout>
                                     </HorizontalStackLayout>
@@ -157,13 +181,13 @@
                             </DataTemplate>
                         </material:TreeView.ItemTemplate>
                     </material:TreeView>
+                  
                 </VerticalStackLayout>
             </Border>
-
+            </ScrollView>
             <Border Grid.Row="4"  Grid.ColumnSpan="2" Background="{StaticResource Selection}" StrokeShape="RoundRectangle 0,0,15,15">
                 <Grid RowDefinitions="Auto,*,Auto" >
-                    <Label Grid.Row="0" Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource TextPlaceholder}">Чат</Label>
-
+                    <Label Grid.Row="0" Margin="20,10,0,5" FontSize="20" TextColor="{StaticResource Secondary}" FontFamily="OpenSans">Чат</Label>
                     <CollectionView ItemsSource="{Binding ChatList}"  Grid.Row="1" Margin="5">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
@@ -186,12 +210,11 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
 
-                    <Frame Grid.Row="2" Margin="5"  Padding="5">
-                        <HorizontalStackLayout HorizontalOptions="FillAndExpand" >
+                    <Frame Grid.Row="2" Margin="5"  Padding="10" BackgroundColor="{StaticResource Selection}">
+                        <HorizontalStackLayout HorizontalOptions="Center" >
                             <Entry Placeholder="Введите сообщение" WidthRequest="400" HorizontalOptions="FillAndExpand" Text="{Binding MessageInChat}">
-                               
                             </Entry>
-                            <Button Text="Отправить" Command="{Binding SendMessageCommand}"></Button>
+                            <Button Margin="10,0,0,0" Text="Отправить" Command="{Binding SendMessageCommand}" TextColor="{StaticResource Background}" Background="{StaticResource Secondary}"></Button>
                         </HorizontalStackLayout>
                     </Frame>
                 </Grid>

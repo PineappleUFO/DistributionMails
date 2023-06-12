@@ -39,14 +39,15 @@
             <Button Text="Выбрать" Command="{Binding SetResolutionCommand}"></Button>
         </Grid>
         <!--Шапка-->
-        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource Primary}">
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  Background="{StaticResource Primary}">
             <Grid>
                 <!--Поиск-->
                 <Border 
                 Grid.Column="1" 
                 StrokeThickness="1" 
                 Padding="5"
-                Margin="5"
+                Margin="10,5,5,5"
+                    WidthRequest="250"
                 HorizontalOptions="Start"
                 BackgroundColor="{StaticResource Background}">
                     <Border.StrokeShape>
@@ -55,7 +56,7 @@
                     <HorizontalStackLayout>
                         <ImageButton Background="{StaticResource Background}" BorderColor="Transparent" BorderWidth="0" Source="{FontImage , FontFamily=FASolid,Size=18}" Margin="5,0" Grid.Column="3"/>
                         <Entry Placeholder="Поиск" 
-                       WidthRequest="150" 
+                       WidthRequest="190" 
                        VerticalTextAlignment="Center"
                        FontFamily="RobotoSlab"
                        BackgroundColor="Transparent"

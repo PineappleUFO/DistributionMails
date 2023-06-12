@@ -226,14 +226,15 @@ public class MailRepository : IMailRepository
         om.mail_id as owMail,--12
         om.number,--13
         om.date_export,--14
+        om.date_answer as owDate_answer,--15
         om.theme,--16
         om.text,--17
-        m.reply_required,--18
+   m.reply_required,--18
 (select count(*) from distribution_tree d where
                                       d.id_mail = m.mail_id
                                     and d.id_user = m.responsible
                                     and d.is_responsible = true) as mailIsDone,
-        (SELECT CONCAT(LEFT(u.name, 1), '.', LEFT(u.surname, 1),'.')) AS inicials
+(SELECT CONCAT(LEFT(u.name, 1), '.', LEFT(u.surname, 1),'.')) AS inicials
             from incoming_mail m
         left join users u on u.user_id = m.responsible
         inner join projects p on m.id_project=p.project_id
@@ -454,6 +455,7 @@ AND im.id_outgoing_mail IS NULL";
                 //Получаем ответ на письмо
                 if (reader["owMail"] != DBNull.Value)
                 {
+                    
                     outMail = new OutgoingMail(reader.GetInt32(12), reader.GetString(13), reader.GetDateTime(14),
                         reader.GetDateTime(15), reader.GetString(16), reader.GetString(17));
                 }
