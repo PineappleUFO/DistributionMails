@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Core.Models;
 using EF.Repositories;
 using PostgresRepository.Repositories;
+using Syncfusion.Maui.DataSource.Extensions;
 using System.Collections.ObjectModel;
 using UI.Extenstions;
 using UI.Helpers;
@@ -178,8 +179,8 @@ namespace UI.Views.Pages.MainForms.Input
             foreach (Mail mail in await mailsRep.GetFavoriteUser(new User() { Id = 157 }))
             {
                 ListSourceMail.Add(new MailWrapper() { Mail = mail, IsSelected = false });
-                FilteredSourceMail = ListSourceMail;
             }
+            FilteredSourceMail = ListSourceMail;
             IsLoading = false;
         }
 
@@ -197,8 +198,8 @@ namespace UI.Views.Pages.MainForms.Input
             foreach (Mail mail in await mailsRep.GetArchiveUser(new User() { Id = 157 }))
             {
                 ListSourceMail.Add(new MailWrapper() { Mail = mail, IsSelected = false });
-                FilteredSourceMail = ListSourceMail;
             }
+            FilteredSourceMail = ListSourceMail;
             IsLoading = false;
         }
 
@@ -216,8 +217,8 @@ namespace UI.Views.Pages.MainForms.Input
             foreach (Mail mail in await mailsRep.GetDistributedToUser(new User() { Id = 157 }))
             {
                 ListSourceMail.Add(new MailWrapper() { Mail = mail, IsSelected = false });
-                FilteredSourceMail = ListSourceMail;
             }
+            FilteredSourceMail = ListSourceMail;
             IsLoading = false;
         }
 
@@ -232,11 +233,13 @@ namespace UI.Views.Pages.MainForms.Input
             await Task.Delay(200);
             CurrentMode = EnumModes.All;
             //todo: поменять на сервисы
+            var list = new List<MailWrapper>();
             foreach (Mail mail in await mailsRep.GetAllMails())
             {
-                ListSourceMail.Add(new MailWrapper() { Mail = mail, IsSelected = false });
-                FilteredSourceMail = ListSourceMail;
+                list.Add(new MailWrapper() { Mail = mail, IsSelected = false });
             }
+            ListSourceMail = list.ToObservableCollection();
+            FilteredSourceMail = list.ToObservableCollection();
             IsLoading = false;
 
         }

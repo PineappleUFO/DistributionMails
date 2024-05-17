@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Core.Models;
 using EF.Repositories;
 using PostgresRepository.Interfaces;
+using Syncfusion.Maui.DataSource.Extensions;
 using System.Collections.ObjectModel;
 using UI.Helpers;
 using UI.Views.Components;
@@ -94,10 +95,12 @@ namespace UI.Views.Pages.Distribution
             IsBusy = true;
             await Task.Delay(200);
             var users = await uRep.GetAllUsers();
+            var list = new List<DistributionItem>();
             foreach (var user in users.Where(user => user != null))
             {
-                UserSource.Add(new DistributionItem() { User = user });
+                list.Add(new DistributionItem() { User = user });
             }
+            UserSource = list.ToObservableCollection();
             IsBusy = false;
         }
         TreeRepository treeRep = new TreeRepository(TestHelper.GetConnectionSingltone());

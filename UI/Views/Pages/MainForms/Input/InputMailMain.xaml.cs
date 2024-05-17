@@ -1,4 +1,4 @@
-using Core.Models;
+п»їusing Core.Models;
 using System.Reflection.Metadata.Ecma335;
 using UI.Helpers;
 
@@ -20,13 +20,13 @@ public partial class InputMailMain : ContentPage
     //private void ListView_OnItemTapped(object sender, ItemTappedEventArgs e)
     //{
 
-    //    // Проверяем, прошло ли время, достаточное для считывания двойного нажатия
+    //    // ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, ГЇГ°Г®ГёГ«Г® Г«ГЁ ГўГ°ГҐГ¬Гї, Г¤Г®Г±ГІГ ГІГ®Г·Г­Г®ГҐ Г¤Г«Гї Г±Г·ГЁГІГ»ГўГ Г­ГЁГї Г¤ГўГ®Г©Г­Г®ГЈГ® Г­Г Г¦Г ГІГЁГї
     //    var currentTime = DateTime.Now;
     //    var elapsedTime = currentTime - _lastTapTime;
     //    _lastTapTime = currentTime;
 
-    //    // Если предыдущий элемент и текущий элемент совпадают, и прошло мало времени,
-    //    // считаем это двойным нажатием
+    //    // Г…Г±Г«ГЁ ГЇГ°ГҐГ¤Г»Г¤ГіГ№ГЁГ© ГЅГ«ГҐГ¬ГҐГ­ГІ ГЁ ГІГҐГЄГіГ№ГЁГ© ГЅГ«ГҐГ¬ГҐГ­ГІ Г±Г®ГўГЇГ Г¤Г ГѕГІ, ГЁ ГЇГ°Г®ГёГ«Г® Г¬Г Г«Г® ГўГ°ГҐГ¬ГҐГ­ГЁ,
+    //    // Г±Г·ГЁГІГ ГҐГ¬ ГЅГІГ® Г¤ГўГ®Г©Г­Г»Г¬ Г­Г Г¦Г ГІГЁГҐГ¬
     //    if (elapsedTime.TotalMilliseconds < 300)
     //    {
     //        if (this.BindingContext is InputMailMainViewModel vm)
@@ -37,8 +37,8 @@ public partial class InputMailMain : ContentPage
 
     //    if (this.BindingContext is InputMailMainViewModel vm1)
     //    {
-    //        //todo сделать значок загрузки
-    //        //todo иногда вылетает если быстро кликать
+    //        //todo Г±Г¤ГҐГ«Г ГІГј Г§Г­Г Г·Г®ГЄ Г§Г ГЈГ°ГіГ§ГЄГЁ
+    //        //todo ГЁГ­Г®ГЈГ¤Г  ГўГ»Г«ГҐГІГ ГҐГІ ГҐГ±Г«ГЁ ГЎГ»Г±ГІГ°Г® ГЄГ«ГЁГЄГ ГІГј
     //        Previewer.FilePath = vm1.CurrentFilePath;
     //    }
 
@@ -148,17 +148,17 @@ public partial class InputMailMain : ContentPage
     private SearchModesEnum? StringToModesEnum(string str)
     {
         switch (str) {
-            case "Умный":
+            case "РЈРјРЅС‹Р№":
                 return SearchModesEnum.Smart;
-            case "По номеру письма":
+            case "РџРѕ РЅРѕРјРµСЂСѓ РїРёСЃСЊРјР°":
                 return SearchModesEnum.Number;
-            case "По проекту":
+            case "РџРѕ РїСЂРѕРµРєС‚Сѓ":
                 return SearchModesEnum.Project;
-            case "По отправителю":
+            case "РџРѕ РѕС‚РїСЂР°РІРёС‚РµР»СЋ":
                 return SearchModesEnum.Sender;
-            case "По теме":
+            case "РџРѕ С‚РµРјРµ":
                 return SearchModesEnum.Theme;
-            case "По дате поступления":
+            case "РџРѕ РґР°С‚Рµ РїРѕСЃС‚СѓРїР»РµРЅРёСЏ":
                 return SearchModesEnum.Date;
         }
         return null;
